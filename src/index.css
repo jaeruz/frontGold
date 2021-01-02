@@ -146,7 +146,7 @@ span {
 }
 
 .sub-links:hover {
-	background: #193340;
+	background: #353636;
 	color: #b7e9c2;
 	cursor: pointer;
 }
@@ -191,8 +191,27 @@ span {
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 
+.dashboard-view-wrapper {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin: 0 0 0 15px;
+}
+.dashboard-select-wrapper {
+	margin: 0 0 0 10px;
+	width: 280px;
+}
 .dashboard-components {
-	background-color: white;
+	background-color: transparent;
+}
+
+.chart-wrapper {
+	background-color: rgb(255, 255, 255, 0.65);
+	width: 100% !important;
+	height: 400px;
+	margin: 20px 5px 20px 5px;
+	padding: 20x;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
 .add-item-container {
