@@ -17,6 +17,7 @@ function DashboardChart() {
 								scales: {
 									xAxes: [
 										{
+											// stacked: true,
 											gridLines: {
 												offsetGridLines: true,
 											},
@@ -24,6 +25,7 @@ function DashboardChart() {
 									],
 									yAxes: [
 										{
+											// stacked: true,
 											ticks: {
 												beginAtZero: true,
 											},
@@ -68,9 +70,10 @@ function DashboardChart() {
 								scales: {
 									yAxes: [
 										{
-											ticks: {
-												beginAtZero: true,
-											},
+											display: false,
+											// ticks: {
+											// 	beginAtZero: true,
+											// },
 										},
 									],
 								},
@@ -99,6 +102,10 @@ function DashboardChart() {
 								tooltips: {
 									enabled: true,
 								},
+								// 	circumference: 2 * Math.PI,
+								animation: {
+									animateScale: true,
+								},
 							}}
 						/>
 					</div>
@@ -114,9 +121,10 @@ function DashboardChart() {
 								scales: {
 									yAxes: [
 										{
-											ticks: {
-												beginAtZero: true,
-											},
+											display: false,
+											// ticks: {
+											// 	beginAtZero: true,
+											// },
 										},
 									],
 								},
@@ -144,6 +152,9 @@ function DashboardChart() {
 								},
 								tooltips: {
 									enabled: true,
+								},
+								animation: {
+									animateScale: true,
 								},
 							}}
 						/>
