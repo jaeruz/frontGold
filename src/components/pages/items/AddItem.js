@@ -1,7 +1,8 @@
 import React,{useEffect, useState} from 'react'
-import { Form, Container, Row, Col, Button } from 'react-bootstrap'
+import { Form, Container, Row, Col, Button,Image } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { addItem } from '../../../actions/ItemActions'
+import Gears from '../../../assets/img/gears.gif'
 
 function AddItem() {
 
@@ -59,7 +60,8 @@ function AddItem() {
                 <Form.Group>
                     <Form.Label>Process:</Form.Label>
                     {/* <Form.Control type="text" placeholder="Customer name"/> */}
-                    <Row style={{marginLeft:"10%",marginRight:"10%", fontSize:"15px"}}>
+                    <Row style={{ marginLeft: "10%", marginRight: "10%", fontSize: "15px" }}>
+                        <Col sm={1}></Col>
                         <Col sm={4}>
                             <Form.Check
                                 label="Knitting"
@@ -76,8 +78,6 @@ function AddItem() {
                                 value="finalexam"
                                 onChange={handleChange}
                             />
-                        </Col>
-                        <Col sm={4}>
                             <Form.Check
                                 label="Receiving"
                                 value="Receiving"
@@ -93,9 +93,6 @@ function AddItem() {
                                 value="Tagging"
                                 onChange={handleChange}
                             />
-                            
-                        </Col>
-                        <Col sm={4}>
                             <Form.Check
                                 label="Metal Detection"
                                 value="Metal Detection"
@@ -106,11 +103,16 @@ function AddItem() {
                                 value="Boxing"
                                 onChange={handleChange}
                             />
+                        </Col>
+                        <Col sm={2}>
+                        </Col>
+                        <Col sm={5}>
+                            <Image src={Gears} style={{width:'200px',margin:'10px !important',padding:'0 !important'}}/>
                             
                         </Col>
+                        
                     </Row>
                 </Form.Group>
-                <br />
                 <br/>
                 <Form.Group>
                     <Button variant="info" type="submit" className="form-btn-dark" style={{float:"right"}}>

@@ -35,7 +35,7 @@ export const SideBarDataAdmin = [
         ]
     },
     {
-        title: 'User Accounts',
+        title: 'Users',
         path: '/',
         icon: <FaIcons.FaUsers />,
         class_name: 'nav-text',
@@ -74,6 +74,11 @@ export const SideBarDataStaff = [
             {
                 title: 'ISR',
                 path: '/process/isr',
+                icon: <FaIcons.FaPrint />
+            },
+            {
+                title: 'PO',
+                path: '/process/po',
                 icon: <FaIcons.FaPrint />
             },
             {

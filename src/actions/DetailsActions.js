@@ -21,3 +21,5 @@ export const addDetails = (details) => async dispatch => {
         console.log(error.message)
     }
 }
+
+

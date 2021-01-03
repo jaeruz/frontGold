@@ -101,9 +101,6 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
 
     return (
         <>
-            <div style={{marginBottom:"15px"}}>
-                <h3 className="form-title">ISR</h3>
-            </div>
             <Form onSubmit={handleSubmit}>
                 <Form.Group as={Row} controlId="detail_customer">
                     <Col sm="4">
@@ -140,7 +137,7 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                 </Form.Group>
                 <Form.Group as={Row} controlId="sack_number">
                     <Col sm="4">
-                        <Form.Label>Sack Number:</Form.Label>
+                        <Form.Label>Total Sack:</Form.Label>
                     </Col>
                     <Col sm="8">
                         <Form.Control type="text" onChange={handleChange} className="form-caps"/>
@@ -186,21 +183,21 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                         <Form.Control type="date" onChange={handleChange} className="form-caps"/>
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} controlId="barcode">
+                {/* <Form.Group as={Row} controlId="barcode">
                     <Col sm="4">
                         <Form.Label>Barcode:</Form.Label>
                     </Col>
                     <Col sm="8">
                         <Form.Control type="text" className="form-caps" disabled />
                     </Col>
-                </Form.Group>
+                </Form.Group> */}
                 <div>
-                    <Button type="submit" className="form-btn-dark" style={{ float: 'right' }}>
+                    <Button type="submit" className="form-btn-dark" block>
                         Submit
                     </Button>
-                    <Button className="form-btn-light" style={{ float: 'right' }} onClick={handlePrint}>
+                    {/* <Button className="form-btn-light" style={{ float: 'right' }} onClick={handlePrint}>
                         Print
-                    </Button>
+                    </Button> */}
                 </div>
             </Form>
         </>
