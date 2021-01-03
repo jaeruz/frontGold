@@ -17,6 +17,9 @@ function Dashboard() {
 	return (
 		<Container className="dashboard-container">
 			<Form.Group controlId="dashboard-view-as">
+				<div className="form-title-wrapper">
+					<h2 className="form-title">Dashboard</h2>
+				</div>
 				<div class="dashboard-view-wrapper">
 					<Form.Label>View as:</Form.Label>
 					<div class="dashboard-select-wrapper">

@@ -298,6 +298,14 @@ span {
 	font-weight: bold;
 	text-shadow: 1px 1px 5px black;
 }
+
+.form-title-wrapper {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	margin-bottom: 10px;
+	margin-left: 10px;
+}
 /* end title */
 
 /* start print barcode stylre */
