@@ -214,6 +214,15 @@ span {
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
 }
 
+.table-wrapper {
+	background-color: rgb(255, 255, 255, 0.65);
+	width: 100% !important;
+	height: 400px;
+	margin: 20px 5px 20px 5px;
+	padding: 20x;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
 .add-item-container {
 	background-color: #b7e9c2;
 	padding: 50px 50px 50px 50px !important;
