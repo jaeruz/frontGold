@@ -6,7 +6,6 @@ import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 
 function ISR() {
-
     const [ISRItem, setISRItem] = useState({
         detail_customer: '',
         barcode: '',
