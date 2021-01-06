@@ -3,10 +3,15 @@ import { Form, Container, Row, Col, Button,Image } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { addItem } from '../../../actions/ItemActions'
 import Gears from '../../../assets/img/gears.gif'
+import * as FaIcons from 'react-icons/fa'
+import * as BiIcons from "react-icons/bi";
+
+import { useAlert } from 'react-alert'
 
 function AddItem() {
 
     const dispatch = useDispatch()
+    const alert = useAlert()
 
     const [ItemClass, setItemClass] = useState({
         process: [],
@@ -25,9 +30,21 @@ function AddItem() {
         })
     }
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(addItem(ItemClass))
+        const res = await dispatch(addItem(ItemClass))
+        console.log(res)
+        if (res) {
+            alert.show(
+                <div className="alert-suc"><FaIcons.FaCheck/> The Item has been added!</div>
+            )
+        } else {
+            alert.show(
+                <div className="alert-err"><BiIcons.BiError/> Unable to add the Item!</div>
+            )
+        }
+        document.getElementById('form-add-item').reset();
+        
     }
 
     const handleChange = (e) => {
@@ -48,14 +65,14 @@ function AddItem() {
             <div style={{textAlign:"center"}}>
                 <h3 className="form-title">Add Item</h3>
             </div>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} id="form-add-item">
                 <Form.Group controlId="customer" >
                     <Form.Label>Customer:</Form.Label>
-                    <Form.Control type="text" placeholder="Customer" onChange={handleFormChange}/>
+                    <Form.Control type="text" placeholder="Customer" className="form-caps" onChange={handleFormChange}/>
                 </Form.Group>
                 <Form.Group controlId="style">
                     <Form.Label>Style:</Form.Label>
-                    <Form.Control type="text" placeholder="Style" onChange={handleFormChange}/>
+                    <Form.Control type="text" placeholder="Style" className="form-caps" onChange={handleFormChange}/>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Process:</Form.Label>
@@ -69,6 +86,11 @@ function AddItem() {
                                 onChange={handleChange}
                             />
                             <Form.Check
+                                label="Cutting"
+                                value="cutting"
+                                onChange={handleChange}
+                            />
+                            <Form.Check
                                 label="Sewing"
                                 value="sewing"
                                 onChange={handleChange}
@@ -79,28 +101,28 @@ function AddItem() {
                                 onChange={handleChange}
                             />
                             <Form.Check
-                                label="Receiving"
-                                value="Receiving"
+                                label="B1 Receipts"
+                                value="reciepts"
                                 onChange={handleChange}
                             />
                             <Form.Check
                                 label="Steaming"
-                                value="Steaming"
+                                value="steaming"
                                 onChange={handleChange}
                             />
                             <Form.Check
                                 label="Tagging"
-                                value="Tagging"
+                                value="tagging"
                                 onChange={handleChange}
                             />
                             <Form.Check
                                 label="Metal Detection"
-                                value="Metal Detection"
+                                value="metaldetect"
                                 onChange={handleChange}
                             />
                             <Form.Check
                                 label="Boxing"
-                                value="Boxing"
+                                value="boxing"
                                 onChange={handleChange}
                             />
                         </Col>

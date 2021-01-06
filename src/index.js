@@ -9,13 +9,40 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import thunk from 'redux-thunk'
 import reducers from './reducers/RootReducer'
 
+import { transitions, positions,types, Provider as AlertProvider } from 'react-alert'
+// import AlertTemplate from 'react-alert-template-basic'
+
+
+const options = {
+  // you can also just use 'bottom center'
+  position: 'top center',
+  timeout: 3000,
+  // offset: '70px',
+  // you can also just use 'scale'
+  
+  transition: transitions.SCALE,
+  containerStyle: {
+    zIndex: 80000
+  }
+}
+
+const AlertTemplate = ({ style, options, message, close }) => (
+  <div style={style}>
+    {message}
+    {/* <button onClick={close}>X</button> */}
+  </div>
+)
+
+
 
 const store = createStore(reducers,compose(applyMiddleware(thunk)))
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+        <AlertProvider template={AlertTemplate} {...options}>
+          <App />
+        </AlertProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

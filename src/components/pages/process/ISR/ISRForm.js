@@ -3,10 +3,14 @@ import { Form, Row, Col, Button } from 'react-bootstrap'
 import { useDispatch,useSelector } from 'react-redux'
 import { addDetails } from '../../../../actions/DetailsActions'
 import { getItems } from '../../../../actions/ItemActions'
+import * as FaIcons from 'react-icons/fa'
+import * as BiIcons from "react-icons/bi";
+import { useAlert } from 'react-alert'
 
 function ISRForm({ISRItem,setISRItem,handlePrint}) {
     
     const dispatch = useDispatch()
+    const alert = useAlert()
     const item = useSelector(state => state.item)
     const [detailStyle, setdetailStyle] = useState(null)
 
@@ -40,15 +44,26 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
         })    
     }, [])
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(addDetails(ISRItem))
+        
+        const res = await dispatch(addDetails(ISRItem))
+        console.log(res)
+        if (res) {
+            alert.show(
+                <div className="alert-suc"><FaIcons.FaCheck/> The PO has been created!</div>
+            )
+        } else {
+            alert.show(
+                <div className="alert-err"><BiIcons.BiError/> Unable to create PO!</div>
+            )
+        }
+        document.getElementById('form-isr').reset();
     }
 
     const handleChange = (e) => {
         
         let customer = document.getElementById("detail_customer");
-        let sackNum = document.getElementById('sack_number');
         let style = document.getElementById('detail_style');
         let poNum = document.getElementById('po_number');
 
@@ -74,18 +89,18 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
         }
         
        
-        if (sackNum.value !== "" && style.value !== "" && poNum.value !== "" && customer.value!=="NONE") {
+        if (style.value !== "" && poNum.value !== "" && customer.value!=="NONE") {
             setISRItem({
                 ...ISRItem,
                 [e.target.id]: e.target.value.toUpperCase(),
                 detail_style: style.value,
-                barcode: (style.options[style.selectedIndex].innerHTML +"-"+ poNum.value +"-"+ sackNum.value).toUpperCase()
+                // barcode: (style.options[style.selectedIndex].innerHTML +"-"+ poNum.value +"-"+ sackNum.value).toUpperCase()
             })
             
         } else if (customer.value==="NONE") {
             setISRItem({
                 ...ISRItem,
-                barcode: '',
+                // barcode: '',
                 detail_customer: '',
             })
          }else {
@@ -101,13 +116,13 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
 
     return (
         <>
-            <Form onSubmit={handleSubmit}>
+            <Form onSubmit={handleSubmit} id="form-isr">
                 <Form.Group as={Row} controlId="detail_customer">
                     <Col sm="4">
                         <Form.Label>Customer:</Form.Label>
                     </Col>
                     <Col sm="8">
-                        <Form.Control as="select" onChange={handleChange} className="form-caps">
+                        <Form.Control required as="select" onChange={handleChange} className="form-caps">
                             <option key={0} value="NONE">NONE</option>
                             {detailStyle ? detailStyle.customerList.map((customer,index) => {
                                 return <option key={index}>{customer}</option>
@@ -120,9 +135,9 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                         <Form.Label>Style:</Form.Label>
                     </Col>
                     <Col sm="8">
-                        <Form.Control as="select" onChange={handleChange} placeholder="Choose Customer" className="form-caps">
+                        <Form.Control required as="select" onChange={handleChange} placeholder="Choose Customer" className="form-caps">
                             {detailStyle ? detailStyle.styleDict.map((style,index) => {
-                                return <option key={index} value={style.id}>{style.style}</option>
+                                return <option key={index} value={style.style}>{style.style}</option>
                             }):null}
                         </Form.Control>
                     </Col>
@@ -132,15 +147,15 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                         <Form.Label>PO Number:</Form.Label>
                     </Col>
                     <Col sm="8">
-                        <Form.Control type="text" onChange={handleChange} className="form-caps"/>
+                        <Form.Control required type="text" onChange={handleChange} className="form-caps"/>
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} controlId="sack_number">
+                <Form.Group as={Row} controlId="total_sack">
                     <Col sm="4">
                         <Form.Label>Total Sack:</Form.Label>
                     </Col>
                     <Col sm="8">
-                        <Form.Control type="text" onChange={handleChange} className="form-caps"/>
+                        <Form.Control required type="text" onChange={handleChange} className="form-caps"/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="description">
@@ -148,7 +163,7 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                         <Form.Label>Description:</Form.Label>
                     </Col>
                     <Col sm="8">
-                        <Form.Control type="text" onChange={handleChange} className="form-caps"/>
+                        <Form.Control required type="text" onChange={handleChange} className="form-caps"/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="color">
@@ -156,7 +171,7 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                         <Form.Label>Color:</Form.Label>
                     </Col>
                     <Col sm="8">
-                        <Form.Control type="text" onChange={handleChange} className="form-caps"/>
+                        <Form.Control required type="text" onChange={handleChange} className="form-caps"/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="total">
@@ -164,7 +179,7 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                         <Form.Label>Total:</Form.Label>
                     </Col>
                     <Col sm="8">
-                        <Form.Control type="text" onChange={handleChange} className="form-caps"/>
+                        <Form.Control required type="number" onChange={handleChange} className="form-caps"/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="qty_sack">
@@ -172,7 +187,7 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                         <Form.Label>Quantity / Sack:</Form.Label>
                     </Col>
                     <Col sm="8">
-                        <Form.Control type="text" onChange={handleChange} className="form-caps"/>
+                        <Form.Control required type="text" onChange={handleChange} className="form-caps"/>
                     </Col>
                 </Form.Group>
                 <Form.Group as={Row} controlId="ship_date">
@@ -180,7 +195,7 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                         <Form.Label>Ship Date:</Form.Label>
                     </Col>
                     <Col sm="8">
-                        <Form.Control type="date" onChange={handleChange} className="form-caps"/>
+                        <Form.Control required type="date" onChange={handleChange} className="form-caps"/>
                     </Col>
                 </Form.Group>
                 {/* <Form.Group as={Row} controlId="barcode">

@@ -146,13 +146,16 @@ span {
 	align-items: center;
 	text-decoration: none !important;
 	color: #f5f5f5;
-	font-size: 15px;
+  font-size: 15px;
+  transition: all 50ms ease-in-out;
 }
 
 .sub-links:hover {
 	background: #353636;
 	color: #b7e9c2;
-	cursor: pointer;
+  cursor: pointer;
+  font-size: 18px;
+  transition: all 50ms ease-in-out;
 }
 
 /* end navbar css */
@@ -234,7 +237,7 @@ span {
 .isr-container{
   /* background-color: red; */
   display: block;
-  margin: 20px 20px 20px 20px;
+  margin: 50px 20px 20px 20px;
   /* justify-content: space-evenly; */
 }
 
@@ -313,7 +316,7 @@ span {
 
 
 .print-form-details ul{
-	font-size: 13px;
+	font-size: 10px;
 	list-style-type: none;
 	font-weight: bold;
 }
@@ -321,14 +324,16 @@ span {
 .print-sack-number{
 	margin: 50px 0px 0px 0px;
 	border-style: solid;
-	padding: 10px 10px 10px 10px;
-	text-align: center;
+	padding: 5px 5px 5px 10px;
+  text-align: center;
+  font-size: 15px;
 }
 
 .print-barcode{
 	display: inline-block;
-	margin-left: 25%;
-	background-color: red;
+  margin-left: 30px;
+  margin-top: 0%;
+	
 }
 
 .isr-form{
@@ -346,10 +351,10 @@ span {
 
 /* start route-table */
 .route-table{
-  margin: 30px 30px 30px 30px !important;
+  margin: 30px 30px 15px 30px !important;
   width: 100% !important;
   font-weight: bold;
-  font-size: small;
+  font-size: 10px;
 }
 /* end route-table */
 
@@ -399,19 +404,32 @@ span {
 }
 .po-container-table{
   overflow: scroll;
-  overflow-x: hidden;
+  /* overflow-x: hidden; */
   border-radius: 10px;
   height: 320px;
   padding: 35px 15px 15px 15px;
   background-color: #B7E9C2;
 }
 
-.po-container-print{
-  background-color: white;
+.po-container-print-div{
+  background-color: #B7E9C2;
+  border-radius: 5px;
   width: 100%;
   height: 41em !important;
+  overflow: scroll;
+  overflow-x: hidden;
   padding: 20px 20px 20px 20px;
-  box-shadow:0 0 20px rgba(0,0,0,0.8);
+  -moz-box-shadow:    inset 0 0 10px #000000;
+   -webkit-box-shadow: inset 0 0 10px #000000;
+   box-shadow:         inset 0 0 10px #000000;
+   z-index: 100;
+}
+.po-container-print{
+  z-index: -1;
+  background-color: white;
+  width: 100%;
+  height: 48em !important;
+  padding: 20px 20px 20px 20px;
 }
 
 ::-webkit-scrollbar {
@@ -428,6 +446,37 @@ span {
 /* Handle */
 ::-webkit-scrollbar-thumb {
   background: #888;
+  border-radius: 20px;
 }
 
 /* end po container */
+
+/* start signin  */
+
+
+
+/* end signin */
+
+/* start alert */
+
+.alert-suc{
+  background-color: #ffffff;
+  color: #487e54;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: large;
+  margin-top: 72px;
+}
+
+.alert-err{
+  background-color: #ffffff;
+  color: #ff5252;
+  padding: 10px;
+  border-radius: 4px;
+  font-size: large;
+  margin-top: 72px;
+}
+
+
+
+/* end alert */

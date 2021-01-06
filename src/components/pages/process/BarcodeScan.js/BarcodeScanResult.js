@@ -6,20 +6,18 @@ function BarcodeScanResult() {
 
     const barcodeScanResult = useSelector(state => state.barcodeScanResult)
 
+    useEffect(() => {
+        console.log(barcodeScanResult)
+    }, [barcodeScanResult])
     return (
         <div className="barcode-scan-result">
             <h4 className="form-title" style={{ textAlign: 'center' }}>Result</h4>
             <br />
-            {barcodeScanResult && barcodeScanResult.detail_style ? (
+            {barcodeScanResult ? (
                     <>
-                        <p>{barcodeScanResult.barcode}</p>
-                        <p>{barcodeScanResult.color}</p>
-                        <p>{barcodeScanResult.description}</p>
-                        <p>{barcodeScanResult.detail_customer}</p>
-                        <p>{barcodeScanResult.detail_style.style}</p>
-                        <p>{barcodeScanResult.po_number}</p>
-                        <p>{barcodeScanResult.qty_sack}</p>
-                        <p>{barcodeScanResult.ship_date}</p>
+                        {/* <p>{barcodeScanResult.barcode}</p> */}
+                    <h2>{barcodeScanResult}</h2>
+                        
                     </>
                 ): <p>No Result</p>}
         </div>

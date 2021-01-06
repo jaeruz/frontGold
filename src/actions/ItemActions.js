@@ -16,8 +16,8 @@ export const addItem = (item) => async dispatch => {
         //api post
         const res = await api.createItems(item);
         dispatch({ type: 'CREATE_ITEM', payload: item })
+        return res
         
-        console.log(res)
     } catch (error) {
         console.log(error.message)
     }

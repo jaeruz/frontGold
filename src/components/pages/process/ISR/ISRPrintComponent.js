@@ -74,8 +74,8 @@ function ISRPrintComponent({ ISRItem }) {
                 </Col>
                 <Col sm={4}>
                     <div className="print-sack-number">
-                        <h5>SACK NO.</h5>
-                        <h6> 0 / { ISRItem.sack_number}</h6>
+                        <p>SACK NO.</p>
+                        <p> 0 / { ISRItem.total_sack}</p>
                     </div>
                 </Col>
             </Row>

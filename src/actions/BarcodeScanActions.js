@@ -12,3 +12,4 @@ export const postBarcodeDetails = (barcode) => async dispatch => {
         console.log(error.message)
     }
 }
+

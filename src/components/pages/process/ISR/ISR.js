@@ -8,9 +8,7 @@ import { jsPDF } from 'jspdf'
 function ISR() {
     const [ISRItem, setISRItem] = useState({
         detail_customer: '',
-        barcode: '',
         po_number:'',
-        // sack_number: '',
         total_sack: '',
         description: '',
         color: '',
@@ -21,29 +19,25 @@ function ISR() {
     })
 
     useEffect(() => {
-        let sackNum = document.getElementById('sack_number');
+        let totalSack = document.getElementById('total_sack');
         let poNum = document.getElementById('po_number');
         let description = document.getElementById('description');
         let color = document.getElementById('color');
         let total = document.getElementById('total');
         let qty_sack = document.getElementById('qty_sack');
         let ship_date = document.getElementById('ship_date');
-        let barcode = document.getElementById('barcode');
 
-        sackNum.value = ''
+        totalSack.value = ''
         poNum.value = ''
         description.value = ''
         color.value = ''
         total.value = ''
         qty_sack.value = ''
         ship_date.value = ''
-        // barcode.value = ''
         
         setISRItem({
             ...ISRItem,
-            barcode: '',
             po_number:'',
-            // sack_number: '',
             total_sack: '',
             description: '',
             color: '',
@@ -53,12 +47,6 @@ function ISR() {
         })
         
     }, [ISRItem.detail_customer])
-    
-    // useEffect(() => {
-    //     let barcode = document.getElementById('barcode');
-    //     barcode.value=ISRItem.barcode
-    // }, [ISRItem.barcode])
-
 
 
     const handlePrint = () => {
