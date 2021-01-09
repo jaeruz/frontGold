@@ -1,0 +1,46 @@
+<div class="chart-wrapper">
+						<Pie
+							data={DataSample3}
+							options={{
+								maintainAspectRatio: false,
+								scales: {
+									yAxes: [
+										{
+											display: false,
+											// ticks: {
+											// 	beginAtZero: true,
+											// },
+										},
+									],
+								},
+								legend: {
+									display: true,
+									labels: {
+										fontColor: '#1e3c4c',
+										boxWidth: 40,
+									},
+									position: 'bottom',
+								},
+								title: {
+									display: true,
+									text: 'Data Sample 3',
+									fontSize: 16,
+									fontColor: '#1e3c4c',
+								},
+								layout: {
+									padding: {
+										left: 30,
+										right: 30,
+										bottom: 10,
+										top: 0,
+									},
+								},
+								tooltips: {
+									enabled: true,
+								},
+								animation: {
+									animateScale: true,
+								},
+							}}
+						/>
+					</div>

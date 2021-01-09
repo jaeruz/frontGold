@@ -1,0 +1,53 @@
+
+<div class="chart-wrapper">
+						<Bar
+							data={DataSample1}
+							options={{
+								maintainAspectRatio: false,
+
+								scales: {
+									xAxes: [
+										{
+											// stacked: true,
+											gridLines: {
+												offsetGridLines: true,
+											},
+										},
+									],
+									yAxes: [
+										{
+											// stacked: true,
+											ticks: {
+												beginAtZero: true,
+											},
+										},
+									],
+								},
+								legend: {
+									display: true,
+									labels: {
+										fontColor: '#1e3c4c',
+										boxWidth: 40,
+									},
+									position: 'top',
+								},
+								title: {
+									display: true,
+									text: 'Data Sample 1',
+									fontSize: 16,
+									fontColor: '#1e3c4c',
+								},
+								layout: {
+									padding: {
+										left: 30,
+										right: 30,
+										bottom: 10,
+										top: 0,
+									},
+								},
+								tooltips: {
+									enabled: true,
+								},
+							}}
+						/>
+					</div>

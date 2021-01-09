@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Container, Form, Row, Col } from 'react-bootstrap';
+import { Container, Form } from 'react-bootstrap';
 import DashboardChart from './DashboardChart';
 import DashboardTable from './DashboardTable';
 
@@ -14,6 +14,7 @@ function Dashboard() {
 			setChartOpen(false);
 		}
 	};
+
 	return (
 		<Container className="dashboard-container">
 			<Form.Group controlId="dashboard-view-as">
