@@ -76,6 +76,7 @@ function MyNavbar({
 							display: 'inline',
 							width: '100%',
 							bottom: '0',
+							margin: '0 0 80px 0', //</ul>;
 						}}
 						className="nav-text"
 						onClick={handleClick}
