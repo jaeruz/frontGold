@@ -12,18 +12,26 @@ function BarcodeScan() {
     const [barcodeInput, setBarcodeInput] = useState({
         barcode:''
     })
+    const [barcodeCopy, setBarcodeCopy] = useState({
+        barcode:''
+    })
 
     const handleSubmit = (e) => {
          e.preventDefault();
         let barcodeField = document.getElementById('barcodeInput')
         barcodeField.value = ''
         //dispatch
+        setBarcodeCopy(barcodeInput)
         dispatch(postBarcodeDetails(barcodeInput))
     }
    
     useEffect(() => {
         console.log(barcodeInput)
     }, [barcodeInput])
+
+    useEffect(() => {
+        console.log(barcodeCopy)
+    }, [barcodeCopy])
     return (
         <div className="barcode-scan-container">
             <Row>
@@ -34,7 +42,7 @@ function BarcodeScan() {
                 </Col>
                 <Col xl={7} lg={7} md={10} sm={10}>         
                     <BarcodeScanResult
-                        barcodeInput={barcodeInput}
+                        barcodeCopy={barcodeCopy}
                     />
                 </Col>
                 <Col xl={1}></Col>

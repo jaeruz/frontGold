@@ -37,7 +37,7 @@ code {
 
 .nav-menu {
   z-index: 1;
-  background-color: #9CA1AE;
+  background-color: #797d89;
   width: 250px;
   height: 100vh;
   display: flex;
@@ -46,12 +46,14 @@ code {
   top: 0;
   left: -100%;
   transition: 900ms;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.435);
 }
 
 .nav-menu.active {
   z-index: 1;
   left: 0;
   transition: 300ms;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.435);
 }
 
 /* .nav-text {
@@ -192,7 +194,7 @@ span {
 .dashboard-container {
 	background-color: #b7e9c2;
 	padding: 50px 50px 50px 50px !important;
-	margin: 80px auto !important;
+	margin: 30px auto !important;
 	border-radius: 5px !important;
 	width: 100% !important;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
@@ -224,7 +226,7 @@ span {
 .add-item-container {
 	background-color: #b7e9c2;
 	padding: 50px 50px 50px 50px !important;
-	margin: 80px auto !important;
+	margin: 50px auto !important;
 	border-radius: 5px !important;
 	width: 70% !important;
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
@@ -237,7 +239,7 @@ span {
 .isr-container{
   /* background-color: red; */
   display: block;
-  margin: 50px 20px 20px 20px;
+  margin: 30px 20px 20px 20px;
   /* justify-content: space-evenly; */
 }
 
@@ -369,7 +371,7 @@ span {
   background-color: #B7E9C2;
   margin-left: 60px !important;
   margin-right: 60px !important;
-  padding: 20px 30px 50px 30px;
+  padding: 30px 30px 50px 30px;
   border-radius: 5px;
   width: 100%;
   height: 37em;
@@ -381,10 +383,19 @@ span {
   width: 100%;
   margin-left: 60px !important;
   margin-right: 60px !important;
-  padding: 20px 20px 20px 20px;
+  padding: 30px 90px 20px 90px;
   box-shadow:0 0 20px rgba(0,0,0,0.8);
   border-radius: 5px;
   height: 37em;
+}
+
+.details-result h2, .details-result p{
+  font-weight: bold;
+  font-style: italic;
+}
+.details-result span{
+  
+  color: turquoise;
 }
 
 .btn-undo{
@@ -477,6 +488,36 @@ span {
   margin-top: 72px;
 }
 
-
-
 /* end alert */
+
+
+/*start sign in  */
+
+.signin-container{
+  background-color: #1E3C4C;
+  color:white;
+  padding: 30px 80px 40px 80px !important;
+  width: 650px;
+  margin: 80px auto;
+  border-radius: 5px;
+  height: 580px;
+  box-shadow: 0 0 50px rgba(0, 0, 0, 0.8);
+}
+
+
+
+/* end sign in  */
+
+
+/* start view items  */
+
+.view-item-container {
+	background-color: #1E3C4C;
+	padding: 50px 50px 50px 50px !important;
+	margin: 50px auto !important;
+	border-radius: 5px !important;
+	width: 90% !important;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+/* end view items  */

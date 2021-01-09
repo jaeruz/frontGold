@@ -26,10 +26,10 @@ function BarcodeScanPanel({ setBarcodeInput,handleSubmit }) {
             <Button variant="danger" className="btn-undo" block disabled>UNDO SCAN</Button>
             <hr />
             <h5>Instructions</h5>
-            <p>1.Lorem ipsum dolor sit amet sit amet sit</p>
-            <p>2.Lorem ipsum dolor sit amet sit amet sit</p>
-            <p>3.Lorem ipsum dolor sit amet sit amet sit</p>
-            <p>4.Lorem ipsum dolor sit amet sit amet sit</p>
+            <p>1. Make sure the cursor is focused on the text box</p>
+            <p>2. Scan the barcode located at the bottom of the route sheet</p>
+            <h5>Reminder</h5>
+            <p>* Scanning should be done once for each sack on each process *</p>
         </div>
     )
 }

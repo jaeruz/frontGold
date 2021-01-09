@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 
-function SideBarMenu({ item }) {
+function SideBarMenu({ item ,setSidebar,sidebar}) {
     
     const [subnav, setSubnav] = useState(false);
     const showSubnav = () => setSubnav(!subnav);
@@ -23,7 +23,7 @@ function SideBarMenu({ item }) {
             {subnav &&
                 item.subNav.map((item, index) => {
                     return (
-                        <Link to={item.path} key={index} className="sub-links">
+                        <Link to={item.path} key={index} className="sub-links" >
                         {item.icon}
                         <span>{item.title}</span>
                         </Link>

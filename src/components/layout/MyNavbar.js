@@ -1,13 +1,22 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link,withRouter } from 'react-router-dom'
 import * as FaIcons from 'react-icons/fa'
 import { SideBarDataAdmin,SideBarDataStaff } from './SideBarData'
 import {IconContext} from 'react-icons'
 import SideBarMenu from './SideBarMenu'
+import * as RiIcons from 'react-icons/ri';
+import { GiConsoleController } from 'react-icons/gi'
 
-function MyNavbar({sidebar,setSidebar,isAdmin,setIsAdmin}) {
+function MyNavbar({sidebar,setSidebar,isAdmin,setIsAdmin, handleLogout,history}) {
 
-    const showSidebar=()=>setSidebar(!sidebar)
+    const showSidebar = () => setSidebar(!sidebar)
+
+    const handleClick=()=> {
+        
+        history.push('/')
+        handleLogout()
+    }
+
     return (
         <>
         <IconContext.Provider value={{color:'white'}}>
@@ -40,7 +49,7 @@ function MyNavbar({sidebar,setSidebar,isAdmin,setIsAdmin}) {
                     </li> */}
                     {isAdmin ? SideBarDataAdmin.map((item, index) => {
                         return (
-                           <SideBarMenu item={item} key={index}/>
+                            <SideBarMenu item={item} key={index}/>
                         )
                     }): SideBarDataStaff.map((item, index) => {
                         return (
@@ -54,6 +63,14 @@ function MyNavbar({sidebar,setSidebar,isAdmin,setIsAdmin}) {
                            <SideBarMenu item={item} key={index}/>
                         )
                     })} */}
+                        
+                        
+                        <li style={{ position: 'absolute', display: 'inline', width: '100%', bottom: '0' }} className="nav-text" onClick={handleClick}>
+                                <RiIcons.RiLogoutBoxLine/>
+                                <span>LOGOUT</span>
+                            </li>
+                        
+                        
                 </ul>
             </nav>
         </IconContext.Provider>
@@ -61,4 +78,4 @@ function MyNavbar({sidebar,setSidebar,isAdmin,setIsAdmin}) {
     )
 }
 
-export default MyNavbar
+export default withRouter(MyNavbar)

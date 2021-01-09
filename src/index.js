@@ -35,7 +35,13 @@ const AlertTemplate = ({ style, options, message, close }) => (
 
 
 
-const store = createStore(reducers,compose(applyMiddleware(thunk)))
+const store = createStore(reducers, compose(applyMiddleware(thunk)))
+
+store.subscribe(() => {
+  // const cachedCreds = JSON.parse(window.localStorage.getItem("credentials"))
+  // console.log(cachedCreds.token)
+  console.log(store.getState())
+})
 
 ReactDOM.render(
   <React.StrictMode>

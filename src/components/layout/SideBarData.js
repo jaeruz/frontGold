@@ -16,7 +16,7 @@ export const SideBarDataAdmin = [
     },
     {
         title: 'Items',
-        path: '/',
+        path: '#',
         icon: <GiIcons.GiGloves />,
         class_name: 'nav-text',
         iconClosed: <RiIcons.RiArrowDownSFill />,
@@ -28,31 +28,17 @@ export const SideBarDataAdmin = [
                 icon: <FaIcons.FaPlus />
             },
             {
-                title: 'Option 2',
-                path: '/items/option2',
+                title: 'View Items',
+                path: '/items',
                 icon: <IoIcons.IoIosPaper />
             }
         ]
     },
     {
-        title: 'Users',
-        path: '/',
+        title: 'Admin Page',
+        path: '/adminpage',
         icon: <FaIcons.FaUsers />,
         class_name: 'nav-text',
-        iconClosed: <RiIcons.RiArrowDownSFill />,
-        iconOpened: <RiIcons.RiArrowUpSFill />,
-        subNav: [
-            {
-                title: 'Admins',
-                path: '/users/admins',
-                icon: <FaIcons.FaUserTie />
-            },
-            {
-                title: 'Staffs',
-                path: '/users/staffs',
-                icon: <FaIcons.FaUserInjured />
-            }
-        ]
     },
 ]
 
@@ -65,7 +51,7 @@ export const SideBarDataStaff = [
     },
     {
         title: 'Process',
-        path: '/',
+        path: '#',
         icon: <VscIcons.VscGear />,
         class_name: 'nav-text',
         iconClosed: <RiIcons.RiArrowDownSFill />,
@@ -90,7 +76,7 @@ export const SideBarDataStaff = [
     },
     {
         title: 'Logs',
-        path: '/',
+        path: '/logs',
         icon: <FaIcons.FaBook />,
         class_name: 'nav-text',
     },

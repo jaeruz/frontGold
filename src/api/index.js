@@ -11,25 +11,57 @@ const postBarcodeURL = 'http://localhost:8000/api/route-detail'
 const purchaseURL = 'http://localhost:8000/api/purchase-list'
 const addPurchaseURL = 'http://localhost:8000/api/purchase-create'
 
+const authURL = "http://localhost:8000/api/rest-auth/"
 
-const AdminHeaders = {
+
+// const AdminHeaders = {
+//         headers: {
+//             'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+//         }
+//     }
+    
+// console.log(AdminHeaders)
+
+export const fetchItems = () => axios.get(ItemsURL, {
         headers: {
-            'Authorization': 'token f98e07597ff8cf5cf19a29d9e402ab4dd2795c10'
+            'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
         }
-    }
+    })
 
+export const createItems = (item) => axios.post(createItemsURL, item, {
+        headers: {
+            'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+        }
+    })
 
-export const fetchItems = () => axios.get(ItemsURL, AdminHeaders)
+export const fetchDetails = () => axios.get(DetailsURL, {
+        headers: {
+            'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+        }
+    })
 
-export const createItems = (item) => axios.post(createItemsURL, item, AdminHeaders)
+export const createDetails = (detail) => axios.post(createDetailsURL, detail, {
+        headers: {
+            'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+        }
+    })
 
+export const postBarcode = (barcode) => axios.post(postBarcodeURL, barcode, {
+        headers: {
+            'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+        }
+    })
 
-export const fetchDetails = () => axios.get(DetailsURL, AdminHeaders)
+export const fetchPurchase = () => axios.get(purchaseURL, {
+        headers: {
+            'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+        }
+    })
 
-export const createDetails = (detail) => axios.post(createDetailsURL, detail, AdminHeaders)
+export const addPurchase = (purchase) => axios.post(addPurchaseURL, purchase, {
+        headers: {
+            'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+        }
+    })
 
-export const postBarcode = (barcode) => axios.post(postBarcodeURL, barcode, AdminHeaders)
-
-export const fetchPurchase = () => axios.get(purchaseURL, AdminHeaders)
-
-export const addPurchase = (purchase) => axios.post(addPurchaseURL,purchase, AdminHeaders)
+export const postCreds = (creds) => axios.post(authURL,creds)

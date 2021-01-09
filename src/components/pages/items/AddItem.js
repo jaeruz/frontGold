@@ -32,18 +32,27 @@ function AddItem() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const res = await dispatch(addItem(ItemClass))
-        console.log(res)
-        if (res) {
-            alert.show(
-                <div className="alert-suc"><FaIcons.FaCheck/> The Item has been added!</div>
-            )
+        let checkboxes = document.querySelectorAll('input[type=checkbox]:checked')
+        if (checkboxes.length) {
+            const res = await dispatch(addItem(ItemClass))
+            console.log(res)
+            if (res) {
+                alert.show(
+                    <div className="alert-suc"><FaIcons.FaCheck/> The Item has been added!</div>
+                )
+            } else {
+                alert.show(
+                    <div className="alert-err"><BiIcons.BiError/> Unable to add the Item!</div>
+                )
+            }
+            document.getElementById('form-add-item').reset();
         } else {
             alert.show(
-                <div className="alert-err"><BiIcons.BiError/> Unable to add the Item!</div>
-            )
+                    <div className="alert-err"><BiIcons.BiError/> No Selected Process!</div>
+                )
         }
-        document.getElementById('form-add-item').reset();
+        
+        
         
     }
 
@@ -68,11 +77,11 @@ function AddItem() {
             <Form onSubmit={handleSubmit} id="form-add-item">
                 <Form.Group controlId="customer" >
                     <Form.Label>Customer:</Form.Label>
-                    <Form.Control type="text" placeholder="Customer" className="form-caps" onChange={handleFormChange}/>
+                    <Form.Control required type="text" placeholder="Customer" className="form-caps" onChange={handleFormChange}/>
                 </Form.Group>
                 <Form.Group controlId="style">
                     <Form.Label>Style:</Form.Label>
-                    <Form.Control type="text" placeholder="Style" className="form-caps" onChange={handleFormChange}/>
+                    <Form.Control required type="text" placeholder="Style" className="form-caps" onChange={handleFormChange}/>
                 </Form.Group>
                 <Form.Group>
                     <Form.Label>Process:</Form.Label>
