@@ -227,6 +227,20 @@ span {
 	margin: 20px 5px 20px 5px;
 	padding: 20x;
 	box-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.chart-percent {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: absolute;
+	color: #1e3c4c;
+	font-weight: bold;
+	font-size: 62px;
+	/* text-shadow: 1px 1px 1px black; */
+	z-index: 10 !important;
 }
 
 .add-item-container {
