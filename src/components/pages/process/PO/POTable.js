@@ -7,6 +7,7 @@ import * as FaIcons from 'react-icons/fa'
 import * as BiIcons from "react-icons/bi";
 
 import { useAlert } from 'react-alert'
+import axios from 'axios';
 
 function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searchResult,handlePrint,setGeneratedBarcode,generatedBarcode}) {
 
@@ -34,6 +35,18 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
                 <div className="alert-err"><BiIcons.BiError/> Unable to process {generatedBarcode}!</div>
             )
         }
+        //update
+        console.log(generatedBarcode.split('-')[3])
+        console.log(selectedPO[0].total_sack)
+        if (generatedBarcode.split('-')[3].toString() === selectedPO[0].total_sack.toString()) {
+           await axios.post("http://localhost:8000/api/detail-update/" + selectedPO[0].id, {'active':'false'}, {
+                headers: {
+                    'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+                }
+            }) 
+        }
+        
+        console.log(selectedPO[0].id)
         setDummyState(!dummyState)
         handlePrint();
         setSelectedPO(null)
@@ -98,7 +111,7 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
         }
     }, [generatedBarcode,selectedPO,filteredPurchaseResult])
 
-    const handleSelect = (po,color,style) => {
+    const handleSelect = (po,color,style,index) => {
         let selectedDetails = details.filter((det) => { return det.po_number === po && det.color === color })
         
         // const purchaseResult = await fetchPurchase()
@@ -143,7 +156,7 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
                                     <td>{det.total_sack}</td>
                                     <td>{det.total_sack - purchaseActive[index]}</td>
                                     <td>{purchaseActive[index]}</td>
-                                    <td><Button onClick={()=>handleSelect(det.po_number,det.color,det.detail_style.style)}>SELECT</Button></td>
+                                    <td><Button onClick={()=>handleSelect(det.po_number,det.color,det.detail_style.style,index)}>SELECT</Button></td>
                                 </tr>
                             )
                         }) : (

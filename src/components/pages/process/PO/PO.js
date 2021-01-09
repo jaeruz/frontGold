@@ -1,4 +1,5 @@
-import React, { useState,useEffect } from 'react'
+
+import React, { useState, useEffect } from 'react'
 import { Table, Col, Row, Button, Form, Card, ButtonGroup } from 'react-bootstrap'
 import POPrintComponent from './POPrintComponent'
 import POTable from './POTable'
@@ -39,15 +40,17 @@ function PO() {
     }, [selectedPO])
 
     useEffect(() => {
-        setSearchResult(details)
-        console.log(details)
+        const resultfilt = details.filter(det => (det.active ===true))  
+        setSearchResult(resultfilt)
+        
     }, [details])
 
     useEffect(() => {
     
         if (details) {
             if (details.length) {
-                const searchResult = details.filter(det => (det.po_number.includes(searchInput) || det.detail_customer.toUpperCase().includes(searchInput)))  
+                console.log(details[4].active)
+                const searchResult = details.filter(det => ((det.po_number.includes(searchInput) || det.detail_customer.toUpperCase().includes(searchInput)) && det.active ===true))  
                 setSearchResult(searchResult)
             }
         }
@@ -70,7 +73,7 @@ function PO() {
             let width = pdf.internal.pageSize.getWidth();
             let height = pdf.internal.pageSize.getHeight();
 			pdf.addImage(imgData, 'JPEG', 0, 0,width,height);
-			pdf.save("download.pdf");  
+			pdf.save(generatedBarcode);  
 		});
 	}
 

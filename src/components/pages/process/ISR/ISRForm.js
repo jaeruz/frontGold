@@ -66,6 +66,9 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
         let customer = document.getElementById("detail_customer");
         let style = document.getElementById('detail_style');
         let poNum = document.getElementById('po_number');
+        let total = document.getElementById('total');
+        let qtySack = document.getElementById('qty_sack');
+        let totalSack = document.getElementById('total_sack');
 
         if (customer.value !== "NONE") {
             let filteredItem = item.filter(i => i.customer === customer.value)
@@ -89,11 +92,19 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
         }
         
        
-        if (style.value !== "" && poNum.value !== "" && customer.value!=="NONE") {
+        if (style.value !== "" && poNum.value !== "" && customer.value !== "NONE") {
+            if (total.value !== "" && qtySack.value !== "") {
+                if (total.value%qtySack.value !== 0) {
+                    totalSack.value=(Math.trunc(total.value/qtySack.value))+1
+                } else {
+                    totalSack.value=(total.value/qtySack.value)
+                }
+            }
             setISRItem({
                 ...ISRItem,
                 [e.target.id]: e.target.value.toUpperCase(),
                 detail_style: style.value,
+                total_sack: totalSack.value
                 // barcode: (style.options[style.selectedIndex].innerHTML +"-"+ poNum.value +"-"+ sackNum.value).toUpperCase()
             })
             
@@ -111,6 +122,7 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
             })
             
         } 
+
     }
     
 
@@ -150,14 +162,6 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                         <Form.Control required type="text" onChange={handleChange} className="form-caps"/>
                     </Col>
                 </Form.Group>
-                <Form.Group as={Row} controlId="total_sack">
-                    <Col sm="4">
-                        <Form.Label>Total Sack:</Form.Label>
-                    </Col>
-                    <Col sm="8">
-                        <Form.Control required type="text" onChange={handleChange} className="form-caps"/>
-                    </Col>
-                </Form.Group>
                 <Form.Group as={Row} controlId="description">
                     <Col sm="4">
                         <Form.Label>Description:</Form.Label>
@@ -185,6 +189,14 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                 <Form.Group as={Row} controlId="qty_sack">
                     <Col sm="4">
                         <Form.Label>Quantity / Sack:</Form.Label>
+                    </Col>
+                    <Col sm="8">
+                        <Form.Control required type="text" onChange={handleChange} className="form-caps"/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} controlId="total_sack">
+                    <Col sm="4">
+                        <Form.Label>Total Sack:</Form.Label>
                     </Col>
                     <Col sm="8">
                         <Form.Control required type="text" onChange={handleChange} className="form-caps"/>

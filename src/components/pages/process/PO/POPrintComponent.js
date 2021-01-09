@@ -31,8 +31,8 @@ function POTable({ selectedPO, routeList,generatedBarcode }) {
                             <li>STYLE: <span>{ selectedPO[0].detail_style.style}</span> </li>
                             <li>DESCRIPTION: <span>{ selectedPO[0].description}</span></li>
                             <li>COLOR: <span>{selectedPO[0].color}</span></li>
-                            <li>TOTAL Q'TY: <span>{ selectedPO[0].total}</span></li>
-                            <li>Q'TY/SACK: <span>{ selectedPO[0].qty_sack}</span></li>
+                            <li>TOTAL Q'TY: <span>{selectedPO[0].total}</span></li>
+                            <li>Q'TY/SACK: <span>{ generatedBarcode.split('-')[3]==selectedPO[0].total_sack ? (selectedPO[0].qty_sack-((selectedPO[0].qty_sack * selectedPO[0].total_sack) - selectedPO[0].total) ):(selectedPO[0].qty_sack)}</span></li>
                             <li>SHIPDATE: <span>{selectedPO[0].ship_date}</span></li>
                         </ul>
                     

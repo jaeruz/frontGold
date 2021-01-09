@@ -1,10 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Container, Form, Row, Col } from 'react-bootstrap';
 import DashboardChart from './DashboardChart';
 import DashboardTable from './DashboardTable';
 
+import { useDispatch,useSelector } from 'react-redux'
+import { fetchDetails } from '../../../actions/DetailsActions';
+
 function Dashboard() {
 	const [chartOpen, setChartOpen] = useState(true);
+	const dispatch = useDispatch()
+	const details = useSelector(state => state.details)
+
 	const handleChange = (e) => {
 		// console.log(e.target.value);
 		// console.log(e.target.id);
@@ -14,6 +20,18 @@ function Dashboard() {
 			setChartOpen(false);
 		}
 	};
+
+	
+	useEffect(() => {
+		dispatch(fetchDetails())
+	}, [])
+
+	useEffect(() => {
+		details.map((d) => {
+			console.log(d)
+		})
+	}, [details])
+
 	return (
 		<Container className="dashboard-container">
 			<Form.Group controlId="dashboard-view-as">

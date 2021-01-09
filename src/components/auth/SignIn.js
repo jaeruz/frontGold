@@ -14,8 +14,10 @@ function SignIn({setCached}) {
         password: ''
     })
     useEffect(() => {
+        const cachedCreds = JSON.parse(window.localStorage.getItem("credentials"))
+        
         // window.location.href = 'http://localhost:000/';
-        if (window.location.href !== 'http://localhost:3000/') {
+        if (cachedCreds==null && window.location.href !== 'http://localhost:3000/') {
             window.location.href = 'http://localhost:3000/';
         }
         console.log(window.location.href)
