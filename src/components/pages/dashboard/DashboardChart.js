@@ -18,16 +18,19 @@ function DashboardChart() {
 		HoverColor: 'rgb(82, 178, 191, 0.6)',
 		HoverBorderColor: '#82eefb',
 	};
-	//const [filteredPurchase, setfilteredPurchase] = useState();
+	const [filteredPurchase, setfilteredPurchase] = useState();
 	const [purchases, setPurchases] = useState();
 	const [details, setDetails] = useState();
+
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(async () => {
 		let flag = true;
 		if (flag) {
 			const purchases = await fetchPurchase();
 			const details = await fetchDetails();
+			console.log('All purchases data');
 			console.log(purchases.data);
+			console.log('All details data');
 			console.log(details.data);
 			setPurchases(purchases.data);
 			setDetails(details.data);
@@ -42,10 +45,13 @@ function DashboardChart() {
 				const filteredPurc = purchases.filter(
 					(purchase) => purchase.po_number.po_number === details[0].po_number
 				);
+				console.log('All filtered Purchase');
+				console.log(filteredPurc);
+
 				// console.log(purchases.data);
 				// console.log(details.data);
 				// console.log(filteredPurc.length);
-				//setfilteredPurchase(filteredPurc);
+				setfilteredPurchase(filteredPurc);
 			}
 		}
 	}, [purchases, details]);
@@ -122,8 +128,10 @@ function DashboardChart() {
 			{
 				label: '# of Votes',
 				data: [
-					purchases ? purchases.length : 0,
-					details && purchases ? details[0].total_sack - purchases.length : 0,
+					filteredPurchase ? filteredPurchase.length : 0,
+					details && filteredPurchase
+						? details[0].total_sack - filteredPurchase.length
+						: 0,
 				],
 				backgroundColor: [
 					COLORS.green,
@@ -203,7 +211,7 @@ function DashboardChart() {
 					<div class="chart-wrapper">
 						<div className="chart-percent">
 							<p>
-								{((purchases ? purchases.length : 0) /
+								{((filteredPurchase ? filteredPurchase.length : 0) /
 									(details ? details[0].total_sack : 0)) *
 									100}
 								%
