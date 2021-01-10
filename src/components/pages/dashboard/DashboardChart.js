@@ -21,19 +21,24 @@ function DashboardChart() {
 	const [filteredPurchase, setfilteredPurchase] = useState();
 	const [purchases, setPurchases] = useState();
 	const [details, setDetails] = useState();
-
+	const [po_number, setPo_number] = useState();
 	// eslint-disable-next-line react-hooks/exhaustive-deps
 	useEffect(async () => {
 		let flag = true;
 		if (flag) {
-			const purchases = await fetchPurchase();
-			const details = await fetchDetails();
+			const fetch_purchases = await fetchPurchase();
+			const fetch_details = await fetchDetails();
 			console.log('All purchases data');
-			console.log(purchases.data);
+			console.log(fetch_purchases.data);
 			console.log('All details data');
-			console.log(details.data);
-			setPurchases(purchases.data);
-			setDetails(details.data);
+			console.log(fetch_details.data);
+			setPurchases(fetch_purchases.data);
+			setDetails(fetch_details.data);
+
+			console.log('PO Number');
+			details.map((detail) => {
+				console.log(detail.po_number);
+			});
 		}
 		return () => {
 			flag = false;
