@@ -11,7 +11,9 @@ const postBarcodeURL = 'http://localhost:8000/api/route-detail'
 const purchaseURL = 'http://localhost:8000/api/purchase-list'
 const addPurchaseURL = 'http://localhost:8000/api/purchase-create'
 
-const authURL = "http://localhost:8000/api/rest-auth/"
+const authURL = "http://localhost:8000/api/login"
+
+const logoutURL = "http://localhost:8000/api/logout"
 
 
 // const AdminHeaders = {

@@ -100,15 +100,21 @@ function AddItem() {
                                 onChange={handleChange}
                             />
                             <Form.Check
+                                label="ISR 1"
+                                value="isr_1"
+                                onChange={handleChange}
+                            />
+                            <Form.Check
                                 label="Sewing"
                                 value="sewing"
                                 onChange={handleChange}
                             />
                             <Form.Check
-                                label="Final Examination"
-                                value="finalexam"
+                                label="ISR 2"
+                                value="isr_2"
                                 onChange={handleChange}
                             />
+                            
                             <Form.Check
                                 label="B1 Receipts"
                                 value="reciepts"
@@ -122,6 +128,11 @@ function AddItem() {
                             <Form.Check
                                 label="Tagging"
                                 value="tagging"
+                                onChange={handleChange}
+                            />
+                            <Form.Check
+                                label="Final Examination"
+                                value="finalexam"
                                 onChange={handleChange}
                             />
                             <Form.Check

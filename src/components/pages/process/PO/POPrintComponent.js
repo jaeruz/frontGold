@@ -2,6 +2,7 @@ import React, {useState,useEffect}from 'react'
 import { Col, Container, Table, Row,Image } from 'react-bootstrap';
 import { useBarcode } from '@createnextapp/react-barcode';
 import ReactBarcode from 'react-barcode'
+import QRCode from 'qrcode.react'
 
 function POTable({ selectedPO, routeList,generatedBarcode }) {
 
@@ -73,9 +74,13 @@ function POTable({ selectedPO, routeList,generatedBarcode }) {
                     </Table>
                 </Col>
                     </Row>
-                    <div className="print-barcode">
-                        <ReactBarcode value={generatedBarcode} width={0.8} height={55} margin={0} fontSize={6}/>
-                    </div>
+                    
+                        <div style={{display:'flex',justifyContent:'space-between',}}>
+                            <div className="print-barcode">
+                                <ReactBarcode value={generatedBarcode} width={0.4} height={55} margin={0} fontSize={6} />
+                            </div>
+                            <QRCode value={generatedBarcode} style={{ display: 'block',marginRight:'30px', width: '50px', height: '50px' }} />
+                        </div>
                         
                     </Container>
                     

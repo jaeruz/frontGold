@@ -15,13 +15,14 @@ function PO() {
     const [selectedPO, setSelectedPO] = useState(null)
     const [routeList, setRouteList] = useState([])
     const [generatedBarcode, setGeneratedBarcode] = useState(null)
+    const [dummyState, setDummyState] = useState(false)
 
     const dispatch = useDispatch()
     const details = useSelector(state => state.details)
 
     useEffect(() => {
         dispatch(fetchDetails())
-    }, [])
+    }, [dummyState])
 
     
     useEffect(() => {
@@ -49,7 +50,6 @@ function PO() {
     
         if (details) {
             if (details.length) {
-                console.log(details[4].active)
                 const searchResult = details.filter(det => ((det.po_number.includes(searchInput) || det.detail_customer.toUpperCase().includes(searchInput)) && det.active ===true))  
                 setSearchResult(searchResult)
             }
@@ -91,6 +91,8 @@ function PO() {
                         searchInput={searchInput}
                         setSearchInput={setSearchInput}
                         setSelectedPO={setSelectedPO}
+                        dummyState={dummyState}
+                        setDummyState={setDummyState}
                     />
                 </Col>
                 <Col lg={6} md={11} sm={11}>

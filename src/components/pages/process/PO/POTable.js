@@ -9,7 +9,7 @@ import * as BiIcons from "react-icons/bi";
 import { useAlert } from 'react-alert'
 import axios from 'axios';
 
-function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searchResult,handlePrint,setGeneratedBarcode,generatedBarcode}) {
+function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searchResult,handlePrint,setGeneratedBarcode,generatedBarcode,dummyState,setDummyState}) {
 
 
     const alert = useAlert()
@@ -43,19 +43,24 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
                 headers: {
                     'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
                 }
-            }) 
+           }).then(() => {
+                setDummyState(!dummyState)
+                handlePrint();
+                setSelectedPO(null)
+            })
+        } else {
+            setDummyState(!dummyState)
+            handlePrint();
+            setSelectedPO(null)
         }
         
-        console.log(selectedPO[0].id)
-        setDummyState(!dummyState)
-        handlePrint();
-        setSelectedPO(null)
+        
     }
 
     const [purchaseResult, setpurchaseResult] = useState(null)
     const [filteredPurchaseResult, setfilteredPurchaseResult] = useState(null)
     const [purchaseActive, setPurchaseActive] = useState([])
-    const [dummyState, setDummyState] = useState(false)
+    
     const [purchaseToSubmit, setpurchaseToSubmit] = useState(null)
 
     useEffect(() => {
@@ -67,7 +72,9 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
         if (flag) {
             const purchaseResult = await fetchPurchase()
             
-            setpurchaseResult(purchaseResult.data)
+            setpurchaseResult(purchaseResult.data)   
+            
+            
         }
         return () => {
             flag=false
@@ -79,6 +86,7 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
     useEffect(() => {
         if (purchaseResult && searchResult) {
             if (searchResult.length) {
+                console.log(purchaseResult)
                 let purchaseResActive =[]
                 for (let j = 0; j != searchResult.length; j++){
                     let ctr = 0;
@@ -91,7 +99,7 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
                 }
                 
                 setPurchaseActive(purchaseResActive)
-            
+                
             }
         }
         
