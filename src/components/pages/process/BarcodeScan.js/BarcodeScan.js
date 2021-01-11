@@ -20,17 +20,24 @@ function BarcodeScan() {
          e.preventDefault();
         let barcodeField = document.getElementById('barcodeInput')
         barcodeField.value = ''
+        const undbtn = document.getElementById('undo-btn')
+        undbtn.disabled = true;
         //dispatch
         setBarcodeCopy(barcodeInput)
         dispatch(postBarcodeDetails(barcodeInput))
     }
    
     useEffect(() => {
-        console.log(barcodeInput)
-    }, [barcodeInput])
+            const undbtn = document.getElementById('undo-btn')
+            undbtn.disabled = true;
+    }, [])
 
     useEffect(() => {
-        console.log(barcodeCopy)
+        if (barcodeCopy.barcode !== "") {
+            const undbtn = document.getElementById('undo-btn')
+            undbtn.disabled = false;
+        }
+        
     }, [barcodeCopy])
     return (
         <div className="barcode-scan-container">
@@ -38,7 +45,9 @@ function BarcodeScan() {
                  <Col xl={4} lg={4} md={10} sm={10}>
                     <BarcodeScanPanel
                         handleSubmit={handleSubmit}
-                        setBarcodeInput={setBarcodeInput} />
+                        setBarcodeInput={setBarcodeInput} 
+                        barcodeCopy={barcodeCopy}
+                        />
                 </Col>
                 <Col xl={7} lg={7} md={10} sm={10}>         
                     <BarcodeScanResult

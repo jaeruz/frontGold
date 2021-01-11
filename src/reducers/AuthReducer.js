@@ -4,7 +4,7 @@ export default (auth = [], action) => {
             window.localStorage.setItem("credentials",JSON.stringify(action.payload))
             return action.payload
         case 'LOGOUT':
-            window.localStorage.clear()
+             window.localStorage.clear();
             return action.payload
         case 'AUTH_ERROR':
             window.localStorage.clear();

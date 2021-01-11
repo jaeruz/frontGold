@@ -15,10 +15,13 @@ export const postCredentials = (credentials) => async dispatch => {
     }
 }
 
-export const logout = () =>  dispatch => {
+export const logout = () => async dispatch => {
     try {
         //api post
-        dispatch({ type: 'LOGOUT', payload: null })
+        const res = await api.logout();
+        console.log(res)
+        dispatch({ type: 'LOGOUT', payload: res })
+        
         
     } catch (error) {
         dispatch({ type: 'AUTH_ERROR', error:"Invalid Credentials" })

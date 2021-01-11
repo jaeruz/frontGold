@@ -1,13 +1,24 @@
 import React from 'react'
 import { Form, Button } from 'react-bootstrap'
 import FocusLock from 'react-focus-lock';
+import { undoScan } from '../../../../api';
 
-function BarcodeScanPanel({ setBarcodeInput,handleSubmit }) {
+
+function BarcodeScanPanel({ setBarcodeInput,handleSubmit,barcodeCopy }) {
 
     const handleChange = (e) => {
         setBarcodeInput({
             barcode: e.target.value
         })
+        
+    }
+
+
+    const handleUndo = async () => {
+        if (barcodeCopy.barcode !== null) {
+            const res = await undoScan(barcodeCopy)
+            console.log(res)
+        }
     }
 
     return (
@@ -23,7 +34,7 @@ function BarcodeScanPanel({ setBarcodeInput,handleSubmit }) {
                 </Form.Group>
             </Form>
             <br/>
-            <Button variant="danger" className="btn-undo" block disabled>UNDO SCAN</Button>
+            <Button variant="danger" className="btn-undo" block id="undo-btn" onClick={handleUndo}>UNDO SCAN</Button>
             <hr />
             <h5>Instructions</h5>
             <p>1. Make sure the cursor is focused on the text box</p>

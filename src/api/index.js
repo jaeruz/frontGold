@@ -8,12 +8,16 @@ const createDetailsURL = 'http://localhost:8000/api/detail-create'; // sample UR
 
 const postBarcodeURL = 'http://localhost:8000/api/route-detail'
 
+const undoScanURL = "http://localhost:8000/api/route-undo"
+
 const purchaseURL = 'http://localhost:8000/api/purchase-list'
 const addPurchaseURL = 'http://localhost:8000/api/purchase-create'
 
 const authURL = "http://localhost:8000/api/login"
 
 const logoutURL = "http://localhost:8000/api/logout"
+
+
 
 
 // const AdminHeaders = {
@@ -46,13 +50,24 @@ export const createDetails = (detail) => axios.post(createDetailsURL, detail, {
         headers: {
             'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
         }
-    })
+})
+    
+
 
 export const postBarcode = (barcode) => axios.post(postBarcodeURL, barcode, {
         headers: {
             'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
         }
+    }) 
+    
+export const undoScan = (barcode) => axios.post(undoScanURL, barcode, {
+        headers: {
+            'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+        }
     })
+
+
+
 
 export const fetchPurchase = () => axios.get(purchaseURL, {
         headers: {
@@ -64,6 +79,15 @@ export const addPurchase = (purchase) => axios.post(addPurchaseURL, purchase, {
         headers: {
             'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
         }
-    })
+})
+    
 
-export const postCreds = (creds) => axios.post(authURL,creds)
+//auth
+
+export const postCreds = (creds) => axios.post(authURL, creds)
+
+export const logout = () => axios.post(logoutURL,null,{
+        headers: {
+            'Authorization': 'Token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+        }
+    })

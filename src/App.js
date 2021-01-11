@@ -15,14 +15,19 @@ function App() {
   const [cached, setCached] = useState(null)
   const dispatch = useDispatch()
 
+  const auth = useSelector(state => state.auth)
   
   const handleLogout = () => {
     
     dispatch(logout())
-    const cacheCreds = JSON.parse(window.localStorage.getItem("credentials"))
-    setCached(cacheCreds)
+    
     setSidebar(false)
   }
+
+  useEffect(() => {
+    const cacheCreds = JSON.parse(window.localStorage.getItem("credentials"))
+    setCached(cacheCreds)
+  }, [auth])
 
   if (cached) {
     return (
