@@ -67,6 +67,7 @@ function ISRPrintComponent({ ISRItem }) {
                         <li>STYLE: <span id="style-field">0</span> </li>
                         <li>DESCRIPTION: <span>{ ISRItem.description}</span></li>
                         <li>COLOR: <span>{ISRItem.color}</span></li>
+                        <li>SIZE: <span>{ISRItem.size}</span></li>
                         <li>TOTAL Q'TY: <span>{ ISRItem.total}</span></li>
                         <li>Q'TY/SACK: <span>{ ISRItem.qty_sack}</span></li>
                         <li>SHIPDATE: <span>{ISRItem.ship_date}</span></li>

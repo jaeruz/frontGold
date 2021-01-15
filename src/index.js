@@ -15,7 +15,7 @@ import { transitions, positions,types, Provider as AlertProvider } from 'react-a
 
 const options = {
   // you can also just use 'bottom center'
-  position: 'bottom right',
+  position: 'top right',
   timeout: 3000,
   // offset: '70px',
   // you can also just use 'scale'

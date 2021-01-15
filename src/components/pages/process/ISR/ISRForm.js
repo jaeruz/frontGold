@@ -69,6 +69,7 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
         let total = document.getElementById('total');
         let qtySack = document.getElementById('qty_sack');
         let totalSack = document.getElementById('total_sack');
+        
 
         if (customer.value !== "NONE") {
             let filteredItem = item.filter(i => i.customer === customer.value)
@@ -173,6 +174,14 @@ function ISRForm({ISRItem,setISRItem,handlePrint}) {
                 <Form.Group as={Row} controlId="color">
                     <Col sm="4">
                         <Form.Label>Color:</Form.Label>
+                    </Col>
+                    <Col sm="8">
+                        <Form.Control required type="text" onChange={handleChange} className="form-caps"/>
+                    </Col>
+                </Form.Group>
+                <Form.Group as={Row} controlId="size">
+                    <Col sm="4">
+                        <Form.Label>Size:</Form.Label>
                     </Col>
                     <Col sm="8">
                         <Form.Control required type="text" onChange={handleChange} className="form-caps"/>

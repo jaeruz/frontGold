@@ -28,8 +28,10 @@ function BarcodeScan() {
     }
    
     useEffect(() => {
-            const undbtn = document.getElementById('undo-btn')
-            undbtn.disabled = true;
+
+        const undbtn = document.getElementById('undo-btn')
+        undbtn.disabled = true;
+    
     }, [])
 
     useEffect(() => {
@@ -44,8 +46,10 @@ function BarcodeScan() {
             <Row>
                  <Col xl={4} lg={4} md={10} sm={10}>
                     <BarcodeScanPanel
+                        barcodeInput={barcodeInput}
                         handleSubmit={handleSubmit}
                         setBarcodeInput={setBarcodeInput} 
+                        setBarcodeCopy={setBarcodeCopy}
                         barcodeCopy={barcodeCopy}
                         />
                 </Col>

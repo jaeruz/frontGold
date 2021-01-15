@@ -8,6 +8,7 @@ function BarcodeScanResult({barcodeCopy}) {
 
     useEffect(() => {
         console.log(barcodeScanResult)
+        console.log(barcodeScanResult.length)
     }, [barcodeScanResult])
     return (
         <div className="barcode-scan-result">
@@ -22,7 +23,8 @@ function BarcodeScanResult({barcodeCopy}) {
                     <h2>STYLE:<span>{barcodeCopy.barcode.split('-')[0]}</span></h2>
                     <h2>COLOR:<span>{barcodeCopy.barcode.split('-')[2]}</span></h2>
                     <h2>SACK #:<span>{barcodeCopy.barcode.split('-')[3]}</span></h2>
-                    <h2>NEXT PROCESS:<span>{barcodeScanResult}</span></h2>
+                    <h2>CURRENT PROCESS:<span>{barcodeScanResult.split(',')[0]}</span></h2>
+                    <h2>NEXT PROCESS:<span>{barcodeScanResult.split(',')[1]}</span></h2>
                         
                     </div>
                 ): <p>No Result</p>}

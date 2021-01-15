@@ -13,8 +13,10 @@ function MyNavbar({sidebar,setSidebar,isAdmin,setIsAdmin, handleLogout,history})
 
     const handleClick=()=> {
         
-        history.push('/')
+        
         handleLogout()
+        window.localStorage.clear();
+        history.push('/')
     }
 
     return (
@@ -65,7 +67,7 @@ function MyNavbar({sidebar,setSidebar,isAdmin,setIsAdmin, handleLogout,history})
                     })} */}
                         
                         
-                        <li style={{ position: 'absolute', display: 'inline', width: '100%', bottom: '0' }} className="nav-text" onClick={handleClick}>
+                        <li style={{ display: 'block', width: '100%' }} className="nav-text" onClick={handleClick}>
                                 <RiIcons.RiLogoutBoxLine/>
                                 <span>LOGOUT</span>
                             </li>

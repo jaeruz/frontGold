@@ -1,10 +1,13 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 function SideBarMenu({ item ,setSidebar,sidebar}) {
     
     const [subnav, setSubnav] = useState(false);
     const showSubnav = () => setSubnav(!subnav);
+    useEffect(() => {
+        console.log(subnav)
+    }, [subnav])
     return (
         <li >
             <Link to={item.path} className={item.class_name} onClick={item.subNav && showSubnav}>

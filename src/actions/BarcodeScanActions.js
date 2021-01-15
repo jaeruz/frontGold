@@ -13,3 +13,15 @@ export const postBarcodeDetails = (barcode) => async dispatch => {
     }
 }
 
+export const fetchPurchaseDetails = () => async dispatch => {
+    try {
+        //api post
+        const res = await api.fetchPurchase();
+        dispatch({ type: 'FETCH_BARCODE', payload: res.data })
+        console.log(res)
+    } catch (error) {
+        dispatch({ type: 'FETCH_BARCODE_ERROR', error: "err" })
+        console.log(error.message)
+    }
+}
+

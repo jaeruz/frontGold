@@ -36,18 +36,21 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
             )
         }
         //update
+        
         console.log(generatedBarcode.split('-')[3])
         console.log(selectedPO[0].total_sack)
         if (generatedBarcode.split('-')[3].toString() === selectedPO[0].total_sack.toString()) {
-           await axios.post("http://localhost:8000/api/detail-update/" + selectedPO[0].id, {'active':'false'}, {
+           await axios.post(window.location.protocol + '//' + window.location.hostname +":8000/api/detail-update/" + selectedPO[0].id, {'active':'false'}, {
                 headers: {
                     'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
                 }
            }).then(() => {
                 setDummyState(!dummyState)
                 handlePrint();
-                setSelectedPO(null)
-            })
+               setSelectedPO(null)
+               console.log("active false")
+           }).catch((err)=> console.log(err))
+            console.log("request finished")
         } else {
             setDummyState(!dummyState)
             handlePrint();
@@ -91,7 +94,7 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
                 for (let j = 0; j != searchResult.length; j++){
                     let ctr = 0;
                     for (let i = 0; i != purchaseResult.length; i++){
-                        if (purchaseResult[i].po_number.po_number === searchResult[j].po_number && purchaseResult[i].po_number.color === searchResult[j].color && purchaseResult[i].po_number.detail_style.style === searchResult[j].detail_style.style) { 
+                        if (purchaseResult[i].po_number.po_number === searchResult[j].po_number && purchaseResult[i].po_number.color === searchResult[j].color && purchaseResult[i].po_number.size === searchResult[j].size && purchaseResult[i].po_number.detail_style.style === searchResult[j].detail_style.style) { 
                             ctr++;
                         }
                     }
@@ -119,13 +122,13 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
         }
     }, [generatedBarcode,selectedPO,filteredPurchaseResult])
 
-    const handleSelect = (po,color,style,index) => {
-        let selectedDetails = details.filter((det) => { return det.po_number === po && det.color === color })
-        
+    const handleSelect = (po,color,size,style,index) => {
+        let selectedDetails = details.filter((det) => { return det.po_number === po && det.color === color && det.size === size })
+        console.log(selectedDetails)
         // const purchaseResult = await fetchPurchase()
-        let filterPurchase = purchaseResult.filter((pr) => { return pr.po_number.po_number === po && pr.po_number.color === color && pr.po_number.detail_style.style === style })
+        let filterPurchase = purchaseResult.filter((pr) => { return pr.po_number.po_number === po && pr.po_number.color === color && pr.po_number.size === size && pr.po_number.detail_style.style === style })
         setfilteredPurchaseResult(filterPurchase)
-        let genCode = selectedDetails[0].detail_style.style + '-' + selectedDetails[0].po_number + '-' + selectedDetails[0].color + '-' + (filterPurchase.length+1)
+        let genCode = selectedDetails[0].detail_style.style + '-' + selectedDetails[0].po_number + '-' + selectedDetails[0].color+'$'+selectedDetails[0].size + '-' + (filterPurchase.length+1)
         setGeneratedBarcode(genCode);
         setSelectedPO(selectedDetails)
     }
@@ -148,6 +151,7 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
                             <th>DATE CREATED</th>
                             <th>PO</th>
                             <th>COLOR</th>
+                            <th>SIZE</th>
                             <th>TOTAL SACK</th>
                             <th>PENDING</th>
                             <th>ACTIVE</th>
@@ -160,16 +164,17 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
                                 <tr style={{fontSize:'15px'}} key={index}>
                                     <td><Moment format="YYYY-MM-DD hh:mm:ss">{ det.create_on }</Moment></td>
                                     <td>{det.po_number}</td>
-                                    <td>{ det.color }</td>
+                                    <td>{det.color}</td>
+                                    <td>{ det.size }</td>
                                     <td>{det.total_sack}</td>
                                     <td>{det.total_sack - purchaseActive[index]}</td>
                                     <td>{purchaseActive[index]}</td>
-                                    <td><Button onClick={()=>handleSelect(det.po_number,det.color,det.detail_style.style,index)}>SELECT</Button></td>
+                                    <td><Button onClick={()=>handleSelect(det.po_number,det.color,det.size,det.detail_style.style,index)}>SELECT</Button></td>
                                 </tr>
                             )
                         }) : (
                                 <tr>
-                                    <td colSpan="7" style={{textAlign:'center'}}>No Result</td>
+                                    <td colSpan="8" style={{textAlign:'center'}}>No Result</td>
                                 </tr>
                         )}
                         

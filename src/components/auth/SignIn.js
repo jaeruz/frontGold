@@ -17,8 +17,8 @@ function SignIn({setCached}) {
         const cachedCreds = JSON.parse(window.localStorage.getItem("credentials"))
         
         // window.location.href = 'http://localhost:000/';
-        if (cachedCreds==null && window.location.href !== 'http://localhost:3000/') {
-            window.location.href = 'http://localhost:3000/';
+        if (cachedCreds==null && window.location.href !== window.location.protocol+'//'+window.location.hostname+':'+window.location.port+'/') {
+            window.location.href = window.location.protocol+'//'+window.location.hostname+':'+window.location.port+'/'
         }
         console.log(window.location.href)
         document.getElementById('login-error').style.visibility ="hidden"
@@ -36,6 +36,7 @@ function SignIn({setCached}) {
         // if (res==200) {
         //     window.location.reload(); 
         // }
+        // console.log(res)/\
          if (res === '400') {
             document.getElementById('login-error').textContent="Incorrect Username or Password"
             document.getElementById('login-error').style.visibility ="visible"

@@ -33,7 +33,13 @@ function POTable({ selectedPO, routeList,generatedBarcode }) {
                             <li>DESCRIPTION: <span>{ selectedPO[0].description}</span></li>
                             <li>COLOR: <span>{selectedPO[0].color}</span></li>
                             <li>TOTAL Q'TY: <span>{selectedPO[0].total}</span></li>
-                            <li>Q'TY/SACK: <span>{ generatedBarcode.split('-')[3]==selectedPO[0].total_sack ? (selectedPO[0].qty_sack-((selectedPO[0].qty_sack * selectedPO[0].total_sack) - selectedPO[0].total) ):(selectedPO[0].qty_sack)}</span></li>
+                                    <li>Q'TY/SACK:
+                                    <span>{generatedBarcode.split('-')[3] == selectedPO[0].total_sack ?
+                                        (selectedPO[0].qty_sack - ((selectedPO[0].qty_sack * selectedPO[0].total_sack) - selectedPO[0].total))
+                                        :
+                                        (selectedPO[0].qty_sack)}
+                                    </span>
+                                    </li>
                             <li>SHIPDATE: <span>{selectedPO[0].ship_date}</span></li>
                         </ul>
                     
@@ -75,11 +81,12 @@ function POTable({ selectedPO, routeList,generatedBarcode }) {
                 </Col>
                     </Row>
                     
-                        <div style={{display:'flex',justifyContent:'space-between',}}>
-                            <div className="print-barcode">
+                        <div style={{display:'flex',justifyContent:'space-between',marginLeft:'35px',marginRight:'35px'}}>
+                            {/* <div className="print-barcode">
                                 <ReactBarcode value={generatedBarcode} width={0.4} height={55} margin={0} fontSize={6} />
-                            </div>
-                            <QRCode value={generatedBarcode} style={{ display: 'block',marginRight:'30px', width: '50px', height: '50px' }} />
+                            </div> */}
+                            <QRCode value={generatedBarcode} style={{ display: 'block', marginRight: '30px', width: '50px', height: '50px' }} />
+                            <p style={{fontSize:'10px'}}>{generatedBarcode}</p>
                         </div>
                         
                     </Container>

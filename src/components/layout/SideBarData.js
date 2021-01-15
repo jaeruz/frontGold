@@ -29,9 +29,57 @@ export const SideBarDataAdmin = [
             },
             {
                 title: 'View Items',
-                path: '/items',
+                path: '/items/view',
                 icon: <IoIcons.IoIosPaper />
             }
+        ]
+    },
+    {
+        title: 'Orders',
+        path: '#',
+        icon: <VscIcons.VscGear />,
+        class_name: 'nav-text',
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+        subNav: [
+            {
+                title: 'Create PO',
+                path: '/process/isr',
+                icon: <FaIcons.FaPrint />
+            },
+           
+            {
+                title: 'View PO',
+                path: '/po/view',
+                icon: <FaIcons.FaPrint />
+            },
+            
+        ]
+    },
+    {
+        title: 'Barcodes',
+        path: '#',
+        icon: <FaIcons.FaBarcode />,
+        class_name: 'nav-text',
+        iconClosed: <RiIcons.RiArrowDownSFill />,
+        iconOpened: <RiIcons.RiArrowUpSFill />,
+        subNav: [
+            {
+                title: 'Generate Barcodes',
+                path: '/process/po',
+                icon: <FaIcons.FaPrint />
+            },
+            {
+                title: 'View Barcodes',
+                path: '/barcodes/view',
+                icon: <FaIcons.FaPrint />
+            },
+            {
+                title: 'Barcode Scan',
+                path: '/process/scan',
+                icon: <FaIcons.FaBarcode />,
+                class_name: 'nav-text',
+            },
         ]
     },
     {
@@ -43,41 +91,28 @@ export const SideBarDataAdmin = [
 ]
 
 export const SideBarDataStaff = [
+    // {
+    //     title: 'Home',
+    //     path: '/',
+    //     icon: <AiIcons.AiFillHome />,
+    //     class_name: 'nav-text',
+    // },
     {
-        title: 'Home',
-        path: '/',
-        icon: <AiIcons.AiFillHome />,
+        title: 'Barcode Scan',
+        path: '/process/scan',
+        icon: <FaIcons.FaBarcode />,
         class_name: 'nav-text',
     },
     {
-        title: 'Process',
-        path: '#',
-        icon: <VscIcons.VscGear />,
-        class_name: 'nav-text',
-        iconClosed: <RiIcons.RiArrowDownSFill />,
-        iconOpened: <RiIcons.RiArrowUpSFill />,
-        subNav: [
-            {
-                title: 'ISR',
-                path: '/process/isr',
-                icon: <FaIcons.FaPrint />
-            },
-            {
-                title: 'PO',
-                path: '/process/po',
-                icon: <FaIcons.FaPrint />
-            },
-            {
-                title: 'Barcode Scan',
-                path: '/process/scan',
-                icon: <FaIcons.FaBarcode />
-            }
-        ]
-    },
-    {
-        title: 'Logs',
-        path: '/logs',
+        title: 'Routing Info',
+        path: '/info',
         icon: <FaIcons.FaBook />,
         class_name: 'nav-text',
     },
+    // {
+    //     title: 'Logs',
+    //     path: '/logs',
+    //     icon: <FaIcons.FaBook />,
+    //     class_name: 'nav-text',
+    // },
 ]

@@ -32,7 +32,7 @@ function App() {
   if (cached) {
     return (
       <BrowserRouter>
-        <div onMouseLeave={() => { setSidebar(false)}}>
+        <div className="nav"> {/*onMouseLeave={() => { setSidebar(false)}}>*/}
           <MyNavbar sidebar={sidebar} setSidebar={setSidebar} isAdmin={cached.is_Admin} setIsAdmin={setIsAdmin} handleLogout={handleLogout}/>
         </div>
         <Pages sidebar={sidebar} setSidebar={setSidebar} />

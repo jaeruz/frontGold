@@ -51,9 +51,6 @@ function AddItem() {
                     <div className="alert-err"><BiIcons.BiError/> No Selected Process!</div>
                 )
         }
-        
-        
-        
     }
 
     const handleChange = (e) => {

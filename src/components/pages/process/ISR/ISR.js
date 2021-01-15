@@ -12,6 +12,7 @@ function ISR() {
         total_sack: '',
         description: '',
         color: '',
+        size:'',
         total: '',
         qty_sack: '',
         ship_date: '',
@@ -25,6 +26,7 @@ function ISR() {
         let color = document.getElementById('color');
         let total = document.getElementById('total');
         let qty_sack = document.getElementById('qty_sack');
+        let size = document.getElementById('size');
         let ship_date = document.getElementById('ship_date');
 
         totalSack.value = ''
@@ -34,12 +36,14 @@ function ISR() {
         total.value = ''
         qty_sack.value = ''
         ship_date.value = ''
+        size.value = ''
         
         setISRItem({
             ...ISRItem,
             po_number:'',
             total_sack: '',
             description: '',
+            size:'',
             color: '',
             total: '',
             qty_sack: '',

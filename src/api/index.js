@@ -1,24 +1,24 @@
 import axios from 'axios'
 
-const ItemsURL = 'http://localhost:8000/api/item-list'; // sample URL from django
-const createItemsURL = 'http://localhost:8000/api/item-create'; // sample URL from django
+const ItemsURL = window.location.protocol + '//' + window.location.hostname +':8000/api/item-list'; // sample URL from django
+const createItemsURL = window.location.protocol + '//' + window.location.hostname +':8000/api/item-create'; // sample URL from django
 
-const DetailsURL = 'http://localhost:8000/api/detail-list';
-const createDetailsURL = 'http://localhost:8000/api/detail-create'; // sample URL from django
+const DetailsURL = window.location.protocol + '//' + window.location.hostname +':8000/api/detail-list';
+const createDetailsURL = window.location.protocol + '//' + window.location.hostname +':8000/api/detail-create'; // sample URL from django
 
-const postBarcodeURL = 'http://localhost:8000/api/route-detail'
+const postBarcodeURL = window.location.protocol + '//' + window.location.hostname +':8000/api/route-detail'
 
-const undoScanURL = "http://localhost:8000/api/route-undo"
+const undoScanURL = window.location.protocol + "//" + window.location.hostname +":8000/api/route-undo"
 
-const purchaseURL = 'http://localhost:8000/api/purchase-list'
-const addPurchaseURL = 'http://localhost:8000/api/purchase-create'
+const purchaseURL = window.location.protocol + '//' + window.location.hostname +':8000/api/purchase-list'
+const addPurchaseURL = window.location.protocol + '//' + window.location.hostname +':8000/api/purchase-create'
 
-const authURL = "http://localhost:8000/api/login"
+const authURL = window.location.protocol + '//' + window.location.hostname +":8000/api/login"
 
-const logoutURL = "http://localhost:8000/api/logout"
+const logoutURL = window.location.protocol + "//" + window.location.hostname +":8000/api/logout"
 
 
-
+// window.location.protocol + '//' + window.location.hostname +
 
 // const AdminHeaders = {
 //         headers: {
@@ -60,7 +60,7 @@ export const postBarcode = (barcode) => axios.post(postBarcodeURL, barcode, {
         }
     }) 
     
-export const undoScan = (barcode) => axios.post(undoScanURL, barcode, {
+export const undoScan = async (barcode) => await axios.post(undoScanURL, barcode, {
         headers: {
             'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
         }

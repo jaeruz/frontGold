@@ -20,6 +20,7 @@ export const logout = () => async dispatch => {
         //api post
         const res = await api.logout();
         console.log(res)
+        
         dispatch({ type: 'LOGOUT', payload: res })
         
         
