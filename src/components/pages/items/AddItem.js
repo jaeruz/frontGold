@@ -98,6 +98,7 @@ function AddItem() {
                             {ItemClass.customer.toUpperCase() === 'TOTES' ? (
                                 <Form.Group>
                                     <Form.Label>Process:</Form.Label>
+                                        
                                         <Form.Check
                                             label="Knitting"
                                             value="knitting"
@@ -108,22 +109,6 @@ function AddItem() {
                                             value="isr_1"
                                             onChange={handleChange}
                                         />
-                                        <Form.Check
-                                            label="Sewing"
-                                            value="sewing"
-                                            onChange={handleChange}
-                                        />
-                                        <Form.Check
-                                            label="ISR 2"
-                                            value="isr_2"
-                                            onChange={handleChange}
-                                        />
-                                        <Form.Check
-                                            label="ISR 3"
-                                            value="isr_3"
-                                            onChange={handleChange}
-                                        />
-                                        
                                         <Form.Check
                                             label="B1 Receipts"
                                             value="reciepts"
@@ -140,8 +125,18 @@ function AddItem() {
                                             onChange={handleChange}
                                         />
                                         <Form.Check
-                                            label="Tagging"
-                                            value="tagging"
+                                            label="ISR 2"
+                                            value="isr_2"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Sewing"
+                                            value="sewing"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="ISR 3"
+                                            value="isr_3"
                                             onChange={handleChange}
                                         />
                                         <Form.Check
@@ -149,12 +144,17 @@ function AddItem() {
                                             value="steaming_1"
                                             onChange={handleChange}
                                         />
-                                        <Form.Check
+                                    
+                                     <Form.Check
                                             label="Examining 1"
                                             value="examining_1"
                                             onChange={handleChange}
                                         />
-                                        
+                                        <Form.Check
+                                            label="Tagging"
+                                            value="tagging"
+                                            onChange={handleChange}
+                                        />
                                         <Form.Check
                                             label="Metal Detection"
                                             value="metaldetect"

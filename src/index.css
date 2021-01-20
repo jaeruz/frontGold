@@ -261,7 +261,7 @@ span {
 .add-item-container {
   background-color: #334b58;
   color: white;
-	padding: 50px 50px 50px 50px !important;
+	padding: 30px 50px 20px 50px !important;
   margin: auto;
   margin-top: 20px;
   border-radius: 5px !important;
@@ -646,6 +646,6 @@ span {
 /* end view items  */
 
 .modal-edit{
-  padding: 30px;
+  padding: 10px 30px 10px 30px;
 }
 

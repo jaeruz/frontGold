@@ -125,8 +125,10 @@ function ViewItems() {
         if (show) {
             let processCheckbox = document.getElementById("check1");
             if (processCheckbox && selectedItems &&setSelectedItems.length) {
-                console.log(processCheckbox)
-                for (let i = 1; i != 12; i++){
+                console.log(processCheckbox.length)
+                let checklength = selectedItems[0].customer.toUpperCase() === "TOTES" ? 14 : 12;
+                console.log(checklength)
+                for (let i = 1; i != checklength; i++){
                     for (let j = 0; j != selectedItems[0].process.length; j++){
                         if (document.getElementById(`check${i}`).value === selectedItems[0].process[j]) {
                         document.getElementById(`check${i}`).checked = true
@@ -165,76 +167,162 @@ function ViewItems() {
                             <Form.Label>Style:</Form.Label>
                             <Form.Control required type="text" placeholder="Style" defaultValue={selectedItems[0].style} onChange={handleFormChange} className="form-caps" />
                         </Form.Group>
-                        <Form.Group>
-                            <Form.Label>Process:</Form.Label>
-                                    <Form.Check
-                                        label="Knitting"
-                                        value="knitting"
-                                        id="check1"
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Check
-                                        label="Cutting"
-                                        value="cutting"
-                                        id="check2"
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Check
-                                        label="ISR 1"
-                                        value="isr_1"
-                                        id="check3"
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Check
-                                        label="Sewing"
-                                        value="sewing"
-                                        id="check4"
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Check
-                                        label="ISR 2"
-                                        value="isr_2"
-                                        id="check5"
-                                        onChange={handleChange}
-                                    />
-                                    
-                                    <Form.Check
-                                        label="B1 Receipts"
-                                        value="reciepts"
-                                        id="check6"
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Check
-                                        label="Steaming"
-                                        value="steaming"
-                                        id="check7"
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Check
-                                        label="Tagging"
-                                        value="tagging"
-                                        id="check8"
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Check
-                                        label="Final Examination"
-                                        value="finalexam"
-                                        id="check9"
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Check
-                                        label="Metal Detection"
-                                        value="metaldetect"
-                                        id="check10"
-                                        onChange={handleChange}
-                                    />
-                                    <Form.Check
-                                        label="Boxing"
-                                        value="boxing"
-                                        id="check11"
-                                        onChange={handleChange}
-                                    />
-                        </Form.Group>
+                                    {selectedItems[0].customer.toUpperCase() === "TOTES" ? (
+                                        <Form.Group>
+                                            <Form.Label>Process:</Form.Label>
+                                                <Form.Check
+                                                    label="Knitting"
+                                                    value="knitting"
+                                                    id="check1"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="ISR 1"
+                                                    value="isr_1"
+                                                    id="check2"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="B1 Receipts"
+                                                    value="reciepts"
+                                                    id="check3"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="Steaming"
+                                                    value="steaming"
+                                                    id="check4"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="Examining"
+                                                    value="examining"
+                                                    id="check5"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="ISR 2"
+                                                    value="isr_2"
+                                                    id="check6"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="Sewing"
+                                                    value="sewing"
+                                                    id="check7"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="ISR 3"
+                                                    value="isr_3"
+                                                    id="check8"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="Steaming 1"
+                                                    value="steaming_1"
+                                                    id="check9"
+                                                    onChange={handleChange}
+                                                />
+                                            
+                                            <Form.Check
+                                                    label="Examining 1"
+                                                    value="examining_1"
+                                                    id="check10"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="Tagging"
+                                                    value="tagging"
+                                                    id="check11"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="Metal Detection"
+                                                    value="metaldetect"
+                                                    id="check12"
+                                                    onChange={handleChange}
+                                                />
+                                                <Form.Check
+                                                    label="Boxing"
+                                                    value="boxing"
+                                                    id="check13"
+                                                    onChange={handleChange}
+                                                />
+                                        </Form.Group>
+                                    ): (
+                                        <Form.Group>
+                                    <Form.Label>Process:</Form.Label>
+                                        <Form.Check
+                                            label="Knitting"
+                                            value="knitting"
+                                            id="check1"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Cutting"
+                                            value="cutting"
+                                            id="check2"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="ISR 1"
+                                            value="isr_1"
+                                            id="check3"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Sewing"
+                                            value="sewing"
+                                            id="check4"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="ISR 2"
+                                            value="isr_2"
+                                            id="check5"
+                                            onChange={handleChange}
+                                        />
+                                        
+                                        <Form.Check
+                                            label="B1 Receipts"
+                                            value="reciepts"
+                                            id="check6"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Steaming"
+                                            value="steaming"
+                                            id="check7"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Tagging"
+                                            value="tagging"
+                                            id="check8"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Final Examination"
+                                            value="finalexam"
+                                            id="check9"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Metal Detection"
+                                            value="metaldetect"
+                                            id="check10"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Boxing"
+                                            value="boxing"
+                                            id="check11"
+                                            onChange={handleChange}
+                                        />
+                                    </Form.Group>
+                                )}
+                        
                         </Form>
                         </div>
                     ):(<p>loading</p>)}
