@@ -6,6 +6,7 @@ function BarcodeScanResult({barcodeCopy}) {
 
     const barcodeScanResult = useSelector(state => state.barcodeScanResult)
 
+    
     useEffect(() => {
         console.log(barcodeScanResult)
         console.log(barcodeScanResult.length)

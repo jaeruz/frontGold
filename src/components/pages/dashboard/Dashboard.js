@@ -35,9 +35,9 @@ function Dashboard() {
 	return (
 		<Container className="dashboard-container">
 			<Form.Group controlId="dashboard-view-as">
-				<div class="dashboard-view-wrapper">
+				<div className="dashboard-view-wrapper">
 					<Form.Label>View as:</Form.Label>
-					<div class="dashboard-select-wrapper">
+					<div className="dashboard-select-wrapper">
 						<Form.Control
 							as="select"
 							onChange={handleChange}
@@ -49,7 +49,7 @@ function Dashboard() {
 					</div>
 				</div>
 			</Form.Group>
-			<div class="dashboard-components">
+			<div className="dashboard-components">
 				{chartOpen ? <DashboardChart /> : <DashboardTable />}
 			</div>
 		</Container>

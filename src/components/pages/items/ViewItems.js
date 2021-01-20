@@ -3,6 +3,8 @@ import {Container,Table,Form, Button,Modal} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getItems } from '../../../actions/ItemActions'
 import * as FaIcons from 'react-icons/fa'
+import { MDBDataTable  } from 'mdbreact';
+
 
 function ViewItems() {
     
@@ -18,15 +20,72 @@ function ViewItems() {
     const [searchResult, setSearchResult] = useState(null)
     //modal
 
+    const [rowData, setRowData] = useState([])
+
+    const data = {
+        columns: [
+            {
+                label: 'Date',
+                field: 'date',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Customer',
+                field: 'customer',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Style',
+                field: 'style',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Process',
+                field: 'process',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Action',
+                field: 'action',
+                sort: 'asc',
+                width: 150
+            }
+        ],
+        rows: rowData
+    }
+
     const [ItemClass, setItemClass] = useState({
         process: [],
         customer: '',
         style:''
     })
 
-    const handleSearch = (e) => {
-        setSearchInput(e.target.value)
-    }
+    useEffect(() => {
+        dispatch(getItems())
+    }, [])
+
+    useEffect(() => {
+        console.log(item)
+        if (item && item.length) {
+            const data = item.map(i => {
+                return {
+                    date: "1/12/1223",
+                    customer: i.customer.toUpperCase(),
+                    style: i.style.toUpperCase(),
+                    process: i.process.map((p, index) => { if (index !== i.process.length - 1) { return ((p + ', ').toUpperCase()) } else { return ((p).toUpperCase()) } }),
+                    action: <Button variant="info" size="sm" onClick={() => handleEdit(i)} block><FaIcons.FaEdit /> Edit</Button>,
+                }
+            })
+            console.log(data)
+            setRowData(data);
+        }
+    }, [item])
+
+
 
     const handleFormChange = (e) => {
         setItemClass({
@@ -80,31 +139,9 @@ function ViewItems() {
         
     }, [show])
 
-    
-
-    useEffect(() => {
-        if (searchInput) {
-            const result = item.filter((it) => {
-                return it.customer.toUpperCase().includes(searchInput.toUpperCase())
-                    || it.style.includes(searchInput.toUpperCase())
-                    || it.process.includes(searchInput)
-            })
-            setSearchResult(result)
-        } else {
-            setSearchResult(item)
-        }
-        console.log(searchInput)
-    }, [searchInput])
-    
-    useEffect(() => {
-        dispatch(getItems())
-    }, [])
-
-    useEffect(() => {
-        console.log(item)
-        setSearchResult(item)
-    }, [item])
+   
     return (
+        <div className="view-item-wrapper">
         <div className="view-item-container">
             <Modal
                 show={show}
@@ -213,46 +250,35 @@ function ViewItems() {
                 </Modal.Footer>
             </Modal>
             <div style={{textAlign:"center"}}>
-                <h3 className="form-title">ITEMS</h3>
+                <h5 className="form-title">ITEMS</h5>
             </div>
-            <Form>
-                <Form.Group>
-                    <Form.Label style={{color:'white'}}>SEARCH:</Form.Label>
-                    <Form.Control type='text' className="isr-form" onChange={handleSearch}/>
-                </Form.Group>
-            </Form>
-            <div className="view-item-container-form">
-                <Table striped bordered hover style={{ backgroundColor: 'white', borderRadius: '10px' }}>
-                    <thead>
-                        <tr>
-                            <th>DATE</th>
-                            <th>CUSTOMER</th>
-                            <th>STYLE</th>
-                            <th>PROCESS</th>
-                            <th>ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {searchResult && searchResult.length ? searchResult.map(((i,index) => {
-                            return (
-                                <tr key={index}>
-                                    <td>1/12/1223</td>
-                                    <td>{i.customer.toUpperCase()}</td>
-                                    <td>{i.style.toUpperCase()}</td>
-                                    <td style={{ fontSize: '12px' }}>{i.process.map((p, index) => { if (index !== i.process.length-1) { return ((p + ', ').toUpperCase()) } else { return ((p).toUpperCase()) }   })}</td>
-                                    <td><Button variant="info" onClick={()=>handleEdit(i)} block><FaIcons.FaEdit /> Edit</Button></td>
-                                </tr>
-                            )
-                        })): (
-                            <tr>
-                                <td colSpan="5" style={{textAlign:'center'}}>No Result</td>
-                            </tr>)
-                        }
+                
+                    <div style={
+                    {
+                        backgroundColor: 'white',
+                        padding: '20px',
+                        // borderRadius: '5px',
+                        height: '90%',
+                        overflow: 'scroll',
+                        overflowX: 'hidden',
+                        marginTop: '20px',
                         
-                    </tbody>
-                </Table>
+                    }}>
+                    <MDBDataTable  
+                        entries={8}
+                        striped
+                        bordered
+                        small
+                        entriesOptions={[5,8,10,15]}
+                        striped
+                        hover
+                        style={{height:'100% !important'}}
+                        data={data}
+                            />
+                    </div>
+            
             </div>
-        </div>
+            </div>
     )
 }
 

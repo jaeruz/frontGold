@@ -34,7 +34,7 @@ function POTable({ selectedPO, routeList,generatedBarcode }) {
                             <li>COLOR: <span>{selectedPO[0].color}</span></li>
                             <li>TOTAL Q'TY: <span>{selectedPO[0].total}</span></li>
                                     <li>Q'TY/SACK:
-                                    <span>{generatedBarcode.split('-')[3] == selectedPO[0].total_sack ?
+                                    <span>{generatedBarcode.split('-')[5] == selectedPO[0].total_sack ?
                                         (selectedPO[0].qty_sack - ((selectedPO[0].qty_sack * selectedPO[0].total_sack) - selectedPO[0].total))
                                         :
                                         (selectedPO[0].qty_sack)}
@@ -48,7 +48,7 @@ function POTable({ selectedPO, routeList,generatedBarcode }) {
                 <Col sm={4}>
                     <div className="print-sack-number">
                         <p>SACK NO.</p>
-                        <p> {generatedBarcode.split('-')[3]} / { selectedPO[0].total_sack}</p>
+                        <p> {generatedBarcode.split('-')[5]} / { selectedPO[0].total_sack}</p>
                     </div>
                 </Col>
             </Row>

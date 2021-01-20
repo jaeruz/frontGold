@@ -25,3 +25,14 @@ export const fetchPurchaseDetails = () => async dispatch => {
     }
 }
 
+export const clearResults = () => dispatch => {
+    dispatch({ type: 'POST_BARCODE_ERROR', error: "err" })
+    
+}
+
+export const insertBR = (br) => dispatch => {
+    dispatch({ type: 'INSERT_BR', payload: br  })
+    
+}
+
+

@@ -1,12 +1,15 @@
-import React,{useEffect} from 'react'
+import React,{useEffect,useState} from 'react'
 import {Button,Table,Form} from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchPurchaseDetails } from '../../../../actions/BarcodeScanActions'
+import { MDBDataTable  } from 'mdbreact';
+
 
 
 function ViewBarcodes() {
     const dispatch = useDispatch()
     const barcodeScanResult = useSelector(state => state.barcodeScanResult)
+    const [rowData, setRowData] = useState([])
 
     useEffect(() => {
         dispatch(fetchPurchaseDetails())
@@ -14,59 +17,121 @@ function ViewBarcodes() {
 
     useEffect(() => {
         console.log(barcodeScanResult)
+        if (barcodeScanResult.length && barcodeScanResult[0].create_on) {
+            const data = barcodeScanResult.map(i => {
+                return {
+                    date: i.create_on,
+                    barcode: i.barcode.toUpperCase(),
+                    style: i.po_number.detail_style.style,
+                    po: i.po_number.po_number.toUpperCase(),
+                    color: i.po_number.color.toUpperCase(),
+                    size:i.po_number.size.toUpperCase(),
+                    qtysack:i.barcode.split('-')[4],
+                    sackno:i.barcode.split('-')[5],
+                    action: <Button variant="danger" size="sm">DELETE</Button>,
+                }
+            })
+            console.log(data)
+            setRowData(data);
+        }
+        
     }, [barcodeScanResult])
+
+
+    const data = {
+        columns: [
+            {
+                label: 'Date',
+                field: 'date',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Barcode',
+                field: 'barcode',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Style',
+                field: 'style',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Po #',
+                field: 'po',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Color',
+                field: 'color',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Size',
+                field: 'size',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Qty/Sack',
+                field: 'qtysack',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Sack #',
+                field: 'sackno',
+                sort: 'asc',
+                width: 150
+            },
+            {
+                label: 'Actions',
+                field: 'action',
+                sort: 'asc',
+                width: 150
+            },
+        ],
+        rows: rowData
+    }
     return (
+        <div className="view-item-wrapper">
         <div className="view-item-container">
             <div style={{textAlign:"center"}}>
-                <h3 className="form-title">BARCODES</h3>
+                <h5 className="form-title">BARCODES</h5>
             </div>
-            <Form>
-                <Form.Group>
-                    <Form.Label style={{color:'white'}}>SEARCH:</Form.Label>
-                    <Form.Control type='text' className="isr-form"/>
-                </Form.Group>
-            </Form>
-            <div className="view-item-container-form">
-                <Table striped bordered hover style={{ backgroundColor: 'white', borderRadius: '10px' }}>
-                    <thead>
-                        <tr>
-                            <th>DATE</th>
-                            <th>BARCODE</th>
-                            <th>STYLE</th>
-                            <th>PO NO.</th>
-                            <th>COLOR</th>
-                            <th>SIZE</th>
-                            <th>QTY/SACK</th>
-                            <th>SACK NO.</th>
-                            <th>ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {barcodeScanResult.length ? barcodeScanResult.map(((i,index) => {
-                            return (
-                                <tr key={index}>
-                                    <td>{i.create_on}</td>
-                                    <td>{i.barcode.toUpperCase()}</td>
-                                    <td>{i.po_number.detail_style.style}</td>
-                                    <td>{i.po_number.po_number.toUpperCase()}</td>
-                                    <td>{i.po_number.color.toUpperCase()}</td>
-                                    <td>{i.po_number.size.toUpperCase()}</td>
-                                    <td>{i.po_number.qty_sack}</td>
-                                    <td>{i.barcode.split('-')[3]}</td>
-                                    <td></td>
-                                    {/* <td><Button variant="danger">DELETE</Button></td> */}
-                                </tr>
-                            )
-                        })): (
-                            <tr>
-                                <td colSpan="4" style={{textAlign:'center'}}>No Result</td>
-                            </tr>)
-                        }
+       
+                <div style={
+                    {
+                        backgroundColor: 'white',
+                        padding: '20px',
+                        // borderRadius: '5px',
+                        height: '90%',
+                        overflow: 'scroll',
+                        overflowX: 'hidden',
+                        marginTop: '20px',
                         
-                    </tbody>
-                </Table>
+                    }}>
+                    <MDBDataTable  
+                        
+                        entries={8}
+                        striped
+                        bordered
+                        small
+                        entriesOptions={[5,8,10,15]}
+                        striped
+                        hover
+                        style={{height:'100% !important'}}
+                        data={data}
+                    />
+                </div>
+                
+          
             </div>
-        </div>
+            </div>
     )
 }
 

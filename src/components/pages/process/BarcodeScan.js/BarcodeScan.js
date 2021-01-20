@@ -3,11 +3,12 @@ import { Col, Row } from 'react-bootstrap'
 import BarcodeScanPanel from './BarcodeScanPanel';
 import BarcodeScanResult from './BarcodeScanResult';
 import { useDispatch } from 'react-redux'
-import { postBarcodeDetails } from '../../../../actions/BarcodeScanActions';
+import { clearResults, postBarcodeDetails } from '../../../../actions/BarcodeScanActions';
 
 function BarcodeScan() {
     
     const dispatch = useDispatch()
+    
     
     const [barcodeInput, setBarcodeInput] = useState({
         barcode:''
@@ -31,7 +32,7 @@ function BarcodeScan() {
 
         const undbtn = document.getElementById('undo-btn')
         undbtn.disabled = true;
-    
+        dispatch(clearResults())
     }, [])
 
     useEffect(() => {
@@ -42,24 +43,28 @@ function BarcodeScan() {
         
     }, [barcodeCopy])
     return (
-        <div className="barcode-scan-container">
-            <Row>
-                 <Col xl={4} lg={4} md={10} sm={10}>
-                    <BarcodeScanPanel
-                        barcodeInput={barcodeInput}
-                        handleSubmit={handleSubmit}
-                        setBarcodeInput={setBarcodeInput} 
-                        setBarcodeCopy={setBarcodeCopy}
-                        barcodeCopy={barcodeCopy}
-                        />
-                </Col>
-                <Col xl={7} lg={7} md={10} sm={10}>         
-                    <BarcodeScanResult
-                        barcodeCopy={barcodeCopy}
-                    />
-                </Col>
-                <Col xl={1}></Col>
-            </Row>
+        <div className="barcode-wrapper">
+            <div className="barcode-scan-container">
+                <div className="barcode-primary-div">
+                    <Row>
+                        <Col xl={5} lg={4} md={10} sm={10}>
+                            <BarcodeScanPanel
+                                barcodeInput={barcodeInput}
+                                handleSubmit={handleSubmit}
+                                setBarcodeInput={setBarcodeInput} 
+                                setBarcodeCopy={setBarcodeCopy}
+                                barcodeCopy={barcodeCopy}
+                                />
+                        </Col>
+                        <Col xl={7} lg={7} md={10} sm={10} className="col-res">         
+                            <BarcodeScanResult
+                                barcodeCopy={barcodeCopy}
+                            />
+                        </Col>
+                    
+                    </Row>
+                </div>
+            </div>
         </div>
     )
 }

@@ -8,7 +8,7 @@ import { fetchDetails } from '../../../../actions/DetailsActions'
 import html2canvas from 'html2canvas'
 import { jsPDF } from 'jspdf'
 
-function PO() {
+function PO({setSidebar,sidebar}) {
 
     const [searchInput, setSearchInput] = useState(null)
     const [searchResult, setSearchResult] = useState(null)
@@ -66,19 +66,23 @@ function PO() {
     const handlePrint = () => {
 		const input = document.getElementById('printForm');
 
-		html2canvas(input)
+        html2canvas(input, {
+            width: 794,
+            height: 1123
+        })
 		.then((canvas) => {
 			const imgData = canvas.toDataURL('image/png');
             const pdf = new jsPDF("p", "mm", "a4");
             let width = pdf.internal.pageSize.getWidth();
             let height = pdf.internal.pageSize.getHeight();
-			pdf.addImage(imgData, 'JPEG', 0, 0,width,height);
+			pdf.addImage(imgData, 'JPEG', 18, 5,width,height);
 			pdf.save(generatedBarcode);  
 		});
 	}
 
     return (
-        <div className="isr-container"> 
+        <div className="po-wrapper">
+        <div className="po-container"> 
             <Row>
                 <Col lg={6} md={11} sm={11}>
                     <POTable
@@ -93,6 +97,8 @@ function PO() {
                         setSelectedPO={setSelectedPO}
                         dummyState={dummyState}
                         setDummyState={setDummyState}
+                        setSidebar={setSidebar}
+                        sidebar={sidebar}
                     />
                 </Col>
                 <Col lg={6} md={11} sm={11}>
@@ -104,7 +110,8 @@ function PO() {
                     
                 </Col>
             </Row>
-        </div>
+            </div>
+            </div>
     )
 }
 

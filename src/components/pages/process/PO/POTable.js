@@ -9,8 +9,9 @@ import * as BiIcons from "react-icons/bi";
 import { useAlert } from 'react-alert'
 import axios from 'axios';
 
-function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searchResult,handlePrint,setGeneratedBarcode,generatedBarcode,dummyState,setDummyState}) {
+function POPrintComponent({sidebar,setSidebar,setSearchInput,setSelectedPO,details,selectedPO,searchResult,handlePrint,setGeneratedBarcode,generatedBarcode,dummyState,setDummyState}) {
 
+  
 
     const alert = useAlert()
 
@@ -24,37 +25,45 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
 
     const handleProcess = async () => {
         
-        const res = await addPurchase(purchaseToSubmit)
-        console.log(res)
-        if (res!==null) {
-            alert.show(
-                <div className="alert-suc"><FaIcons.FaCheck /> { generatedBarcode } is on-process! </div>
-            )
-        } else {
-            alert.show(
-                <div className="alert-err"><BiIcons.BiError/> Unable to process {generatedBarcode}!</div>
-            )
-        }
-        //update
-        
-        console.log(generatedBarcode.split('-')[3])
-        console.log(selectedPO[0].total_sack)
-        if (generatedBarcode.split('-')[3].toString() === selectedPO[0].total_sack.toString()) {
-           await axios.post(window.location.protocol + '//' + window.location.hostname +":8000/api/detail-update/" + selectedPO[0].id, {'active':'false'}, {
-                headers: {
-                    'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
-                }
-           }).then(() => {
+        if (!sidebar) {
+            const res = await addPurchase(purchaseToSubmit)
+            console.log(res)
+            
+            if (res!==null) {
+                alert.show(
+                    <div className="alert-suc"><FaIcons.FaCheck /> { generatedBarcode } is on-process! </div>
+                )
+            } else {
+                alert.show(
+                    <div className="alert-err"><BiIcons.BiError/> Unable to process {generatedBarcode}!</div>
+                )
+            }
+            //update
+            
+            console.log(generatedBarcode.split('-')[3])
+            console.log(selectedPO[0].total_sack)
+            if (generatedBarcode.split('-')[5].toString() === selectedPO[0].total_sack.toString()) {
+            await axios.post(window.location.protocol + '//' + window.location.hostname +":8000/api/detail-update/" + selectedPO[0].id, {'active':'false'}, {
+                    headers: {
+                        'Authorization': 'token '+ JSON.parse(window.localStorage.getItem("credentials")).token
+                    }
+            }).then(() => {
+                    setDummyState(!dummyState)
+                    handlePrint();
+                setSelectedPO(null)
+                console.log("active false")
+            }).catch((err)=> console.log(err))
+                console.log("request finished")
+            } else {
                 setDummyState(!dummyState)
                 handlePrint();
-               setSelectedPO(null)
-               console.log("active false")
-           }).catch((err)=> console.log(err))
-            console.log("request finished")
+                setSelectedPO(null)
+            }
+            
         } else {
-            setDummyState(!dummyState)
-            handlePrint();
-            setSelectedPO(null)
+            alert.show(
+                    <div className="alert-err"><BiIcons.BiError/> Please close the sidebar before printing!</div>
+                )
         }
         
         
@@ -128,12 +137,14 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
         // const purchaseResult = await fetchPurchase()
         let filterPurchase = purchaseResult.filter((pr) => { return pr.po_number.po_number === po && pr.po_number.color === color && pr.po_number.size === size && pr.po_number.detail_style.style === style })
         setfilteredPurchaseResult(filterPurchase)
-        let genCode = selectedDetails[0].detail_style.style + '-' + selectedDetails[0].po_number + '-' + selectedDetails[0].color+'$'+selectedDetails[0].size + '-' + (filterPurchase.length+1)
+        let qtyS = selectedDetails[0].total_sack===(filterPurchase.length+1) ? (selectedDetails[0].qty_sack - ((selectedDetails[0].qty_sack * selectedDetails[0].total_sack) - selectedDetails[0].total)): selectedDetails[0].qty_sack;
+        let genCode = selectedDetails[0].detail_style.style + '-' + selectedDetails[0].po_number + '-' + selectedDetails[0].color+'$'+selectedDetails[0].size + '-'+selectedDetails[0].total+'-'+qtyS+'-'+ (filterPurchase.length+1)
         setGeneratedBarcode(genCode);
         setSelectedPO(selectedDetails)
     }
 
     return (
+        
         <div className="po-container-form">
             <div style={{ marginBottom: "15px" }}>
                 <h3 className="form-title">PURCHASE ORDERS</h3> 
@@ -183,13 +194,13 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
                 </Table>
             </div>
             <br/>
-            <Card>
+            <Card className="po-card">
                 <Card.Body as={Row}>
                     {selectedPO && purchaseToSubmit ? (
                         <>
                             <Col sm={9}>
-                            <Card.Title>{selectedPO[0].po_number}</Card.Title>
-                            <Card.Text>CUSTOMER: {selectedPO[0].detail_customer}</Card.Text>
+                            <Card.Title style={{fontSize:'35px'}}>{selectedPO[0].po_number}</Card.Title>
+                            <Card.Text style={{fontStyle:'italic'}}>CUSTOMER: {selectedPO[0].detail_customer}</Card.Text>
                             </Col>
                             <Col sm={2}>
                             <Button variant="primary" style={{padding:'20px 20px 20px 20px'}} onClick={handleProcess}>PROCESS 1 SACK</Button>
@@ -201,7 +212,8 @@ function POPrintComponent({setSearchInput,setSelectedPO,details,selectedPO,searc
                     
                 </Card.Body>
             </Card>
-        </div>
+            </div>
+            
     )
 }
 

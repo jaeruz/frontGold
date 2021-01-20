@@ -51,11 +51,11 @@ function MyNavbar({sidebar,setSidebar,isAdmin,setIsAdmin, handleLogout,history})
                     </li> */}
                     {isAdmin ? SideBarDataAdmin.map((item, index) => {
                         return (
-                            <SideBarMenu item={item} key={index}/>
+                            <SideBarMenu item={item} key={index} showSidebar={showSidebar}/>
                         )
                     }): SideBarDataStaff.map((item, index) => {
                         return (
-                           <SideBarMenu item={item} key={index}/>
+                            <SideBarMenu item={item} key={index} showSidebar={showSidebar}/>
                         )
                     })
                                 

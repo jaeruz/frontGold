@@ -12,7 +12,7 @@ import ViewItems from './items/ViewItems';
 import ViewBarcodes from './process/PO/ViewBarcodes';
 import ViewDetails from './process/ISR/ViewDetails';
 
-function Pages({ sidebar,history }) {
+function Pages({ sidebar,history,setSidebar }) {
     
     const [cachedCreds, setCachedCreds] = useState(null)
 
@@ -44,7 +44,7 @@ function Pages({ sidebar,history }) {
                         {/* <Route exact path="/signin" component={cachedCreds ? PageUnavailable :  SignIn } /> */}
                         <Route exact path="/process/scan" component={cachedCreds.is_Admin ? BarcodeScan : BarcodeScan} />
                         
-                        <Route exact path="/process/po" component={cachedCreds.is_Admin ? PO : PageUnavailable} />
+                        <Route exact path="/process/po" component={cachedCreds.is_Admin ? () => <PO setSidebar={setSidebar} sidebar={sidebar}/> : PageUnavailable} />
 
                         <Route exact path="/items/view" component={cachedCreds.is_Admin ? ViewItems : PageUnavailable } />
                         <Route exact path="/po/view" component={cachedCreds.is_Admin ? ViewDetails : PageUnavailable} />

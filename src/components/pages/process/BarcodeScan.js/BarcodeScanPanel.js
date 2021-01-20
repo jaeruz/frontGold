@@ -4,11 +4,12 @@ import FocusLock from 'react-focus-lock';
 import { undoScan } from '../../../../api';
 import { useAlert } from 'react-alert'
 import * as FaIcons from 'react-icons/fa'
-import * as BiIcons from "react-icons/bi";
+import { useDispatch } from 'react-redux'
+import { insertBR } from '../../../../actions/BarcodeScanActions';
 
 function BarcodeScanPanel({ setBarcodeInput,handleSubmit,barcodeCopy,barcodeInput,setBarcodeCopy }) {
 
-
+    const dispatch = useDispatch()
     const alert = useAlert()
 
     const handleChange = (e) => {
@@ -40,13 +41,16 @@ function BarcodeScanPanel({ setBarcodeInput,handleSubmit,barcodeCopy,barcodeInpu
         if (barcodeCopy.barcode !== null) {
             const res = await undoScan(barcodeCopy)
             console.log(res)
-            if (res.data.includes("Undo")) {
+            
+            
+            if (res.data) {
+                dispatch(insertBR(res.data))
                 alert.show(
                     <div className="alert-suc"><FaIcons.FaCheck /> {'"'+res.data+'"'+' process complete!'}</div>
                 )
             } else {
                 alert.show(
-                    <div className="alert-suc"><FaIcons.FaCheck /> Undo Error! ask admin for help.</div>
+                    <div className="alert-err"><FaIcons.FaCheck /> Undo Error! ask admin for help.</div>
                 )
             }
         }

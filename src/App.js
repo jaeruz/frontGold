@@ -36,6 +36,7 @@ function App() {
           <MyNavbar sidebar={sidebar} setSidebar={setSidebar} isAdmin={cached.is_Admin} setIsAdmin={setIsAdmin} handleLogout={handleLogout}/>
         </div>
         <Pages sidebar={sidebar} setSidebar={setSidebar} />
+       
       </BrowserRouter>
     )
   } else {

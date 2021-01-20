@@ -4,6 +4,8 @@ export default (barcodeScanResult = [], action) => {
             return action.payload
         case 'POST_BARCODE':
             return action.payload
+        case 'INSERT_BR':
+            return action.payload
         case 'POST_BARCODE_ERROR':
             // alert(action.error)
             barcodeScanResult = []

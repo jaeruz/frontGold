@@ -2,7 +2,7 @@ import React,{useEffect, useState} from 'react'
 import { Form, Container, Row, Col, Button,Image } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { addItem } from '../../../actions/ItemActions'
-import Gears from '../../../assets/img/gears.gif'
+import Gears from '../../../assets/img/gir2.png'
 import * as FaIcons from 'react-icons/fa'
 import * as BiIcons from "react-icons/bi";
 
@@ -67,103 +67,196 @@ function AddItem() {
     }
 
     return (
-        <Container className="add-item-container">
+        <div className="add-item-wrapper">
+
+        
+        <div className="add-item-container">
             <div style={{textAlign:"center"}}>
                 <h3 className="form-title">Add Item</h3>
-            </div>
-            <Form onSubmit={handleSubmit} id="form-add-item">
-                <Form.Group controlId="customer" >
-                    <Form.Label>Customer:</Form.Label>
-                    <Form.Control required type="text" placeholder="Customer" className="form-caps" onChange={handleFormChange}/>
-                </Form.Group>
-                <Form.Group controlId="style">
-                    <Form.Label>Style:</Form.Label>
-                    <Form.Control required type="text" placeholder="Style" className="form-caps" onChange={handleFormChange}/>
-                </Form.Group>
-                <Form.Group>
-                    <Form.Label>Process:</Form.Label>
-                    {/* <Form.Control type="text" placeholder="Customer name"/> */}
-                    <Row style={{ marginLeft: "10%", marginRight: "10%", fontSize: "15px" }}>
-                        <Col sm={1}></Col>
-                        <Col sm={4}>
-                            <Form.Check
-                                label="Knitting"
-                                value="knitting"
-                                onChange={handleChange}
-                            />
-                            <Form.Check
-                                label="Cutting"
-                                value="cutting"
-                                onChange={handleChange}
-                            />
-                            <Form.Check
-                                label="ISR 1"
-                                value="isr_1"
-                                onChange={handleChange}
-                            />
-                            <Form.Check
-                                label="Sewing"
-                                value="sewing"
-                                onChange={handleChange}
-                            />
-                            <Form.Check
-                                label="ISR 2"
-                                value="isr_2"
-                                onChange={handleChange}
-                            />
-                            
-                            <Form.Check
-                                label="B1 Receipts"
-                                value="reciepts"
-                                onChange={handleChange}
-                            />
-                            <Form.Check
-                                label="Steaming"
-                                value="steaming"
-                                onChange={handleChange}
-                            />
-                            <Form.Check
-                                label="Tagging"
-                                value="tagging"
-                                onChange={handleChange}
-                            />
-                            <Form.Check
-                                label="Final Examination"
-                                value="finalexam"
-                                onChange={handleChange}
-                            />
-                            <Form.Check
-                                label="Metal Detection"
-                                value="metaldetect"
-                                onChange={handleChange}
-                            />
-                            <Form.Check
-                                label="Boxing"
-                                value="boxing"
-                                onChange={handleChange}
-                            />
-                        </Col>
-                        <Col sm={2}>
-                        </Col>
-                        <Col sm={5}>
-                            <Image src={Gears} style={{width:'200px',margin:'10px !important',padding:'0 !important'}}/>
-                            
-                        </Col>
-                        
-                    </Row>
-                </Form.Group>
+                </div>
+                <br />
                 <br/>
-                <Form.Group>
-                    <Button variant="info" type="submit" className="form-btn-dark" style={{float:"right"}}>
-                        Add
-                    </Button>
-                    <Button variant="info" className="form-btn-light" style={{float:"right"}}>
-                        Clear
-                    </Button>
-                </Form.Group>
+                <Form onSubmit={handleSubmit} id="form-add-item">
+                    <Row>
+                        <Col lg={1}>
+
+                        </Col>
+                        <Col lg={5}>
+                            <Form.Group controlId="customer" >
+                                <Form.Label>Customer:</Form.Label>
+                                <Form.Control required type="text" placeholder="Customer" className="form-caps" onChange={handleFormChange}/>
+                            </Form.Group>
+                            <Form.Group controlId="style">
+                                <Form.Label>Style:</Form.Label>
+                                <Form.Control required type="text" placeholder="Style" className="form-caps" onChange={handleFormChange}/>
+                            </Form.Group>
+                            <br/>
+                             <Image src={Gears} style={{ width: '200px',marginLeft:'90px',height:'170px' }} />
+                        </Col>
+                        <Col lg={1}></Col>
+                        <Col lg={5}>
+                            {ItemClass.customer.toUpperCase() === 'TOTES' ? (
+                                <Form.Group>
+                                    <Form.Label>Process:</Form.Label>
+                                        <Form.Check
+                                            label="Knitting"
+                                            value="knitting"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="ISR 1"
+                                            value="isr_1"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Sewing"
+                                            value="sewing"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="ISR 2"
+                                            value="isr_2"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="ISR 3"
+                                            value="isr_3"
+                                            onChange={handleChange}
+                                        />
+                                        
+                                        <Form.Check
+                                            label="B1 Receipts"
+                                            value="reciepts"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Steaming"
+                                            value="steaming"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Examining"
+                                            value="examining"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Tagging"
+                                            value="tagging"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Steaming 1"
+                                            value="steaming_1"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Examining 1"
+                                            value="examining_1"
+                                            onChange={handleChange}
+                                        />
+                                        
+                                        <Form.Check
+                                            label="Metal Detection"
+                                            value="metaldetect"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Boxing"
+                                            value="boxing"
+                                            onChange={handleChange}
+                                        />
+                                
+                                </Form.Group>
+                            ): (
+                                <Form.Group>
+                                <Form.Label>Process:</Form.Label>
+                                        <Form.Check
+                                            label="Knitting"
+                                            value="knitting"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Cutting"
+                                            value="cutting"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="ISR 1"
+                                            value="isr_1"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Sewing"
+                                            value="sewing"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="ISR 2"
+                                            value="isr_2"
+                                            onChange={handleChange}
+                                        />
+                                        
+                                        <Form.Check
+                                            label="B1 Receipts"
+                                            value="reciepts"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Steaming"
+                                            value="steaming"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Examining"
+                                            value="examining"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Tagging"
+                                            value="tagging"
+                                            onChange={handleChange}
+                                        />
+                                        
+                                        <Form.Check
+                                            label="Metal Detection"
+                                            value="metaldetect"
+                                            onChange={handleChange}
+                                        />
+                                        <Form.Check
+                                            label="Boxing"
+                                            value="boxing"
+                                            onChange={handleChange}
+                                        />
+                                
+                            </Form.Group>
+                            )}
+                            
+                        </Col>
+                    </Row>
+                    <br />
+                    <br />
+                    <Row>
+                        <Col lg={1}></Col>
+                        <Col lg={10}>
+                            <Form.Group>
+                                <Button variant="info" type="submit" className="form-btn-dark" block>
+                                    Add
+                                </Button>
+                                
+                                <Button variant="info" className="form-btn-dark" block>
+                                    Clear
+                                </Button>
+                            </Form.Group>
+                        </Col>
+                        <Col lg={1}></Col>
+                    </Row>
+                    
+                <br/>
+                
                
             </Form>
-        </Container>
+            </div>
+            </div>
     )
 }
 
