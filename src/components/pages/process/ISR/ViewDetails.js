@@ -1,97 +1,179 @@
-import React,{useEffect,useState} from 'react'
-import {Button,Table,Form} from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchDetails } from '../../../../actions/DetailsActions'
-import * as FaIcons from 'react-icons/fa'
+import React, { useEffect, useState } from "react"
+import { Button, Table, Form } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchDetails } from "../../../../actions/DetailsActions"
+import * as FaIcons from "react-icons/fa"
+import { MDBDataTable } from "mdbreact"
+import { CSVLink } from "react-csv"
+import moment from "moment"
 
 function ViewDetails() {
-    const dispatch = useDispatch()
-    const details = useSelector(state => state.details)
-    const [searchInput, setSearchInput] = useState(null)
-    const [searchResult, setSearchResult] = useState(null)
-    
+  const dispatch = useDispatch()
+  const details = useSelector((state) => state.details)
+  const [searchInput, setSearchInput] = useState(null)
+  const [searchResult, setSearchResult] = useState(null)
+  const [rowData, setRowData] = useState([])
+  const [csvdata, setCsvdata] = useState([])
 
-    const handleSearch = (e) => {
-        setSearchInput(e.target.value)
-    }
+  useEffect(() => {
+    dispatch(fetchDetails())
+  }, [])
 
-    useEffect(() => {
-        if (searchInput) {
-            const result = details.filter((it) => {
-                return it.color.toUpperCase().includes(searchInput.toUpperCase())
-                    || it.create_on.toUpperCase().includes(searchInput.toUpperCase())
-                    || it.detail_customer.toUpperCase().includes(searchInput.toUpperCase())
-                    || it.po_number.toUpperCase().includes(searchInput.toUpperCase())
-                    || it.ship_date.toUpperCase().includes(searchInput.toUpperCase())
-                    || it.size.toUpperCase().includes(searchInput.toUpperCase())
-            })
-            setSearchResult(result)
-        } else {
-            setSearchResult(details)
+  useEffect(() => {
+    console.log(details)
+    if (details.length && details[0].create_on) {
+      const data = details.map((i) => {
+        return {
+          date: moment(i.create_on).format("YYYY-MM-DD HH:MM"),
+          customer: i.detail_customer.toUpperCase(),
+          style: i.detail_style.style,
+          po: i.po_number.toUpperCase(),
+          shipdate: i.ship_date.toUpperCase(),
+          color: i.color.toUpperCase(),
+          size: i.size.toUpperCase(),
+          total: i.total,
+          totalsack: i.total_sack,
+          action: (
+            <Button variant="danger">
+              <FaIcons.FaTrashAlt /> Delete
+            </Button>
+          ),
         }
-    }, [searchInput])
+      })
+      console.log(data)
+      setRowData(data)
+      let csvd = details.map((i) => {
+        return [
+          moment(i.create_on).format("YYYY-MM-DD HH:MM"),
+          i.detail_customer.toUpperCase(),
+          i.detail_style.style,
+          i.po_number.toUpperCase(),
+          i.ship_date.toUpperCase(),
+          i.color.toUpperCase(),
+          i.size.toUpperCase(),
+          i.total,
+          i.total_sack,
+        ]
+      })
+      csvd.unshift([
+        "date",
+        "customer",
+        "style",
+        "po#",
+        "shipdate",
+        "color",
+        "size",
+        "total",
+        "totalSack",
+      ])
+      console.log(csvd)
+      setCsvdata(csvd)
+    }
+  }, [details])
 
-    useEffect(() => {
-        dispatch(fetchDetails())
-    }, [])
+  const data = {
+    columns: [
+      {
+        label: "Date",
+        field: "date",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Customer",
+        field: "customer",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Style",
+        field: "style",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "PO #",
+        field: "po",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Ship Date",
+        field: "shipdate",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Color",
+        field: "color",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Size",
+        field: "size",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Total",
+        field: "total",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Total sack",
+        field: "totalsack",
+        sort: "asc",
+        width: 150,
+      },
+      {
+        label: "Actions",
+        field: "action",
+        sort: "asc",
+        width: 150,
+      },
+    ],
+    rows: rowData,
+  }
 
-    useEffect(() => {
-        setSearchResult(details)
-    }, [details])
-    return (
-        <div className="view-item-container">
-            <div style={{textAlign:"center"}}>
-                <h3 className="form-title">PURCHASE ORDERS</h3>
-            </div>
-            <Form>
-                <Form.Group>
-                    <Form.Label style={{color:'white'}}>SEARCH:</Form.Label>
-                    <Form.Control type='text' className="isr-form" onChange={handleSearch}/>
-                </Form.Group>
-            </Form>
-            <div className="view-item-container-form">
-                <Table striped bordered hover style={{ backgroundColor: 'white', borderRadius: '10px' }}>
-                    <thead>
-                        <tr>
-                            <th>DATE</th>
-                            <th>CUSTOMER</th>
-                            <th>STYLE</th>
-                            <th>PO NO.</th>
-                            <th>SHIP DATE</th>
-                            <th>COLOR</th>
-                            <th>SIZE</th>
-                            <th>TOTAL</th>
-                            <th>TOTAL SACK</th>
-                            <th>ACTIONS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {searchResult && searchResult.length ? searchResult.map(((i,index) => {
-                            return (
-                                <tr key={index}>
-                                    <td>{i.create_on}</td>
-                                    <td>{i.detail_customer.toUpperCase()}</td>
-                                    <td>{i.detail_style.style}</td>
-                                    <td>{i.po_number.toUpperCase()}</td>
-                                    <td>{i.ship_date.toUpperCase()}</td>
-                                    <td>{i.color.toUpperCase()}</td>
-                                    <td>{i.size.toUpperCase()}</td>
-                                    <td>{i.total}</td>
-                                    <td>{i.total_sack}</td>
-                                    <td><Button variant="danger"><FaIcons.FaTrashAlt /> Delete</Button></td>
-                                </tr>
-                            )
-                        })): (
-                            <tr>
-                                <td colSpan="10" style={{textAlign:'center'}}>No Result</td>
-                            </tr>)
-                        }
-                        
-                    </tbody>
-                </Table>
-            </div>
+  return (
+    <div className="view-item-wrapper">
+      <div className="view-item-container">
+        <div style={{ textAlign: "center" }}>
+          <h5 className="form-title">PURCHASE ORDERS</h5>
         </div>
-    )
+        <div
+          style={{
+            backgroundColor: "white",
+            padding: "20px",
+            // borderRadius: '5px',
+            height: "90%",
+            overflow: "scroll",
+            overflowX: "hidden",
+            marginTop: "20px",
+          }}
+        >
+          <MDBDataTable
+            entries={8}
+            striped
+            bordered
+            small
+            entriesOptions={[5, 8, 10, 15]}
+            striped
+            hover
+            style={{ height: "100% !important" }}
+            data={data}
+          />
+          {csvdata.length ? (
+            <CSVLink data={csvdata} filename={"details_data.csv"}>
+              Export CSV
+            </CSVLink>
+          ) : null}
+        </div>
+      </div>
+    </div>
+  )
 }
 
 export default ViewDetails

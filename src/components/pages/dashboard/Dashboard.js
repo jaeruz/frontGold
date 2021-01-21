@@ -1,59 +1,73 @@
-import React, { useState,useEffect } from 'react';
-import { Container, Form, Row, Col } from 'react-bootstrap';
-import DashboardChart from './DashboardChart';
-import DashboardTable from './DashboardTable';
-
-import { useDispatch,useSelector } from 'react-redux'
-import { fetchDetails } from '../../../actions/DetailsActions';
+import React, { useState, useEffect } from "react"
+import { Col, Row } from "react-bootstrap"
+import { useDispatch, useSelector } from "react-redux"
+import { fetchDetails } from "../../../actions/DetailsActions"
+import DashCard from "./DashCard"
+import DashPie from "./DashPie"
+import * as GiIcons from "react-icons/gi"
+import * as FaIcons from "react-icons/fa"
+import DashboardTodayTable from "./DashboardTodayTable"
+import DashboardStatusMonitoring from "./DashboardStatusMonitoring"
 
 function Dashboard() {
-	const [chartOpen, setChartOpen] = useState(true);
-	const dispatch = useDispatch()
-	const details = useSelector(state => state.details)
+  const dispatch = useDispatch()
+  const details = useSelector((state) => state.details)
 
-	const handleChange = (e) => {
-		// console.log(e.target.value);
-		// console.log(e.target.id);
-		if (e.target.value === 'CHART') {
-			setChartOpen(true);
-		} else {
-			setChartOpen(false);
-		}
-	};
+  useEffect(() => {
+    dispatch(fetchDetails())
+  }, [])
 
-	
-	useEffect(() => {
-		dispatch(fetchDetails())
-	}, [])
+  useEffect(() => {
+    details.map((d) => {
+      console.log(d)
+    })
+  }, [details])
 
-	useEffect(() => {
-		details.map((d) => {
-			console.log(d)
-		})
-	}, [details])
+  return (
+    <div className="dash-wrapper">
+      <div className="dash-container">
+        <h5>DASHBOARD</h5>
 
-	return (
-		<Container className="dashboard-container">
-			<Form.Group controlId="dashboard-view-as">
-				<div className="dashboard-view-wrapper">
-					<Form.Label>View as:</Form.Label>
-					<div className="dashboard-select-wrapper">
-						<Form.Control
-							as="select"
-							onChange={handleChange}
-							className="form-caps"
-						>
-							<option>CHART</option>
-							<option>TABLE</option>
-						</Form.Control>
-					</div>
-				</div>
-			</Form.Group>
-			<div className="dashboard-components">
-				{chartOpen ? <DashboardChart /> : <DashboardTable />}
-			</div>
-		</Container>
-	);
+        <h4>Volume Today</h4>
+        <Row>
+          <Col lg={3}>
+            <DashCard
+              stylclass={"dash-card-1"}
+              icon={<FaIcons.FaCalendarCheck fontSize={45} />}
+              val={353}
+              caption={"CUMULATIVE OUTPUT"}
+            />
+            <DashCard
+              stylclass={"dash-card-2"}
+              icon={<FaIcons.FaExclamationCircle fontSize={45} />}
+              val={185}
+              caption={"REMAINING BALANCE"}
+            />
+            <DashCard
+              stylclass={"dash-card-3"}
+              icon={<GiIcons.GiKnapsack fontSize={45} />}
+              val={130}
+              caption={"TOTAL SACKS CREATED"}
+            />
+          </Col>
+          <Col lg={9}>
+            <DashPie />
+          </Col>
+        </Row>
+        <br />
+        <div>
+          <DashboardTodayTable />
+        </div>
+        <br />
+        <hr />
+        <br />
+        <div className="dash-status-monitoring-div">
+          <DashboardStatusMonitoring />
+        </div>
+        <div style={{ paddingBottom: "500px" }}></div>
+      </div>
+    </div>
+  )
 }
 
-export default Dashboard;
+export default Dashboard

@@ -68,6 +68,7 @@ function ISR() {
 	}
 
     return (
+        <div className="isr-wrapper">
         <div className="isr-container">
             <Row style={{ margin: "0 auto" }}>
                 {/* <Col lg={1}></Col> */}
@@ -90,6 +91,7 @@ function ISR() {
                 </Col>
                 {/* <Col lg={1}></Col> */}
             </Row>
+            </div>
         </div>
     )
 }
