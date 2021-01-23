@@ -8,20 +8,85 @@ import * as GiIcons from "react-icons/gi"
 import * as FaIcons from "react-icons/fa"
 import DashboardTodayTable from "./DashboardTodayTable"
 import DashboardStatusMonitoring from "./DashboardStatusMonitoring"
+import moment from "moment"
+import {
+  getRouteTable,
+  getStatusList,
+  getStatusTable,
+} from "../../../actions/StatusActions"
 
 function Dashboard() {
   const dispatch = useDispatch()
-  const details = useSelector((state) => state.details)
+  const routeTable = useSelector((state) => state.routeTable)
+  const statusTable = useSelector((state) => state.statusTable)
+  const statusList = useSelector((state) => state.statusList)
+
+  const [tableFlag, setTableFlag] = useState(false)
+  const [perProcessToday, setPerProcessToday] = useState({
+    KNITTING: 0,
+    CUTTING: 0,
+    RECEIPTS: 0,
+    STEAMING: 0,
+    EXAMINING: 0,
+    SEWING: 0,
+    STEAMING_1: 0,
+    EXAMINING_1: 0,
+    TAGGING: 0,
+    METALDETECT: 0,
+    BOXING: 0,
+  })
 
   useEffect(() => {
-    dispatch(fetchDetails())
+    dispatch(getRouteTable())
+    dispatch(getStatusList())
+    dispatch(getStatusTable())
   }, [])
 
   useEffect(() => {
-    details.map((d) => {
-      console.log(d)
-    })
-  }, [details])
+    console.log(routeTable)
+  }, [routeTable])
+
+  useEffect(() => {
+    console.log(statusTable)
+    todayQuantityPerProcess()
+  }, [statusTable])
+
+  useEffect(() => {
+    console.log(statusList)
+  }, [statusList])
+
+  const todayQuantityPerProcess = () => {
+    if (statusTable && statusTable.length) {
+      const dateNow = new Date(Date.now())
+      const dateFmt = moment(dateNow).format("YYYY-MM-DD")
+
+      const filterTodayData = statusTable.filter((s) => s.date === dateFmt)
+
+      let tempPPT = {
+        KNITTING: 0,
+        CUTTING: 0,
+        RECEIPTS: 0,
+        STEAMING: 0,
+        EXAMINING: 0,
+        SEWING: 0,
+        STEAMING_1: 0,
+        EXAMINING_1: 0,
+        TAGGING: 0,
+        METALDETECT: 0,
+        BOXING: 0,
+      }
+      filterTodayData.forEach((ftd) => {
+        Object.keys(tempPPT).forEach((ppt) => {
+          if (ppt.toString() === ftd.process.toString().toUpperCase()) {
+            tempPPT[ppt] += ftd.qty
+          }
+        })
+      })
+      console.log(tempPPT)
+      setPerProcessToday(tempPPT)
+      setTableFlag(true)
+    }
+  }
 
   return (
     <div className="dash-wrapper">
@@ -56,7 +121,11 @@ function Dashboard() {
         </Row>
         <br />
         <div>
-          <DashboardTodayTable />
+          {tableFlag ? (
+            <DashboardTodayTable perProcessToday={perProcessToday} />
+          ) : (
+            <p>Loading..</p>
+          )}
         </div>
         <br />
         <hr />

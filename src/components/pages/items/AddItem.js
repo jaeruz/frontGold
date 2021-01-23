@@ -25,7 +25,7 @@ function AddItem({ isMain }) {
   const handleFormChange = (e) => {
     setItemClass({
       ...ItemClass,
-      [e.target.id]: e.target.value,
+      [e.target.id]: e.target.value.toUpperCase(),
     })
   }
 

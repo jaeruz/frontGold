@@ -1,8 +1,19 @@
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { Table } from "react-bootstrap"
 import { Bar } from "react-chartjs-2"
 
-function DashboardTodayTable() {
+function DashboardTodayTable({ perProcessToday }) {
+  const [chartData, setChartData] = useState([])
+
+  useEffect(() => {
+    let tempList = []
+    Object.keys(perProcessToday).forEach((ppt) => {
+      tempList.push(perProcessToday[ppt])
+    })
+    console.log(tempList)
+    setChartData(tempList)
+  }, [])
+
   const data = {
     labels: [
       "KNIT",
@@ -20,7 +31,7 @@ function DashboardTodayTable() {
     datasets: [
       {
         label: "Process status",
-        data: [10, 20, 35, 21, 53, 11, 34, 32, 35, 21, 11],
+        data: chartData,
         backgroundColor: [
           "#fec107",
           "#2ab7ca",
@@ -39,6 +50,24 @@ function DashboardTodayTable() {
   }
 
   let options = {
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            fontSize: 8,
+          },
+        },
+      ],
+      yAxes: [
+        {
+          ticks: {
+            fontSize: 10,
+            min: 0,
+            max: 5000,
+          },
+        },
+      ],
+    },
     legend: {
       responsive: true,
       maintainAspectRatio: false,
@@ -49,6 +78,7 @@ function DashboardTodayTable() {
       },
     },
   }
+
   return (
     <>
       <div className="dash-today-table">
@@ -74,19 +104,21 @@ function DashboardTodayTable() {
             </tr>
           </thead>
           <tbody>
-            <tr style={{ fontSize: "15px" }}>
-              <td>504</td>
-              <td>504</td>
-              <td>718</td>
-              <td>504</td>
-              <td>718</td>
-              <td>504</td>
-              <td>718</td>
-              <td>504</td>
-              <td>718</td>
-              <td>504</td>
-              <td>718</td>
-            </tr>
+            {perProcessToday ? (
+              <tr style={{ fontSize: "15px", textAlign: "center" }}>
+                <td>{perProcessToday.KNITTING}</td>
+                <td>{perProcessToday.CUTTING}</td>
+                <td>{perProcessToday.RECEIPTS}</td>
+                <td>{perProcessToday.STEAMING}</td>
+                <td>{perProcessToday.EXAMINING}</td>
+                <td>{perProcessToday.SEWING}</td>
+                <td>{perProcessToday.STEAMING_1}</td>
+                <td>{perProcessToday.EXAMINING_1}</td>
+                <td>{perProcessToday.TAGGING}</td>
+                <td>{perProcessToday.METALDETECT}</td>
+                <td>{perProcessToday.BOXING}</td>
+              </tr>
+            ) : null}
           </tbody>
         </Table>
       </div>
