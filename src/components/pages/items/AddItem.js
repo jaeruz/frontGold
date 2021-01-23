@@ -119,7 +119,7 @@ function AddItem({ isMain }) {
                     <Form.Label>Process:</Form.Label>
                     <Form.Check
                       label="B1 Receipts"
-                      value="reciepts"
+                      value="receipts"
                       onChange={handleChange}
                     />
                     <Form.Check

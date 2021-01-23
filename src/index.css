@@ -637,10 +637,10 @@ span {
 .dash-container {
   margin: auto;
   margin-top: 7px;
-  padding: 30px 30px 30px 30px;
+  padding: 30px 50px 30px 50px;
   border-radius: 5px !important;
   height: 98% !important;
-  width: 98% !important;
+  width: 97% !important;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
   vertical-align: auto;
   background-color: #f7f7f7;
