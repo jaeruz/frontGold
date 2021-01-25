@@ -2,18 +2,7 @@ import React, { useEffect, useState } from "react"
 import { Table } from "react-bootstrap"
 import { Bar } from "react-chartjs-2"
 
-function DashboardTodayTable({ perProcessToday }) {
-  const [chartData, setChartData] = useState([])
-
-  useEffect(() => {
-    let tempList = []
-    Object.keys(perProcessToday).forEach((ppt) => {
-      tempList.push(perProcessToday[ppt])
-    })
-    console.log(tempList)
-    setChartData(tempList)
-  }, [])
-
+function DashboardTodayTable({ perProcessToday, setChartData, chartData }) {
   const data = {
     labels: [
       "KNIT",
@@ -63,7 +52,7 @@ function DashboardTodayTable({ perProcessToday }) {
           ticks: {
             fontSize: 10,
             min: 0,
-            max: 5000,
+            max: 10000,
           },
         },
       ],
@@ -104,21 +93,13 @@ function DashboardTodayTable({ perProcessToday }) {
             </tr>
           </thead>
           <tbody>
-            {perProcessToday ? (
-              <tr style={{ fontSize: "15px", textAlign: "center" }}>
-                <td>{perProcessToday.KNITTING}</td>
-                <td>{perProcessToday.CUTTING}</td>
-                <td>{perProcessToday.RECEIPTS}</td>
-                <td>{perProcessToday.STEAMING}</td>
-                <td>{perProcessToday.EXAMINING}</td>
-                <td>{perProcessToday.SEWING}</td>
-                <td>{perProcessToday.STEAMING_1}</td>
-                <td>{perProcessToday.EXAMINING_1}</td>
-                <td>{perProcessToday.TAGGING}</td>
-                <td>{perProcessToday.METALDETECT}</td>
-                <td>{perProcessToday.BOXING}</td>
-              </tr>
-            ) : null}
+            <tr style={{ fontSize: "15px", textAlign: "center" }}>
+              {perProcessToday
+                ? chartData.map((cd, index) => {
+                    return <td key={index}>{cd}</td>
+                  })
+                : null}
+            </tr>
           </tbody>
         </Table>
       </div>

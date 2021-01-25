@@ -1,15 +1,29 @@
-import React from "react"
-import { Col, Row } from "react-bootstrap"
+import React, { useEffect, useState } from "react"
+import { Col, Row, Button } from "react-bootstrap"
 import { Pie } from "react-chartjs-2"
 
-function DashPie() {
+function DashPie({ customerValues }) {
+  const [colorList, setColorList] = useState([])
+  const [randomColor, setRandomColor] = useState(false)
+  useEffect(() => {
+    console.log(customerValues.values.length)
+    if (customerValues.values.length) {
+      let temp = getRandomColor(customerValues.values.length)
+      setColorList(temp)
+      console.log(temp)
+    }
+  }, [randomColor, customerValues])
+
+  useEffect(() => {
+    console.log(colorList)
+  }, [colorList])
   const data = {
-    labels: ["SANMAR", "KOHLS", "TOTES", "WALMART"],
+    labels: customerValues.customers,
     datasets: [
       {
         label: "PIE",
-        data: [10, 20, 35, 21],
-        backgroundColor: ["#fec107", "#2ab7ca", "#e04d57", "#f83a02"],
+        data: customerValues.values,
+        backgroundColor: colorList,
       },
     ],
   }
@@ -22,17 +36,55 @@ function DashPie() {
         fontColor: "black",
       },
     },
+    tooltips: {
+      callbacks: {
+        label: function (tooltipItem, data) {
+          var dataset = data.datasets[tooltipItem.datasetIndex]
+          var meta = dataset._meta[Object.keys(dataset._meta)[0]]
+          var total = meta.total
+          var currentValue = dataset.data[tooltipItem.index]
+          var percentage = parseFloat(((currentValue / total) * 100).toFixed(1))
+          return currentValue + " (" + percentage + "%)"
+        },
+        title: function (tooltipItem, data) {
+          return data.labels[tooltipItem[0].index]
+        },
+      },
+    },
   }
+
+  const getRandomColor = (n) => {
+    let letters = "0123456789ABCDEF"
+    let color = "#"
+    let colorArray = []
+    for (let j = 0; j != n; j++) {
+      for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)]
+      }
+      colorArray.push(color)
+      color = "#"
+    }
+
+    return colorArray
+  }
+
   return (
-    <div className="dash-pie-div">
+    <div
+      className="dash-pie-div"
+      onClick={() => {
+        setRandomColor(!randomColor)
+      }}
+    >
       <Row>
-        <Col sm={2}>
-          
-        </Col>
-        <Col sm={8}>
-          <div className="pie-container">
-            <Pie data={data} options={optionsPie} />
-          </div>
+        <Col sm={2}></Col>
+        <Col sm={9}>
+          {customerValues.values.length ? (
+            <div className="pie-container">
+              <Pie data={data} options={optionsPie} />
+            </div>
+          ) : (
+            <p>No Records</p>
+          )}
         </Col>
       </Row>
     </div>

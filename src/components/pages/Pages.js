@@ -90,7 +90,11 @@ function Pages({ sidebar, history, setSidebar, isMain }) {
           <Route
             exact
             path="/barcodes/view"
-            component={cachedCreds.is_Admin ? ViewBarcodes : PageUnavailable}
+            component={
+              cachedCreds.is_Admin
+                ? () => <ViewBarcodes isMain={isMain} />
+                : PageUnavailable
+            }
           />
 
           <Route

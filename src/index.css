@@ -224,14 +224,26 @@ span {
 
 .add-item-container {
   background-color: #334b58;
-  color: white;
-  padding: 30px 50px 20px 50px !important;
+  padding: 20px 0 20px 0 !important;
   margin: auto;
-  margin-top: 20px;
+  margin-top: 7px;
   border-radius: 5px !important;
-  height: 96%;
-  width: 97% !important;
+  height: 98%;
+  width: 98% !important;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+}
+
+.add-item-primary {
+  /* margin-top: 20px;
+  background-color: white;
+  color: #334b58;
+  padding: 92px 0 0 0; */
+  background-color: white;
+  padding: 90px 0 0px 0px;
+  height: 90%;
+  overflow: scroll;
+  overflow-x: hidden;
+  margin-top: 20px;
 }
 
 /*end  additem container */
@@ -713,10 +725,10 @@ span {
   display: inline;
 }
 .pie-container {
-  width: 600px;
+  width: 650px;
   height: 400px;
   padding: 30px;
-  margin-top: 10px;
+  margin-top: 5px;
   /* background-color: red; */
 }
 
@@ -744,8 +756,47 @@ span {
   height: 100%;
 }
 
-.dash-status-chart-div {
-  /* padding-top: 80px; */
+.table-process-dash {
+  background-color: white;
+  padding-top: 5px;
+  border-radius: 5px;
+  font-size: 12px;
+  margin-top: 10px;
+  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); */
+}
+
+.table-process-dash h5 {
+  font-size: 15px;
+  padding-top: 0px;
+}
+
+.table-process-dash-wrapper {
+  margin: 50px 0px 50px 0px;
+}
+
+.table-weekly-dash {
+  font-size: 10px;
+}
+
+.table-weekly-dash td,
+.table-weekly-dash button {
+  font-size: 12px;
+}
+
+.detail-detail-dash {
+  display: flex;
+  justify-content: left;
+  font-weight: bold;
+  margin-top: 50px;
+  margin-bottom: 30px;
+}
+
+.detail-detail-dash div {
+  padding-right: 30px;
+}
+
+.detail-detail-dash span {
+  color: rgb(34, 221, 221);
 }
 
 /* end dashboard */

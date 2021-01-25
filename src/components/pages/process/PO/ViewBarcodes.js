@@ -6,7 +6,7 @@ import { MDBDataTable } from "mdbreact"
 import { CSVLink } from "react-csv"
 import moment from "moment"
 
-function ViewBarcodes() {
+function ViewBarcodes({ isMain }) {
   const dispatch = useDispatch()
   const barcodeScanResult = useSelector((state) => state.barcodeScanResult)
   const [rowData, setRowData] = useState([])
@@ -18,7 +18,7 @@ function ViewBarcodes() {
 
   useEffect(() => {
     console.log(barcodeScanResult)
-    if (barcodeScanResult.length && barcodeScanResult[0].create_on) {
+    if (barcodeScanResult.length && barcodeScanResult[0].create_on && !isMain) {
       const data = barcodeScanResult.map((i) => {
         return {
           date: moment(i.create_on).format("YYYY-MM-DD HH:MM"),
@@ -62,66 +62,97 @@ function ViewBarcodes() {
       ])
       console.log(csvd)
       setCsvdata(csvd)
+    } else if (isMain) {
+      const data = barcodeScanResult.map((i) => {
+        return {
+          date: moment(i.create_on).format("YYYY-MM-DD HH:MM"),
+          barcode: i.barcode.toUpperCase(),
+        }
+      })
+      setRowData(data)
+      let csvd = barcodeScanResult.map((i) => {
+        return [
+          moment(i.create_on).format("YYYY-MM-DD HH:MM"),
+          i.barcode.toUpperCase(),
+        ]
+      })
+      csvd.unshift(["date", "barcode"])
+      setCsvdata(csvd)
     }
   }, [barcodeScanResult])
 
   const data = {
-    columns: [
-      {
-        label: "Date",
-        field: "date",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Barcode",
-        field: "barcode",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Style",
-        field: "style",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Po #",
-        field: "po",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Color",
-        field: "color",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Size",
-        field: "size",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Qty/Sack",
-        field: "qtysack",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Sack #",
-        field: "sackno",
-        sort: "asc",
-        width: 150,
-      },
-      {
-        label: "Actions",
-        field: "action",
-        sort: "asc",
-        width: 150,
-      },
-    ],
+    columns: isMain
+      ? [
+          {
+            label: "Date",
+            field: "date",
+            sort: "asc",
+            width: 150,
+          },
+          {
+            label: "Barcode",
+            field: "barcode",
+            sort: "asc",
+            width: 150,
+          },
+        ]
+      : [
+          {
+            label: "Date",
+            field: "date",
+            sort: "asc",
+            width: 150,
+          },
+          {
+            label: "Barcode",
+            field: "barcode",
+            sort: "asc",
+            width: 150,
+          },
+          {
+            label: "Style",
+            field: "style",
+            sort: "asc",
+            width: 150,
+          },
+          {
+            label: "Po #",
+            field: "po",
+            sort: "asc",
+            width: 150,
+          },
+          {
+            label: "Color",
+            field: "color",
+            sort: "asc",
+            width: 150,
+          },
+          {
+            label: "Size",
+            field: "size",
+            sort: "asc",
+            width: 150,
+          },
+          {
+            label: "Qty/Sack",
+            field: "qtysack",
+            sort: "asc",
+            width: 150,
+          },
+          {
+            label: "Sack #",
+            field: "sackno",
+            sort: "asc",
+            width: 150,
+          },
+          {
+            label: "Actions",
+            field: "action",
+            sort: "asc",
+            width: 150,
+          },
+        ],
     rows: rowData,
   }
   return (
@@ -154,7 +185,10 @@ function ViewBarcodes() {
             data={data}
           />
           {csvdata.length ? (
-            <CSVLink data={csvdata} filename={"barcodes_data.csv"}>
+            <CSVLink
+              data={csvdata}
+              filename={isMain ? "barcodes_data_main.csv" : "barcodes_data.csv"}
+            >
               Export CSV
             </CSVLink>
           ) : null}
