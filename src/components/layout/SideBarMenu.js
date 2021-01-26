@@ -4,9 +4,7 @@ import { Link } from "react-router-dom"
 function SideBarMenu({ item, showSidebar, isMain }) {
   const [subnav, setSubnav] = useState(false)
   const showSubnav = () => setSubnav(!subnav)
-  useEffect(() => {
-    console.log(subnav)
-  }, [subnav])
+
   return (
     <li>
       <Link

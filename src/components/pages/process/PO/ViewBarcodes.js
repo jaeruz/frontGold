@@ -62,7 +62,11 @@ function ViewBarcodes({ isMain }) {
       ])
       console.log(csvd)
       setCsvdata(csvd)
-    } else if (isMain) {
+    } else if (
+      barcodeScanResult.length &&
+      barcodeScanResult[0].create_on &&
+      isMain
+    ) {
       const data = barcodeScanResult.map((i) => {
         return {
           date: moment(i.create_on).format("YYYY-MM-DD HH:MM"),
@@ -181,7 +185,7 @@ function ViewBarcodes({ isMain }) {
             entriesOptions={[5, 8, 10, 15]}
             striped
             hover
-            style={{ height: "100% !important" }}
+            className="data-style"
             data={data}
           />
           {csvdata.length ? (

@@ -7,7 +7,7 @@ import * as FaIcons from "react-icons/fa"
 import * as BiIcons from "react-icons/bi"
 import { useAlert } from "react-alert"
 
-function ISRForm({ ISRItem, setISRItem, handlePrint }) {
+function ISRForm({ ISRItem, setISRItem }) {
   const dispatch = useDispatch()
   const alert = useAlert()
   const item = useSelector((state) => state.item)
@@ -207,7 +207,7 @@ function ISRForm({ ISRItem, setISRItem, handlePrint }) {
               type="text"
               onChange={handleChange}
               className="form-caps"
-              maxLength="10"
+              maxLength="50"
             />
           </Col>
         </Form.Group>

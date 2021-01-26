@@ -2,43 +2,83 @@ import React, { useState, useEffect } from "react"
 import { Button, Col, Form, NavLink, Row, Table } from "react-bootstrap"
 import { HorizontalBar, Doughnut } from "react-chartjs-2"
 import moment from "moment"
+import { CSVLink } from "react-csv"
 
 function DashboardStatusMonitoring({ statusTable }) {
-  const data = {
-    labels: [
-      "KNIT",
-      "CUT",
-      "REC",
-      "STEAM",
-      "EXAM",
-      "SEW",
-      "STEAM1",
-      "EXAM1",
-      "TAG",
-      "MD",
-      "BOX",
-    ],
+  const [toBeMapped, setToBeMapped] = useState([])
+  const [resultState, setResultState] = useState([])
+  const [uniqueResult, setUniqueResult] = useState([])
+
+  useEffect(() => {
+    console.log(toBeMapped)
+  }, [toBeMapped])
+
+  const dataCum = {
+    labels: toBeMapped.map((tbm) => tbm.process),
     datasets: [
       {
-        label: "Process status",
-        data: [10, 20, 35, 21, 53, 11, 34, 32, 35, 21, 11],
+        label: "CUMULATIVE",
+        data: toBeMapped.map((tbm) => {
+          return tbm.qtys.reduce((a, b) => a + b, 0)
+        }),
         backgroundColor: [
           "#fec107",
-          "#2ab7ca",
+          "#fec107",
+          "#fec107",
+          "#fec107",
+          "#fec107",
+          "#fec107",
+          "#fec107",
+          "#fec107",
+          "#fec107",
+          "#fec107",
+        ],
+      },
+    ],
+  }
+
+  const dataBal = {
+    labels: toBeMapped.map((tbm) => tbm.process),
+    datasets: [
+      {
+        label: "BALANCE",
+        data: toBeMapped.map((tbm) => {
+          return tbm.total - tbm.qtys.reduce((a, b) => a + b, 0)
+        }),
+        backgroundColor: [
           "#e04d57",
-          "#f83a02",
-          "#e2bd57",
-          "#2affca",
-          "#864d57",
-          "#f83a02",
-          "#4aeeca",
-          "#f83a02",
-          "#2ab7ca",
+          "#e04d57",
+          "#e04d57",
+          "#e04d57",
+          "#e04d57",
+          "#e04d57",
+          "#e04d57",
+          "#e04d57",
+          "#e04d57",
+          "#e04d57",
         ],
       },
     ],
   }
   let options = {
+    scales: {
+      xAxes: [
+        {
+          ticks: {
+            fontSize: 8,
+            min: 0,
+            max: 5000,
+          },
+        },
+      ],
+      yAxes: [
+        {
+          ticks: {
+            fontSize: 10,
+          },
+        },
+      ],
+    },
     legend: {
       responsive: true,
       maintainAspectRatio: false,
@@ -87,12 +127,6 @@ function DashboardStatusMonitoring({ statusTable }) {
     to: "",
   })
 
-  const [formatResult, setFormatResult] = useState([])
-  const [detailsFlag, setDetailsFlag] = useState(false)
-  const [toBeMapped, setToBeMapped] = useState([])
-  const [resultState, setResultState] = useState([])
-  const [uniqueResult, setUniqueResult] = useState([])
-
   const handleSearchForm = (e) => {
     setSearchFormDetails({
       ...searchFormDetails,
@@ -108,7 +142,6 @@ function DashboardStatusMonitoring({ statusTable }) {
         new Date(st.date) >= new Date(searchFormDetails.from) &&
         new Date(st.date) <= new Date(searchFormDetails.to)
     )
-    console.log(filteredST)
 
     let codeList = filteredST.map((fst) => {
       return {
@@ -129,8 +162,6 @@ function DashboardStatusMonitoring({ statusTable }) {
     })
 
     let uniqueCodeList = tempData
-
-    // console.log(uniqueCodeList)
 
     let result = []
 
@@ -155,7 +186,7 @@ function DashboardStatusMonitoring({ statusTable }) {
       })
       result.push(resItem)
     })
-    console.log(result)
+
     setResultState(result)
 
     let tempUnique = []
@@ -166,16 +197,14 @@ function DashboardStatusMonitoring({ statusTable }) {
         tempUnique.push(cl.code)
       }
     })
-    console.log(uResult)
+
     setUniqueResult(uResult)
   }
 
   const handleViewdetails = (code, total) => {
-    console.log(code)
-    // setDetailsFlag(true)
     let filteredResult = resultState.filter((c) => c.code === code)
     let toBemapped = []
-    console.log(filteredResult)
+
     processList.forEach((pl) => {
       let dates = []
       let qtys = []
@@ -193,12 +222,13 @@ function DashboardStatusMonitoring({ statusTable }) {
         dates: dates,
         qtys: qtys,
         total: total,
+        cum: qtys.reduce((a, b) => a + b, 0),
+        bal: total - qtys.reduce((a, b) => a + b, 0),
         code: code,
       })
     })
-    console.log(toBemapped)
+
     toBemapped = toBemapped.filter((tb) => tb.process !== null)
-    console.log(toBemapped)
     setToBeMapped(toBemapped)
   }
 
@@ -342,12 +372,10 @@ function DashboardStatusMonitoring({ statusTable }) {
           </Table>
         </Col>
       </Row>
-      <Row id="detail-view">
-        <Col>
-          <NavLink variant="warning">Export CSV</NavLink>
-        </Col>
-      </Row>
+      <div id="detail-view"></div>
+
       <br />
+
       {/* start table per process */}
       {toBeMapped.length ? (
         <>
@@ -357,35 +385,58 @@ function DashboardStatusMonitoring({ statusTable }) {
             return (
               <div key={index}>
                 {index === 0 ? (
-                  <div className="detail-detail-dash">
-                    <div>
-                      <p>
-                        STYLE : <span>{tb.code.split("-")[0]}</span>
-                      </p>
+                  <>
+                    <div className="detail-detail-dash">
+                      <div>
+                        <p>
+                          STYLE : <span>{tb.code.split("-")[0]}</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p>
+                          PO# : <span>{tb.code.split("-")[1]}</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p>
+                          STYLE :{" "}
+                          <span>{tb.code.split("-")[2].split("$")[0]}</span>
+                        </p>
+                      </div>
+                      <div>
+                        <p>
+                          STYLE :{" "}
+                          <span>{tb.code.split("-")[2].split("$")[1]}</span>
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p>
-                        PO# : <span>{tb.code.split("-")[1]}</span>
-                      </p>
-                    </div>
-                    <div>
-                      <p>
-                        STYLE :{" "}
-                        <span>{tb.code.split("-")[2].split("$")[0]}</span>
-                      </p>
-                    </div>
-                    <div>
-                      <p>
-                        STYLE :{" "}
-                        <span>{tb.code.split("-")[2].split("$")[1]}</span>
-                      </p>
-                    </div>
-                  </div>
+                    <Row>
+                      {/* <Col lg={1}></Col> */}
+                      <Col lg={5}>
+                        <div className="dash-status-chart-div">
+                          <HorizontalBar data={dataCum} options={options} />
+                        </div>
+                      </Col>
+                      <Col lg={5}>
+                        <div className="dash-status-chart-div">
+                          <HorizontalBar data={dataBal} options={options} />
+                        </div>
+                        {/* <Doughnut data={dataDough} options={optionsDough} /> */}
+                      </Col>
+                      <Col lg={1}></Col>
+                    </Row>
+                    <br />
+                    <br />
+                    <br />
+                  </>
                 ) : null}
                 <Row className="table-process-dash-wrapper">
                   <Col lg={8}>
                     <div className="table-process-dash">
-                      <h5>{tb.process.toUpperCase()}</h5>
+                      <div className="process-name">
+                        <h5>{tb.process.toUpperCase()}</h5>
+                      </div>
+
                       <Table striped bordered hover>
                         <thead>
                           <tr>
@@ -448,16 +499,15 @@ function DashboardStatusMonitoring({ statusTable }) {
       ) : null}
 
       {/* end table per process */}
-      {/* <Row>
-        <Col lg={6}>
-          <div className="dash-status-chart-div">
-            <HorizontalBar data={data} options={options} />
-          </div>
-        </Col>
-        <Col lg={6}>
-          <Doughnut data={dataDough} options={optionsDough} />
-        </Col>
-      </Row> */}
+      {toBeMapped.length ? (
+        <Row>
+          <Col>
+            <CSVLink data={toBeMapped} filename={"CUMULATIVE-BALANCE.csv"}>
+              Export CSV
+            </CSVLink>
+          </Col>
+        </Row>
+      ) : null}
     </div>
   )
 }

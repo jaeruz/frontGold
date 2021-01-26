@@ -17,12 +17,18 @@ import {
 
 function Dashboard() {
   const dispatch = useDispatch()
-  const routeTable = useSelector((state) => state.routeTable)
+  // const routeTable = useSelector((state) => state.routeTable)
   const statusTable = useSelector((state) => state.statusTable)
-  const statusList = useSelector((state) => state.statusList)
+  const details = useSelector((state) => state.details)
+  // const statusList = useSelector((state) => state.statusList)
 
   const [tableFlag, setTableFlag] = useState(false)
   const [chartData, setChartData] = useState([])
+  const [monthDetails, setMonthDetails] = useState([])
+  const [monthDetailsStatus, setMonthDetailsStatus] = useState({
+    onProcess: 0,
+    completed: 0,
+  })
   const [customerValues, setCustomerValues] = useState({
     customers: [],
     values: [],
@@ -49,44 +55,77 @@ function Dashboard() {
     dispatch(getRouteTable())
     dispatch(getStatusList())
     dispatch(getStatusTable())
+    dispatch(fetchDetails())
   }, [])
 
   useEffect(() => {
-    console.log(totalTOTAL.totals.reduce((a, b) => a + b, 0))
-  }, [totalTOTAL])
+    console.log(details)
+    if (details && details.length) {
+      let filteredDetails = details.filter(
+        (d) =>
+          moment(d.create_on).format("MMM") === moment(new Date()).format("MMM")
+      )
+      let ordersCompleted = filteredDetails.filter((fd) => !fd.active)
+      let ordersOnProcess = filteredDetails.filter((fd) => fd.active)
+
+      setMonthDetailsStatus({
+        onProcess: ordersOnProcess.length,
+        completed: ordersCompleted.length,
+      })
+      setMonthDetails(filteredDetails)
+    }
+  }, [details])
+
+  useEffect(() => {
+    console.log(monthDetailsStatus)
+  }, [monthDetailsStatus])
+
+  useEffect(() => {
+    console.log(monthDetails)
+    if (monthDetails.length) {
+      let uCustList = []
+      monthDetails.forEach((md) => {
+        if (!uCustList.includes(md.detail_customer)) {
+          uCustList.push(md.detail_customer)
+        }
+      })
+      let uCustListVals = []
+      uCustList.forEach((ucl) => {
+        let val = 0
+        monthDetails.forEach((md) => {
+          if (ucl === md.detail_customer) {
+            val++
+          }
+        })
+        uCustListVals.push(val)
+      })
+      console.log(uCustList)
+      console.log(uCustListVals)
+      setCustomerValues({
+        customers: uCustList,
+        values: uCustListVals,
+      })
+    }
+  }, [monthDetails])
 
   useEffect(() => {
     let tempList = []
     Object.keys(perProcessToday).forEach((ppt) => {
       tempList.push(perProcessToday[ppt])
     })
-    console.log(tempList)
     setChartData(tempList)
   }, [perProcessToday])
 
   useEffect(() => {
-    console.log(routeTable)
-  }, [routeTable])
-
-  useEffect(() => {
-    console.log(statusTable)
     todayQuantityPerProcess()
   }, [statusTable])
 
-  useEffect(() => {
-    console.log(statusList)
-  }, [statusList])
-
   const todayQuantityPerProcess = () => {
     if (statusTable && statusTable.length) {
-      // const dateNow = new Date(Date.now())
-      // const dateFmt = moment(dateNow).format("YYYY-MM-DD")
-
       const dateNow = new Date(Date.now())
       const dateFmt = moment(dateNow).format("YYYY-MM-DD")
 
       const filterTodayData = statusTable.filter((s) => s.date === dateFmt)
-      // const filterTodayData = statusTable.filter((s) => s.date === "2021-01-23")
 
       let tempPPT = {
         KNITTING: 0,
@@ -109,40 +148,38 @@ function Dashboard() {
         })
       })
 
-      let codeList = filterTodayData.map((ftd) => ftd.code)
-      let uniqueCodeList = [...new Set(codeList)]
-      let uniqueCodeListTotal = new Array(uniqueCodeList.length).fill(0)
-      uniqueCodeList.forEach((ucl, index) => {
-        filterTodayData.forEach((ftd) => {
-          if (ucl === ftd.code) {
-            uniqueCodeListTotal[index] = ftd.total
-          }
-        })
-      })
-      console.log("todaydata", filterTodayData)
-      console.log("listtotal", uniqueCodeListTotal)
+      // let codeList = filterTodayData.map((ftd) => ftd.code)
+      // let uniqueCodeList = [...new Set(codeList)]
+      // let uniqueCodeListTotal = new Array(uniqueCodeList.length).fill(0)
+      // uniqueCodeList.forEach((ucl, index) => {
+      //   filterTodayData.forEach((ftd) => {
+      //     if (ucl === ftd.code) {
+      //       uniqueCodeListTotal[index] = ftd.total
+      //     }
+      //   })
+      // })
 
-      setTotalTOTAL({
-        codes: uniqueCodeList,
-        totals: uniqueCodeListTotal,
-      })
+      // setTotalTOTAL({
+      //   codes: uniqueCodeList,
+      //   totals: uniqueCodeListTotal,
+      // })
 
-      let customerList = filterTodayData.map((ftd) => ftd.customer)
-      let uniquecustomerList = [...new Set(customerList)]
-      let uniquecustomerListQTYAdded = new Array(
-        uniquecustomerList.length
-      ).fill(0)
-      uniquecustomerList.forEach((ucl, index) => {
-        filterTodayData.forEach((ftd) => {
-          if (ucl === ftd.customer) {
-            uniquecustomerListQTYAdded[index] += ftd.qty
-          }
-        })
-      })
-      setCustomerValues({
-        customers: uniquecustomerList,
-        values: uniquecustomerListQTYAdded,
-      })
+      // let customerList = filterTodayData.map((ftd) => ftd.customer)
+      // let uniquecustomerList = [...new Set(customerList)]
+      // let uniquecustomerListQTYAdded = new Array(
+      //   uniquecustomerList.length
+      // ).fill(0)
+      // uniquecustomerList.forEach((ucl, index) => {
+      //   filterTodayData.forEach((ftd) => {
+      //     if (ucl === ftd.customer) {
+      //       uniquecustomerListQTYAdded[index] += ftd.qty
+      //     }
+      //   })
+      // })
+      // setCustomerValues({
+      //   customers: uniquecustomerList,
+      //   values: uniquecustomerListQTYAdded,
+      // })
 
       setPerProcessToday(tempPPT)
       setTableFlag(true)
@@ -157,31 +194,35 @@ function Dashboard() {
         <h4>Volume For This Month</h4>
         <Row>
           <Col lg={3}>
-            <DashCard
-              stylclass={"dash-card-1"}
-              icon={<FaIcons.FaCalendarCheck fontSize={45} />}
-              val={0} //chartData.reduce((a, b) => a + b, 0)}
-              caption={"ORDERS CREATED"}
-            />
-            <DashCard
-              stylclass={"dash-card-2"}
-              icon={<FaIcons.FaExclamationCircle fontSize={45} />}
-              val={0}
-              //   totalTOTAL.totals
-              //     ? totalTOTAL.totals.reduce((a, b) => a + b, 0)
-              //     : 0
-              // }
-              caption={"ORDERS COMPLETED"}
-            />
-            <DashCard
-              stylclass={"dash-card-3"}
-              icon={<GiIcons.GiKnapsack fontSize={45} />}
-              val={130}
-              caption={"ORDERS ON PROCESS"}
-            />
+            <div className="dash-card-wrapper">
+              <DashCard
+                stylclass={"dash-card-1"}
+                icon={<FaIcons.FaCalendarCheck fontSize={45} />}
+                val={monthDetails.length}
+                caption={"ORDERS CREATED"}
+              />
+              <DashCard
+                stylclass={"dash-card-2"}
+                icon={<FaIcons.FaExclamationCircle fontSize={45} />}
+                val={monthDetailsStatus.completed}
+                //   totalTOTAL.totals
+                //     ? totalTOTAL.totals.reduce((a, b) => a + b, 0)
+                //     : 0
+                // }
+                caption={"ORDERS COMPLETED"}
+              />
+              <DashCard
+                stylclass={"dash-card-3"}
+                icon={<GiIcons.GiKnapsack fontSize={45} />}
+                val={monthDetailsStatus.onProcess}
+                caption={"ORDERS ON PROCESS"}
+              />
+            </div>
           </Col>
           <Col lg={9}>
-            <DashPie customerValues={customerValues} />
+            <div className="dash-pie-wrapper">
+              <DashPie customerValues={customerValues} />
+            </div>
           </Col>
         </Row>
         <br />
@@ -194,7 +235,6 @@ function Dashboard() {
             <DashboardTodayTable
               perProcessToday={perProcessToday}
               chartData={chartData}
-              setChartData={setChartData}
             />
           ) : (
             <p>Loading..</p>

@@ -76,11 +76,11 @@ function DashPie({ customerValues }) {
       }}
     >
       <Row>
-        <Col sm={2}></Col>
+        <Col sm={1}></Col>
         <Col sm={9}>
           {customerValues.values.length ? (
             <div className="pie-container">
-              <Pie data={data} options={optionsPie} />
+              <Pie data={data} options={optionsPie} responsive />
             </div>
           ) : (
             <p>No Records</p>

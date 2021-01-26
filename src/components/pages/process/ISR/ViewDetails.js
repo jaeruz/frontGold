@@ -34,7 +34,7 @@ function ViewDetails() {
           total: i.total,
           totalsack: i.total_sack,
           action: (
-            <Button variant="danger">
+            <Button variant="danger" size="sm">
               <FaIcons.FaTrashAlt /> Delete
             </Button>
           ),
@@ -162,7 +162,7 @@ function ViewDetails() {
             entriesOptions={[5, 8, 10, 15]}
             striped
             hover
-            style={{ height: "100% !important" }}
+            className="data-style"
             data={data}
           />
           {csvdata.length ? (

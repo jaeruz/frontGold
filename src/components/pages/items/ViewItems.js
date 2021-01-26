@@ -185,8 +185,8 @@ function ViewItems() {
           size="lg"
         >
           <Modal.Header closeButton>
-            <Modal.Title id="example-modal-sizes-title-lg">
-              Edit Item
+            <Modal.Title id="example-modal-sizes-title-md">
+              <h6>Edit Item </h6>
             </Modal.Title>
           </Modal.Header>
           <Modal.Body>
@@ -377,10 +377,10 @@ function ViewItems() {
             )}
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="secondary" onClick={handleClose}>
+            <Button variant="secondary" size="sm" onClick={handleClose}>
               Close
             </Button>
-            <Button variant="primary" onClick={handleClose}>
+            <Button variant="primary" size="sm" onClick={handleClose}>
               Save Changes
             </Button>
           </Modal.Footer>
@@ -408,7 +408,7 @@ function ViewItems() {
             entriesOptions={[5, 8, 10, 15]}
             striped
             hover
-            style={{ height: "100% !important" }}
+            className="data-style"
             data={data}
             sortable={true}
             // exportToCSV

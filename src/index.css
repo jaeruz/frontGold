@@ -36,7 +36,7 @@ code {
 }
 .navbar {
   background-color: #1e3c4c;
-  height: 60px;
+  height: 7.9vh;
   font-size: 1rem;
   display: flex;
   width: 100% !important;
@@ -49,10 +49,10 @@ code {
 }
 
 .nav-menu {
-  margin-top: 60px;
+  margin-top: 7.9vh;
   z-index: 0;
   background-color: #797d89;
-  width: 250px;
+  width: 16%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -89,7 +89,7 @@ code {
   list-style: none;
   height: 60px;
   text-decoration: none !important;
-  font-size: 18px;
+  font-size: 1.1rem;
   transition: all 200ms ease-in-out;
 }
 .nav-text:hover {
@@ -97,27 +97,10 @@ code {
   color: #1e3c4c;
   border-left: 4px solid #1e3c4c;
   text-shadow: 1px 1px 5px grey;
-  font-size: 21px;
+  font-size: 1.2rem;
   cursor: pointer;
   transition: all 150ms ease-in-out;
 }
-/* 
-.nav-text a {
-  text-decoration: none;
-  color: #f5f5f5;
-  font-size: 18px;
-  width: 95%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  padding: 0 16px;
-  border-radius: 4px;
-}
-
-.nav-text a:hover {
-  background-color: #B7E9C2;
-  color: #1E3C4C ;
-} */
 
 .nav-menu-items {
   margin-top: 20px;
@@ -144,25 +127,16 @@ span {
   /* font-family: 'Lato', sans-serif; */
 }
 
-/* .home,
-.reports,
-.products {
-  display: flex;
-  height: 90vh;
-  align-items: center;
-  justify-content: center;
-  font-size: 3rem;
-} */
-
 .sub-links {
   background: #1e3c4c;
   height: 60px;
-  padding-left: 3rem;
+  padding-left: 15%;
+  padding-right: 5%;
   display: flex;
   align-items: center;
   text-decoration: none !important;
   color: #f5f5f5;
-  font-size: 15px;
+  font-size: 0.8rem;
   transition: all 50ms ease-in-out;
 }
 
@@ -170,7 +144,7 @@ span {
   background: #353636;
   color: #b7e9c2;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 0.9rem;
   transition: all 50ms ease-in-out;
 }
 
@@ -263,7 +237,7 @@ span {
 .isr-container {
   /* background-color: red; */
   display: block;
-  margin: 30px 30px 30px 30px;
+  margin: 1.5em 1.5em 1.5em 1.5em;
   height: 100% !important;
   /* justify-content: space-evenly; */
   /* background-color: red; */
@@ -275,6 +249,7 @@ span {
   padding: 20px 50px 50px 50px;
   border-radius: 5px;
   width: 100%;
+  font-size: 0.9em !important;
   /* height: 100%; */
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
@@ -336,7 +311,7 @@ span {
 }
 
 .print-form-details {
-  margin: 50px 0px 0px 50px;
+  margin: 5vh 0px 0px 3vw;
 }
 
 .print-form-details span {
@@ -345,22 +320,22 @@ span {
 }
 
 .print-form-details ul {
-  font-size: 10px;
+  font-size: 0.65em;
   list-style-type: none;
   font-weight: bold;
 }
 
 .print-sack-number {
-  margin: 50px 0px 0px 0px;
+  margin: 5vh 0 0 0;
   border-style: solid;
-  padding: 5px 5px 5px 10px;
+  padding: 1vh 1vh 1vh 1vh;
   text-align: center;
   font-size: 15px;
 }
 
 .print-barcode {
   display: inline-block;
-  margin-left: 30px;
+  margin-left: 20vw;
   margin-top: 0%;
 }
 
@@ -477,7 +452,8 @@ span {
 
 .po-container-form {
   background-color: #334b58;
-  padding: 20px 25px 50px 25px;
+  /* padding: 20px 25px 50px 25px; */
+  padding: 1em 1em 2.5em 1em;
   border-radius: 5px;
   margin: auto;
   width: 98%;
@@ -491,25 +467,26 @@ span {
   height: 56%;
   padding: 10px 10px 10px 10px;
   background-color: #b7e9c2;
-  font-size: 12px;
+  font-size: 0.7em;
 }
 
 .po-container-table button {
-  font-size: 10px;
+  font-size: 0.7em;
 }
 
 .po-card {
-  height: 23% !important;
+  height: 20% !important;
+  background-color: white;
 }
 
 .po-container-print-div {
   background-color: #b7e9c2;
-  border-radius: 5px;
+
   width: 98%;
   height: 89vh;
   overflow: scroll;
   overflow-x: hidden;
-  padding: 20px 20px 20px 20px;
+  padding: 1em 1em 1em 1em;
   -moz-box-shadow: inset 0 0 10px #000000;
   -webkit-box-shadow: inset 0 0 10px #000000;
   box-shadow: inset 0 0 10px #000000;
@@ -521,7 +498,7 @@ span {
   /* overflow: scroll; */
   width: 100%;
   height: 200vh !important;
-  padding: 20px 20px 20px 20px;
+  padding: 2em 2em 2em 2em;
 }
 
 ::-webkit-scrollbar {
@@ -595,12 +572,20 @@ span {
   height: 92vh;
   overflow: hidden;
 }
+.data-style {
+  height: 100% !important;
+  font-size: 0.8em !important;
+}
+
+.data-style button {
+  font-size: 0.8em !important;
+}
 
 .view-item-container {
   background-color: #334b58;
-  padding: 20px 0px 20px 0px !important;
+  padding: 1.5vh 0px 1.5vh 0px !important;
   margin: auto;
-  margin-top: 7px;
+  margin-top: 1.1vh;
   /* margin-bottom: 10px; */
   border-radius: 5px !important;
   height: 98% !important;
@@ -622,7 +607,8 @@ span {
 /* end view items  */
 
 .modal-edit {
-  padding: 10px 30px 10px 30px;
+  padding: 1vh 2vh 1vh 2vh;
+  font-size: 0.8em;
 }
 
 /* start dashboard */
@@ -660,8 +646,8 @@ span {
 
 .dash-card-1 {
   padding: 30px 40px 25px 40px;
-  height: 130px;
-  width: 280px;
+  height: 17vh;
+  width: 100%;
   border-radius: 5px;
   background: #f03f37; /* fallback for old browsers */
   color: white;
@@ -673,8 +659,8 @@ span {
 
 .dash-card-2 {
   padding: 30px 40px 25px 40px;
-  height: 130px;
-  width: 280px;
+  height: 17vh;
+  width: 100%;
   border-radius: 5px;
   background: #fec107; /* fallback for old browsers */
   color: white;
@@ -686,8 +672,8 @@ span {
 
 .dash-card-3 {
   padding: 30px 40px 25px 40px;
-  height: 130px;
-  width: 280px;
+  height: 17vh;
+  width: 100%;
   border-radius: 5px;
   background: #007aff; /* fallback for old browsers */
   color: white;
@@ -702,6 +688,7 @@ span {
 .dash-card-3 span {
   font-weight: bold;
   text-align: center;
+  /* font-size: 4rem; */
   display: block;
 }
 
@@ -709,15 +696,15 @@ span {
   font-size: 30px;
 }
 #lbl-card {
-  font-size: 13px;
+  font-size: 0.7rem;
 }
 
 .dash-pie-div {
-  height: 410px;
-  background-color: white;
+  height: 53.7vh;
+  /* background-color: white; */
   width: 100%;
   border-radius: 5px;
-  margin-top: 10px;
+  margin-top: 1.2vh;
   padding: 30px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
 }
@@ -729,6 +716,7 @@ span {
   height: 400px;
   padding: 30px;
   margin-top: 5px;
+  padding-left: 10vh;
   /* background-color: red; */
 }
 
@@ -758,11 +746,10 @@ span {
 
 .table-process-dash {
   background-color: white;
-  padding-top: 5px;
   border-radius: 5px;
-  font-size: 12px;
+  font-size: 0.7rem;
+  padding: 0;
   margin-top: 10px;
-  /* box-shadow: 0 0 20px rgba(0, 0, 0, 0.3); */
 }
 
 .table-process-dash h5 {
@@ -771,7 +758,8 @@ span {
 }
 
 .table-process-dash-wrapper {
-  margin: 50px 0px 50px 0px;
+  margin: 30px 0px 30px 0px;
+  padding: 0px;
 }
 
 .table-weekly-dash {
@@ -797,6 +785,25 @@ span {
 
 .detail-detail-dash span {
   color: rgb(34, 221, 221);
+}
+
+.process-name {
+  background-color: #17a2b8;
+  padding: 0.01em;
+}
+.process-name h5 {
+  color: white;
+}
+
+.dash-pie-wrapper {
+  width: 100%;
+}
+.dash-card-wrapper {
+  width: 100%;
+}
+
+.dash-status-chart-div {
+  padding-left: 8vw;
 }
 
 /* end dashboard */

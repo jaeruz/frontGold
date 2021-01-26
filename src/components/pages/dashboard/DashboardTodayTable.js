@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react"
+import React from "react"
 import { Table } from "react-bootstrap"
 import { Bar } from "react-chartjs-2"
 
-function DashboardTodayTable({ perProcessToday, setChartData, chartData }) {
+function DashboardTodayTable({ perProcessToday, chartData }) {
   const data = {
     labels: [
       "KNIT",
@@ -52,7 +52,7 @@ function DashboardTodayTable({ perProcessToday, setChartData, chartData }) {
           ticks: {
             fontSize: 10,
             min: 0,
-            max: 10000,
+            max: 5000,
           },
         },
       ],

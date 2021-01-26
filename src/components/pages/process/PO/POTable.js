@@ -36,7 +36,6 @@ function POPrintComponent({
   const handleProcess = async () => {
     if (!sidebar) {
       const res = await addPurchase(purchaseToSubmit)
-      console.log(res)
 
       if (res !== null) {
         alert.show(
@@ -53,8 +52,6 @@ function POPrintComponent({
       }
       //update
 
-      console.log(generatedBarcode.split("-")[3])
-      console.log(selectedPO[0].total_sack)
       if (
         generatedBarcode.split("-")[5].toString() ===
         selectedPO[0].total_sack.toString()
@@ -79,7 +76,6 @@ function POPrintComponent({
             setDummyState(!dummyState)
             handlePrint()
             setSelectedPO(null)
-            console.log("active false")
           })
           .catch((err) => console.log(err))
         console.log("request finished")
@@ -122,7 +118,6 @@ function POPrintComponent({
   useEffect(() => {
     if (purchaseResult && searchResult) {
       if (searchResult.length) {
-        console.log(purchaseResult)
         let purchaseResActive = []
         for (let j = 0; j != searchResult.length; j++) {
           let ctr = 0
@@ -162,7 +157,6 @@ function POPrintComponent({
     let selectedDetails = details.filter((det) => {
       return det.po_number === po && det.color === color && det.size === size
     })
-    console.log(selectedDetails)
     // const purchaseResult = await fetchPurchase()
     let filterPurchase = purchaseResult.filter((pr) => {
       return (
@@ -199,8 +193,8 @@ function POPrintComponent({
 
   return (
     <div className="po-container-form">
-      <div style={{ marginBottom: "15px" }}>
-        <h3 className="form-title">PURCHASE ORDERS</h3>
+      <div style={{ marginBottom: "1vh" }}>
+        <h5 className="form-title">PURCHASE ORDERS</h5>
       </div>
       <Form onSubmit={handleSubmit}>
         <Form.Group>
@@ -235,7 +229,7 @@ function POPrintComponent({
             {searchResult && purchaseActive.length && searchResult.length ? (
               searchResult.map((det, index) => {
                 return (
-                  <tr style={{ fontSize: "15px" }} key={index}>
+                  <tr style={{ fontSize: "0.8em" }} key={index}>
                     <td>
                       <Moment format="YYYY-MM-DD hh:mm:ss">
                         {det.create_on}
@@ -276,7 +270,7 @@ function POPrintComponent({
         </Table>
       </div>
       <br />
-      <Card className="po-card">
+      <div className="po-card">
         <Card.Body as={Row}>
           {selectedPO && purchaseToSubmit ? (
             <>
@@ -302,7 +296,7 @@ function POPrintComponent({
             <p style={{ margin: "21px" }}>Select PO</p>
           )}
         </Card.Body>
-      </Card>
+      </div>
     </div>
   )
 }
