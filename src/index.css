@@ -806,4 +806,40 @@ span {
   padding-left: 8vw;
 }
 
+.route-wrapper {
+  background-color: #17a2b8;
+  border-radius: 5px;
+  padding: 2em 0 1em 0;
+}
+.route-container {
+  background-color: white;
+  padding: 1em 1em 1em 1em;
+  overflow-y: scroll;
+  overflow-x: scroll;
+  height: 100%;
+}
+.data-style-route {
+  font-size: 0.7em;
+}
 /* end dashboard */
+
+/*start route info */
+/* .view-item-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 92vh;
+  overflow: hidden;
+} */
+
+.route-info {
+  padding: 2em;
+  background-color: white;
+  margin: 1em;
+  border-radius: 5px;
+  height: 100%;
+}
+
+/* end route info */

@@ -14,10 +14,11 @@ import {
   getStatusList,
   getStatusTable,
 } from "../../../actions/StatusActions"
+import DashRoutes from "./DashRoutes"
 
 function Dashboard() {
   const dispatch = useDispatch()
-  // const routeTable = useSelector((state) => state.routeTable)
+
   const statusTable = useSelector((state) => state.statusTable)
   const details = useSelector((state) => state.details)
   // const statusList = useSelector((state) => state.statusList)
@@ -52,7 +53,6 @@ function Dashboard() {
   })
 
   useEffect(() => {
-    dispatch(getRouteTable())
     dispatch(getStatusList())
     dispatch(getStatusTable())
     dispatch(fetchDetails())
@@ -205,10 +205,6 @@ function Dashboard() {
                 stylclass={"dash-card-2"}
                 icon={<FaIcons.FaExclamationCircle fontSize={45} />}
                 val={monthDetailsStatus.completed}
-                //   totalTOTAL.totals
-                //     ? totalTOTAL.totals.reduce((a, b) => a + b, 0)
-                //     : 0
-                // }
                 caption={"ORDERS COMPLETED"}
               />
               <DashCard
@@ -247,6 +243,10 @@ function Dashboard() {
         <div className="dash-status-monitoring-div">
           <DashboardStatusMonitoring statusTable={statusTable} />
         </div>
+        <br />
+        <hr />
+        <br />
+        <DashRoutes />
         <div style={{ paddingBottom: "500px" }}></div>
       </div>
     </div>

@@ -11,6 +11,8 @@ import SignIn from "../auth/SignIn"
 import ViewItems from "./items/ViewItems"
 import ViewBarcodes from "./process/PO/ViewBarcodes"
 import ViewDetails from "./process/ISR/ViewDetails"
+import DashRoutes from "./dashboard/DashRoutes"
+import RouteInfo from "./users/RouteInfo"
 
 function Pages({ sidebar, history, setSidebar, isMain }) {
   const [cachedCreds, setCachedCreds] = useState(null)
@@ -87,6 +89,7 @@ function Pages({ sidebar, history, setSidebar, isMain }) {
             path="/po/view"
             component={cachedCreds.is_Admin ? ViewDetails : PageUnavailable}
           />
+
           <Route
             exact
             path="/barcodes/view"
@@ -95,6 +98,12 @@ function Pages({ sidebar, history, setSidebar, isMain }) {
                 ? () => <ViewBarcodes isMain={isMain} />
                 : PageUnavailable
             }
+          />
+
+          <Route
+            exact
+            path="/info"
+            component={cachedCreds.is_Admin ? RouteInfo : RouteInfo}
           />
 
           <Route
