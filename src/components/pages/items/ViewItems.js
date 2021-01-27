@@ -49,12 +49,12 @@ function ViewItems() {
         sort: "asc",
         width: 150,
       },
-      {
-        label: "Action",
-        field: "action",
-        sort: "asc",
-        width: 150,
-      },
+      // {
+      //   label: "Action",
+      //   field: "action",
+      //   sort: "asc",
+      //   width: 150,
+      // },
     ],
     rows: rowData,
   }
@@ -66,12 +66,16 @@ function ViewItems() {
   })
 
   useEffect(() => {
+    console.log(ItemClass)
+  }, [ItemClass])
+  useEffect(() => {
     dispatch(getItems())
   }, [])
 
   useEffect(() => {
     console.log(item)
     if (item && item.length) {
+      console.log(item[0].id)
       const data = item.map((i) => {
         return {
           date: moment(i.create_on).format("YYYY-MM-DD HH:MM"),
@@ -84,16 +88,16 @@ function ViewItems() {
               return p.toUpperCase()
             }
           }),
-          action: (
-            <Button
-              variant="info"
-              size="sm"
-              onClick={() => handleEdit(i)}
-              block
-            >
-              <FaIcons.FaEdit /> Edit
-            </Button>
-          ),
+          // action: (
+          //   <Button
+          //     variant="info"
+          //     size="sm"
+          //     onClick={() => handleEdit(i)}
+          //     block
+          //   >
+          //     <FaIcons.FaEdit /> Edit
+          //   </Button>
+          // ),
         }
       })
       console.log(data)
@@ -177,7 +181,7 @@ function ViewItems() {
   return (
     <div className="view-item-wrapper">
       <div className="view-item-container">
-        <Modal
+        {/* <Modal
           show={show}
           onHide={handleClose}
           animation={false}
@@ -384,7 +388,7 @@ function ViewItems() {
               Save Changes
             </Button>
           </Modal.Footer>
-        </Modal>
+        </Modal> */}
         <div style={{ textAlign: "center" }}>
           <h5 className="form-title">ITEMS</h5>
         </div>

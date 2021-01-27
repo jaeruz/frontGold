@@ -72,6 +72,12 @@ const statusListURL =
   window.location.hostname +
   ":8000/api/status-list"
 
+const shipmentURL =
+  window.location.protocol +
+  "//" +
+  window.location.hostname +
+  ":8000/api/shipment-list"
+
 //functions
 
 export const fetchItems = () =>
@@ -170,6 +176,14 @@ export const fetchStatusTable = () =>
 
 export const fetchStatusList = () =>
   axios.get(statusListURL, {
+    headers: {
+      Authorization:
+        "token " + JSON.parse(window.localStorage.getItem("credentials")).token,
+    },
+  })
+
+export const fetchShipmentList = () =>
+  axios.get(shipmentURL, {
     headers: {
       Authorization:
         "token " + JSON.parse(window.localStorage.getItem("credentials")).token,

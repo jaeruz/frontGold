@@ -15,6 +15,7 @@ import {
   getStatusTable,
 } from "../../../actions/StatusActions"
 import DashRoutes from "./DashRoutes"
+import DashShipment from "./DashShipment"
 
 function Dashboard() {
   const dispatch = useDispatch()
@@ -190,7 +191,6 @@ function Dashboard() {
     <div className="dash-wrapper">
       <div className="dash-container">
         <h5>DASHBOARD</h5>
-
         <h4>Volume For This Month</h4>
         <Row>
           <Col lg={3}>
@@ -244,9 +244,17 @@ function Dashboard() {
           <DashboardStatusMonitoring statusTable={statusTable} />
         </div>
         <br />
+        <br />
         <hr />
         <br />
+        <br />
         <DashRoutes />
+        <br />
+        <br />
+        <hr />
+        <br />
+        <br />
+        <DashShipment />
         <div style={{ paddingBottom: "500px" }}></div>
       </div>
     </div>

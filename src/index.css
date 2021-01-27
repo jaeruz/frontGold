@@ -384,6 +384,14 @@ span {
   /* background-color: red; */
 }
 
+.qrcode-instructions h5 {
+  font-size: 1em;
+}
+
+.qrcode-instructions p {
+  font-size: 0.8em;
+}
+
 /* .barcode-primary-div{
   margin-left: 30px;
 } */
@@ -547,6 +555,9 @@ span {
 /* end alert */
 
 /*start sign in  */
+/* .signin-wrapper{
+  position: relative;
+} */
 
 .signin-container {
   background-color: #1e3c4c;
@@ -835,11 +846,13 @@ span {
 } */
 
 .route-info {
-  padding: 2em;
+  padding: 2em 1em 2em 1em;
   background-color: white;
-  margin: 1em;
-  border-radius: 5px;
-  height: 100%;
+  overflow-y: scroll;
+  overflow-y: scroll;
+  /* margin: 1em 0 1em 0; */
+  /* border-radius: 5px; */
+  height: 80vh;
 }
 
 /* end route info */

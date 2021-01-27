@@ -6,6 +6,9 @@ import * as FaIcons from "react-icons/fa"
 import { MDBDataTable } from "mdbreact"
 import { CSVLink } from "react-csv"
 import moment from "moment"
+import * as BiIcons from "react-icons/bi"
+import axios from "axios"
+import { useAlert } from "react-alert"
 
 function ViewDetails() {
   const dispatch = useDispatch()
@@ -14,6 +17,48 @@ function ViewDetails() {
   const [searchResult, setSearchResult] = useState(null)
   const [rowData, setRowData] = useState([])
   const [csvdata, setCsvdata] = useState([])
+  const alert = useAlert()
+
+  const handleDelete = async (id) => {
+    console.log(id)
+    const deleturl =
+      window.location.protocol +
+      "//" +
+      window.location.hostname +
+      ":8000/api/detail-delete/" +
+      id
+    try {
+      await axios
+        .delete(deleturl, {
+          data: null,
+          headers: {
+            Authorization:
+              "token " +
+              JSON.parse(window.localStorage.getItem("credentials")).token,
+          },
+        })
+        .then((res) => {
+          console.log(res)
+          if (res.status == 201) {
+            alert.show(
+              <div className="alert-suc">
+                <FaIcons.FaCheck /> {res.data}
+              </div>
+            )
+          } else {
+            alert.show(
+              <div className="alert-err">
+                <BiIcons.BiError /> {res.data}
+              </div>
+            )
+          }
+        })
+    } catch (error) {
+      console.log(error)
+    }
+
+    dispatch(fetchDetails())
+  }
 
   useEffect(() => {
     dispatch(fetchDetails())
@@ -34,7 +79,11 @@ function ViewDetails() {
           total: i.total,
           totalsack: i.total_sack,
           action: (
-            <Button variant="danger" size="sm">
+            <Button
+              variant="danger"
+              size="sm"
+              onClick={() => handleDelete(i.id)}
+            >
               <FaIcons.FaTrashAlt /> Delete
             </Button>
           ),

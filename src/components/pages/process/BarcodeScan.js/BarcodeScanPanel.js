@@ -1,83 +1,198 @@
-import React,{useEffect,useState} from 'react'
-import { Form, Button } from 'react-bootstrap'
-import FocusLock from 'react-focus-lock';
-import { undoScan } from '../../../../api';
-import { useAlert } from 'react-alert'
-import * as FaIcons from 'react-icons/fa'
-import { useDispatch } from 'react-redux'
-import { insertBR } from '../../../../actions/BarcodeScanActions';
+import React, { useEffect, useState } from "react"
+import { Form, Button, Modal, Image, Row, Col } from "react-bootstrap"
+import FocusLock from "react-focus-lock"
+import { undoScan } from "../../../../api"
+import { useAlert } from "react-alert"
+import * as FaIcons from "react-icons/fa"
+import { useDispatch } from "react-redux"
+import { clearResults, insertBR } from "../../../../actions/BarcodeScanActions"
 
-function BarcodeScanPanel({ setBarcodeInput,handleSubmit,barcodeCopy,barcodeInput,setBarcodeCopy }) {
+function BarcodeScanPanel({
+  setBarcodeInput,
+  handleSubmit,
 
-    const dispatch = useDispatch()
-    const alert = useAlert()
+  barcodeInput,
+}) {
+  const dispatch = useDispatch()
+  const alert = useAlert()
 
-    const handleChange = (e) => {
-        setTimeout(() => {
-            if (document.getElementById("barcodeInput") !== null) {
-                if (document.getElementById("barcodeInput").value !== "") {
-                    document.getElementById("barcodeInput").value = ""
-                }
-                // setBarcodeCopy({
-                //     barcode: ""
-                // })
-                // const undbtn = document.getElementById('undo-btn')
-                // undbtn.disabled = true;
-            }
-        }, 10000);
-        
-        
-        setBarcodeInput({
-            barcode: e.target.value
-        })
-        
-    }
-    useEffect(() => {
-        console.log(barcodeInput)
-    }, [barcodeInput])
+  //modal
+  const [showw, setShoww] = useState(false)
+  const [show, setShow] = useState(false)
 
+  const handleClose = () => setShow(false)
+  const handleShow = () => setShow(true)
+  const [barcodeUndo, setBarcodeUndo] = useState(null)
+  //modal
 
-    const handleUndo = async () => {
-        if (barcodeCopy.barcode !== null) {
-            const res = await undoScan(barcodeCopy)
-            console.log(res)
-            
-            
-            if (res.data) {
-                dispatch(insertBR(res.data))
-                alert.show(
-                    <div className="alert-suc"><FaIcons.FaCheck /> {'"'+res.data+'"'+' process complete!'}</div>
-                )
-            } else {
-                alert.show(
-                    <div className="alert-err"><FaIcons.FaCheck /> Undo Error! ask admin for help.</div>
-                )
-            }
+  const handleChangeUndo = (e) => {
+    console.log(e.target.value)
+    setBarcodeUndo({
+      barcode: e.target.value,
+    })
+  }
+
+  const handleChange = (e) => {
+    setTimeout(() => {
+      if (document.getElementById("barcodeInput") !== null) {
+        if (document.getElementById("barcodeInput").value !== "") {
+          document.getElementById("barcodeInput").value = ""
         }
-    }
+      }
+    }, 10000)
+    setBarcodeInput({
+      barcode: e.target.value,
+    })
+  }
 
-    return (
-        <div className="barcode-scan-panel">
-            <h4 className="form-title" style={{textAlign:'center'}}>Barcode Scan</h4>
-            <br/>
-            <Form onSubmit={handleSubmit}>
-                <Form.Group controlId="barcodeInput">
-                    <Form.Label>Scan:</Form.Label>
-                    <FocusLock>
-                        <Form.Control type="text" placeholder="Scan here" onChange={handleChange}/>
-                    </FocusLock>
-                </Form.Group>
-            </Form>
-            <br/>
-            <Button variant="danger" className="btn-undo" block id="undo-btn" onClick={handleUndo}>UNDO SCAN</Button>
-            <hr />
-            <h5>Instructions</h5>
-            <p>1. Make sure the cursor is focused on the text box</p>
-            <p>2. Scan the barcode located at the bottom of the route sheet</p>
-            <h5>Reminder</h5>
-            <p>* Scanning should be done once for each sack on each process *</p>
-        </div>
-    )
+  const handleUndo = async () => {
+    if (barcodeUndo.barcode !== null) {
+      const res = await undoScan(barcodeUndo)
+      if (res.data) {
+        dispatch(insertBR(res.data))
+        alert.show(
+          <div className="alert-suc">
+            <FaIcons.FaCheck /> {'"' + res.data + '"' + " process complete!"}
+          </div>
+        )
+        setShoww(false)
+        handleShow()
+      } else {
+        alert.show(
+          <div className="alert-err">
+            <FaIcons.FaCheck /> Undo Error! ask admin for help.
+          </div>
+        )
+      }
+    }
+  }
+
+  return (
+    <div className="barcode-scan-panel">
+      <Modal
+        show={showw}
+        onHide={() => setShoww(false)}
+        animation={false}
+        centered
+        size="lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-md">
+            <h6>Undo Scan</h6>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ padding: "2em" }}>
+          Are you sure you want to undo the process for "{" "}
+          {barcodeUndo ? barcodeUndo.barcode : null} " ?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => {
+              setShoww(false)
+              handleShow()
+            }}
+          >
+            Cancel
+          </Button>
+          <Button variant="danger" size="sm" onClick={handleUndo}>
+            Proceed
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      <Modal
+        show={show}
+        onHide={handleClose}
+        animation={false}
+        centered
+        size="lg"
+      >
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-md">
+            <h6>Undo Scan</h6>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body style={{ padding: "2em" }}>
+          <Form onSubmit={(e) => e.preventDefault()}>
+            <Form.Group>
+              <Form.Label>QR Code:</Form.Label>
+              <FocusLock>
+                <Form.Control type="text" onChange={handleChangeUndo} />
+              </FocusLock>
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" size="sm" onClick={handleClose}>
+            Close
+          </Button>
+          <Button
+            variant="danger"
+            size="sm"
+            onClick={() => {
+              setShoww(true)
+              handleClose()
+            }}
+          >
+            Undo
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <h4 className="form-title" style={{ textAlign: "center" }}>
+        QR Code Scan
+      </h4>
+      <br />
+      <Form onSubmit={handleSubmit}>
+        <Form.Group controlId="barcodeInput">
+          <Form.Label>Scan:</Form.Label>
+          <FocusLock>
+            <Form.Control
+              type="text"
+              placeholder="Scan here"
+              onChange={handleChange}
+            />
+          </FocusLock>
+        </Form.Group>
+      </Form>
+      <br />
+
+      <hr />
+      <div className="qrcode-instructions">
+        <h5>Instructions</h5>
+        <p>1. Make sure the cursor is focused on the "Scan here" field</p>
+        <p>2. Scan the barcode located at the bottom of the route sheet</p>
+        <h5>Reminder</h5>
+        <p>* Scanning should be done once for each sack on each process *</p>
+      </div>
+
+      <br />
+      <hr />
+      <br />
+      <Button
+        variant="danger"
+        className="btn-undo"
+        block
+        size="sm"
+        id="undo-btn"
+        onClick={handleShow}
+      >
+        UNDO SCAN
+      </Button>
+      <Button
+        variant="info"
+        className="btn-undo"
+        block
+        size="sm"
+        onClick={() => {
+          dispatch(clearResults())
+        }}
+      >
+        CLEAR RESULT
+      </Button>
+    </div>
+  )
 }
 
 export default BarcodeScanPanel

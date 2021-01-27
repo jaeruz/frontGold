@@ -29,3 +29,13 @@ export const getRouteTable = () => async (dispatch) => {
     console.log(error.message)
   }
 }
+
+export const getShipmentTable = () => async (dispatch) => {
+  try {
+    //api post
+    const { data } = await api.fetchShipmentList()
+    dispatch({ type: "FETCH_SHIPMENT_TABLE", payload: data })
+  } catch (error) {
+    console.log(error.message)
+  }
+}

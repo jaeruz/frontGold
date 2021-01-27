@@ -29,11 +29,6 @@ function ViewBarcodes({ isMain }) {
           size: i.po_number.size.toUpperCase(),
           qtysack: i.barcode.split("-")[4],
           sackno: i.barcode.split("-")[5],
-          action: (
-            <Button variant="danger" size="sm">
-              DELETE
-            </Button>
-          ),
         }
       })
       console.log(data)
@@ -147,12 +142,6 @@ function ViewBarcodes({ isMain }) {
           {
             label: "Sack #",
             field: "sackno",
-            sort: "asc",
-            width: 150,
-          },
-          {
-            label: "Actions",
-            field: "action",
             sort: "asc",
             width: 150,
           },

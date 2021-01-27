@@ -379,7 +379,7 @@ function DashboardStatusMonitoring({ statusTable }) {
       {/* start table per process */}
       {toBeMapped.length ? (
         <>
-          <h4>Details</h4>
+          <h5>Summary</h5>
 
           {toBeMapped.map((tb, index) => {
             return (
