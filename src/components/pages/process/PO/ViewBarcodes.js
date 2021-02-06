@@ -17,7 +17,6 @@ function ViewBarcodes({ isMain }) {
   }, [])
 
   useEffect(() => {
-    console.log(barcodeScanResult)
     if (barcodeScanResult.length && barcodeScanResult[0].create_on && !isMain) {
       const data = barcodeScanResult.map((i) => {
         return {
@@ -31,7 +30,7 @@ function ViewBarcodes({ isMain }) {
           sackno: i.barcode.split("-")[5],
         }
       })
-      console.log(data)
+
       setRowData(data)
       let csvd = barcodeScanResult.map((i) => {
         return [
@@ -55,7 +54,7 @@ function ViewBarcodes({ isMain }) {
         "qty/sack",
         "sack#",
       ])
-      console.log(csvd)
+
       setCsvdata(csvd)
     } else if (
       barcodeScanResult.length &&

@@ -66,16 +66,11 @@ function ViewItems() {
   })
 
   useEffect(() => {
-    console.log(ItemClass)
-  }, [ItemClass])
-  useEffect(() => {
     dispatch(getItems())
   }, [])
 
   useEffect(() => {
-    console.log(item)
     if (item && item.length) {
-      console.log(item[0].id)
       const data = item.map((i) => {
         return {
           date: moment(i.create_on).format("YYYY-MM-DD HH:MM"),
@@ -100,7 +95,7 @@ function ViewItems() {
           // ),
         }
       })
-      console.log(data)
+
       setRowData(data)
       let csvd = item.map((i) => {
         return [
@@ -117,7 +112,7 @@ function ViewItems() {
         ]
       })
       csvd.unshift(["date", "customer", "style", "process"])
-      console.log(csvd)
+
       setCsvdata(csvd)
     }
   }, [item])
@@ -160,10 +155,9 @@ function ViewItems() {
     if (show) {
       let processCheckbox = document.getElementById("check1")
       if (processCheckbox && selectedItems && setSelectedItems.length) {
-        console.log(processCheckbox.length)
         let checklength =
           selectedItems[0].customer.toUpperCase() === "TOTES" ? 14 : 12
-        console.log(checklength)
+
         for (let i = 1; i != checklength; i++) {
           for (let j = 0; j != selectedItems[0].process.length; j++) {
             if (

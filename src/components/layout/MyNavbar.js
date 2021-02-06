@@ -55,11 +55,6 @@ function MyNavbar({
 
         <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
           <ul className="nav-menu-items">
-            {/* <li className="navbar-toggle">
-                        <Link to="#" className="menu-bars">
-                            <AiIcons.AiOutlineClose onClick={showSidebar}/>
-                        </Link>
-                    </li> */}
             {isAdmin
               ? SideBarDataAdmin.map((item, index) => {
                   if (isMain) {
@@ -93,11 +88,6 @@ function MyNavbar({
                     />
                   )
                 })}
-            {/* {SideBarDataAdmin.map((item, index) => {
-                        return (
-                           <SideBarMenu item={item} key={index}/>
-                        )
-                    })} */}
 
             <li
               style={{ display: "block", width: "100%" }}
@@ -107,6 +97,7 @@ function MyNavbar({
               <RiIcons.RiLogoutBoxLine />
               <span>LOGOUT</span>
             </li>
+            <div style={{ paddingBottom: "20vh" }}></div>
           </ul>
         </nav>
       </IconContext.Provider>

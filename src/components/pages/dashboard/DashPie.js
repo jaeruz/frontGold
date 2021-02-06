@@ -6,8 +6,6 @@ function DashPie({ customerValues }) {
   const [colorList, setColorList] = useState([])
   const [randomColor, setRandomColor] = useState(false)
   useEffect(() => {
-    console.log(customerValues.values.length)
-    console.log(customerValues.customers)
     if (customerValues.values.length) {
       // let temp = getRandomColor(customerValues.values.length)
       let temp = []
@@ -31,15 +29,11 @@ function DashPie({ customerValues }) {
             break
         }
       })
-      console.log(temp)
+
       setColorList(temp)
-      console.log(temp)
     }
   }, [randomColor, customerValues])
 
-  useEffect(() => {
-    console.log(colorList)
-  }, [colorList])
   const data = {
     labels: customerValues.customers,
     datasets: [

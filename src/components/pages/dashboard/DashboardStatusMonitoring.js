@@ -9,10 +9,6 @@ function DashboardStatusMonitoring({ statusTable }) {
   const [resultState, setResultState] = useState([])
   const [uniqueResult, setUniqueResult] = useState([])
 
-  useEffect(() => {
-    console.log(toBeMapped)
-  }, [toBeMapped])
-
   const dataCum = {
     labels: toBeMapped.map((tbm) => tbm.process),
     datasets: [
@@ -366,7 +362,9 @@ function DashboardStatusMonitoring({ statusTable }) {
                     )
                 })
               ) : (
-                <p>No Results</p>
+                <tr>
+                  <td>No Results</td>
+                </tr>
               )}
             </tbody>
           </Table>
@@ -411,7 +409,6 @@ function DashboardStatusMonitoring({ statusTable }) {
                       </div>
                     </div>
                     <Row>
-                      {/* <Col lg={1}></Col> */}
                       <Col lg={5}>
                         <div className="dash-status-chart-div">
                           <HorizontalBar data={dataCum} options={options} />
@@ -443,8 +440,8 @@ function DashboardStatusMonitoring({ statusTable }) {
                             {tb.dates.map((tbd, index) => {
                               return <th key={index}>{tbd}</th>
                             })}
-                            <th>CUM</th>
-                            <th>BAL</th>
+                            <td>CUM</td>
+                            <td>BAL</td>
                           </tr>
                         </thead>
                         <tbody>

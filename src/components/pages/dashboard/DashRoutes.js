@@ -17,10 +17,8 @@ function DashRoutes() {
   }, [routeTable])
 
   useEffect(() => {
-    console.log(routeTabes)
     if (routeTabes.length) {
       let keylist = []
-
       Object.keys(routeTabes[0]).forEach((rt) => {
         keylist.push({
           label: rt,
@@ -28,10 +26,7 @@ function DashRoutes() {
           sort: "asc",
         })
       })
-
       setKeyList(keylist)
-
-      console.log(keylist)
     }
   }, [routeTabes])
   const data = {

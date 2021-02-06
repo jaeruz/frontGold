@@ -60,7 +60,6 @@ function Dashboard() {
   }, [])
 
   useEffect(() => {
-    console.log(details)
     if (details && details.length) {
       let filteredDetails = details.filter(
         (d) =>
@@ -78,11 +77,6 @@ function Dashboard() {
   }, [details])
 
   useEffect(() => {
-    console.log(monthDetailsStatus)
-  }, [monthDetailsStatus])
-
-  useEffect(() => {
-    console.log(monthDetails)
     if (monthDetails.length) {
       let uCustList = []
       monthDetails.forEach((md) => {
@@ -100,8 +94,7 @@ function Dashboard() {
         })
         uCustListVals.push(val)
       })
-      console.log(uCustList)
-      console.log(uCustListVals)
+
       setCustomerValues({
         customers: uCustList,
         values: uCustListVals,
@@ -119,12 +112,7 @@ function Dashboard() {
 
   useEffect(() => {
     todayQuantityPerProcess()
-    console.log(statusTable)
   }, [statusTable])
-
-  useEffect(() => {
-    console.log(chartData)
-  }, [chartData])
 
   const todayQuantityPerProcess = () => {
     if (statusTable && statusTable.length) {
@@ -238,7 +226,7 @@ function Dashboard() {
               chartData={chartData}
             />
           ) : (
-            <p>Loading..</p>
+            <p>No Results</p>
           )}
         </div>
         <br />

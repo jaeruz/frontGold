@@ -1,115 +1,125 @@
-import React, {useEffect, useState} from 'react'
-import { Col, Container, Table, Row } from 'react-bootstrap';
-import { useBarcode } from '@createnextapp/react-barcode';
-import { useDispatch,useSelector } from 'react-redux'
-import { getItems } from '../../../../actions/ItemActions';
-
+import React, { useEffect, useState } from "react"
+import { Col, Container, Table, Row } from "react-bootstrap"
+import { useBarcode } from "@createnextapp/react-barcode"
+import { useDispatch, useSelector } from "react-redux"
+import { getItems } from "../../../../actions/ItemActions"
 
 function ISRPrintComponent({ ISRItem }) {
-    
-    const dispatch = useDispatch()
-    const item = useSelector(state => state.item)
-    const [routeList, setRouteList] = useState([])
-    
-    // const [bar, setBar] = useState('null')
+  const dispatch = useDispatch()
+  const item = useSelector((state) => state.item)
+  const [routeList, setRouteList] = useState([])
 
-    // let {inputRef}  = useBarcode({
-    //     value: bar ? bar:'null',
-    //     options: {
-    //         background: '#ffffff',
-    //         width: 1,
-    //         height: 40,
-    //         fontSize: 13
-    //     }
-    // });
+  // const [bar, setBar] = useState('null')
 
-    // useEffect(() => {
-    //     setBar(ISRItem.barcode)
-    // }, [ISRItem.barcode,ISRItem.detail_customer])
-    useEffect(() => {
-        dispatch(getItems())
-    }, [])
+  // let {inputRef}  = useBarcode({
+  //     value: bar ? bar:'null',
+  //     options: {
+  //         background: '#ffffff',
+  //         width: 1,
+  //         height: 40,
+  //         fontSize: 13
+  //     }
+  // });
 
-    useEffect(() => {
-        console.log(item)
-    }, [item])
+  // useEffect(() => {
+  //     setBar(ISRItem.barcode)
+  // }, [ISRItem.barcode,ISRItem.detail_customer])
+  useEffect(() => {
+    dispatch(getItems())
+  }, [])
 
-    useEffect(() => {
-        console.log(routeList)
-    }, [routeList])
-
-    useEffect(() => {
-        let styleField = document.getElementById('style-field');
-        let style = document.getElementById('detail_style');
-        if (style.selectedIndex!==-1) {
-         styleField.textContent= style.options[style.selectedIndex].innerHTML   
+  useEffect(() => {
+    let styleField = document.getElementById("style-field")
+    let style = document.getElementById("detail_style")
+    if (style.selectedIndex !== -1) {
+      styleField.textContent = style.options[style.selectedIndex].innerHTML
+    }
+    if (styleField.textContent !== null) {
+      let filteredStyle = item.filter((i) => i.style === styleField.textContent)
+      if (filteredStyle.length) {
+        if (filteredStyle[0].process.length) {
+          filteredStyle[0].process.unshift("ISR")
+          let uniqueFilteredStyle = [...new Set(filteredStyle[0].process)]
+          setRouteList(uniqueFilteredStyle)
         }
-        if (styleField.textContent !== null) {
-            let filteredStyle = item.filter(i => i.style === styleField.textContent)
-            if (filteredStyle.length) {
-                if (filteredStyle[0].process.length) {
-                    filteredStyle[0].process.unshift('ISR')
-                    let uniqueFilteredStyle = [...new Set(filteredStyle[0].process)]
-                    setRouteList(uniqueFilteredStyle)
-                }
-            }     
-        }
-    }, [ISRItem])
+      }
+    }
+  }, [ISRItem])
 
-    return ( 
-        <Container className="print-form">
-            <p className="print-form-title">GOLDEN ZONE GARMENTS AND ACCESSORIES,INC ROUTE SHEET</p>
-            <Row>
-                <Col sm={6} className="print-form-details">
-                    <ul>
-                        <li>CUSTOMER: <span>{ISRItem.detail_customer}</span></li>
-                        <li>PO #: <span>{ ISRItem.po_number}</span></li>
-                        <li>STYLE: <span id="style-field">0</span> </li>
-                        <li>DESCRIPTION: <span>{ ISRItem.description}</span></li>
-                        <li>COLOR: <span>{ISRItem.color}</span></li>
-                        <li>SIZE: <span>{ISRItem.size}</span></li>
-                        <li>TOTAL Q'TY: <span>{ ISRItem.total}</span></li>
-                        <li>Q'TY/SACK: <span>{ ISRItem.qty_sack}</span></li>
-                        <li>SHIPDATE: <span>{ISRItem.ship_date}</span></li>
-                    </ul>
-                </Col>
-                <Col sm={4}>
-                    <div className="print-sack-number">
-                        <p>SACK NO.</p>
-                        <p> 0 / { ISRItem.total_sack}</p>
-                    </div>
-                </Col>
-            </Row>
-            {/* <div style={{padding:"30px"}}></div> */}
-            {/* <div className="print-barcode">
+  return (
+    <Container className="print-form">
+      <p className="print-form-title">
+        GOLDEN ZONE GARMENTS AND ACCESSORIES,INC ROUTE SHEET
+      </p>
+      <Row>
+        <Col sm={6} className="print-form-details">
+          <ul>
+            <li>
+              CUSTOMER: <span>{ISRItem.detail_customer}</span>
+            </li>
+            <li>
+              PO #: <span>{ISRItem.po_number}</span>
+            </li>
+            <li>
+              STYLE: <span id="style-field">0</span>{" "}
+            </li>
+            <li>
+              DESCRIPTION: <span>{ISRItem.description}</span>
+            </li>
+            <li>
+              COLOR: <span>{ISRItem.color}</span>
+            </li>
+            <li>
+              SIZE: <span>{ISRItem.size}</span>
+            </li>
+            <li>
+              TOTAL Q'TY: <span>{ISRItem.total}</span>
+            </li>
+            <li>
+              Q'TY/SACK: <span>{ISRItem.qty_sack}</span>
+            </li>
+            <li>
+              SHIPDATE: <span>{ISRItem.ship_date}</span>
+            </li>
+          </ul>
+        </Col>
+        <Col sm={4}>
+          <div className="print-sack-number">
+            <p>SACK NO.</p>
+            <p> 0 / {ISRItem.total_sack}</p>
+          </div>
+        </Col>
+      </Row>
+      {/* <div style={{padding:"30px"}}></div> */}
+      {/* <div className="print-barcode">
                 <Image ref={inputRef} />
             </div> */}
-            <Row>
-                <Col lg={11}>
-                    <Table bordered className="route-table">
-                    <thead>
-                        <tr>
-                        <th>OPERATION</th>
-                        <th>TRANSFERRED BY (NAME/DATE)</th>
-                        <th>TRANSFER TO</th>
-                        <th>RECEIVED BY (NAME/DATE)</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {routeList && routeList.map((route, index) => {
-                            if (routeList.length !== index+1) {
-                                return (
-                                    <tr key={index}>
-                                        <td>{route.toUpperCase()}</td>
-                                        <td></td>
-                                        <td>{routeList[index + 1].toUpperCase()}</td>
-                                        <td></td>
-                                    </tr>
-                                )
-                            }
-                            
-                        })}
-                        {/* <tr>
+      <Row>
+        <Col lg={11}>
+          <Table bordered className="route-table">
+            <thead>
+              <tr>
+                <th>OPERATION</th>
+                <th>TRANSFERRED BY (NAME/DATE)</th>
+                <th>TRANSFER TO</th>
+                <th>RECEIVED BY (NAME/DATE)</th>
+              </tr>
+            </thead>
+            <tbody>
+              {routeList &&
+                routeList.map((route, index) => {
+                  if (routeList.length !== index + 1) {
+                    return (
+                      <tr key={index}>
+                        <td>{route.toUpperCase()}</td>
+                        <td></td>
+                        <td>{routeList[index + 1].toUpperCase()}</td>
+                        <td></td>
+                      </tr>
+                    )
+                  }
+                })}
+              {/* <tr>
                         <td>ISR</td>
                         <td></td>
                         <td>KNITTING</td>
@@ -127,12 +137,12 @@ function ISRPrintComponent({ ISRItem }) {
                         <td>FINAL EXAM</td>
                         <td></td>
                         </tr> */}
-                    </tbody>
-                    </Table>
-                </Col>
-            </Row>
-        </Container>
-     );
+            </tbody>
+          </Table>
+        </Col>
+      </Row>
+    </Container>
+  )
 }
 
 export default ISRPrintComponent

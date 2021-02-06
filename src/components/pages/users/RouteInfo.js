@@ -18,7 +18,6 @@ function RouteInfo() {
   }, [routeTable])
 
   useEffect(() => {
-    console.log(routeTabes)
     if (routeTabes.length) {
       let keylist = []
 
@@ -29,10 +28,7 @@ function RouteInfo() {
           sort: "asc",
         })
       })
-
       setKeyList(keylist)
-
-      console.log(keylist)
     }
   }, [routeTabes])
   const data = {

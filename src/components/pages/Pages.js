@@ -18,7 +18,6 @@ function Pages({ sidebar, history, setSidebar, isMain }) {
   const [cachedCreds, setCachedCreds] = useState(null)
 
   history.listen((location, action) => {
-    // console.log(history)
     const cacheCreds = JSON.parse(window.localStorage.getItem("credentials"))
     setCachedCreds(cacheCreds)
   })

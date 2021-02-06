@@ -26,7 +26,6 @@ function BarcodeScanPanel({
   //modal
 
   const handleChangeUndo = (e) => {
-    console.log(e.target.value)
     setBarcodeUndo({
       barcode: e.target.value,
     })

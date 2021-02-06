@@ -42,7 +42,7 @@ function ViewDetails() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    console.log(detailToUpdate)
+
     const updateURL =
       window.location.protocol +
       "//" +
@@ -61,7 +61,6 @@ function ViewDetails() {
           },
         })
         .then((res) => {
-          console.log(res)
           if (res.status == 201) {
             alert.show(
               <div className="alert-suc">
@@ -110,13 +109,12 @@ function ViewDetails() {
       return it.id === id
     })
     setSelectedDetail(selDetail)
-    console.log(selDetail)
+
     handleShow()
   }
 
   useEffect(() => {
     if (selectedDetail && selectedDetail.length) {
-      console.log(selectedDetail[0].id)
       let { active, unique_field, id, create_on, ...y } = selectedDetail[0]
       setdetailToUpdate({
         ...detailToUpdate,
@@ -127,12 +125,7 @@ function ViewDetails() {
     }
   }, [selectedDetail])
 
-  useEffect(() => {
-    console.log(detailToUpdate)
-  }, [detailToUpdate])
-
   const handleDelete = async (id) => {
-    console.log(id)
     const deleturl =
       window.location.protocol +
       "//" +
@@ -150,7 +143,6 @@ function ViewDetails() {
           },
         })
         .then((res) => {
-          console.log(res)
           if (res.status == 201) {
             alert.show(
               <div className="alert-suc">
@@ -176,7 +168,6 @@ function ViewDetails() {
   }, [])
 
   useEffect(() => {
-    console.log(details)
     if (details.length && details[0].create_on) {
       const data = details.map((i) => {
         return {
@@ -217,7 +208,7 @@ function ViewDetails() {
           ),
         }
       })
-      console.log(data)
+
       setRowData(data)
       let csvd = details.map((i) => {
         return [
@@ -243,7 +234,7 @@ function ViewDetails() {
         "total",
         "totalSack",
       ])
-      console.log(csvd)
+
       setCsvdata(csvd)
     }
   }, [details])

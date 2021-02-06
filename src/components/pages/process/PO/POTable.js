@@ -78,7 +78,6 @@ function POPrintComponent({
             setSelectedPO(null)
           })
           .catch((err) => console.log(err))
-        console.log("request finished")
       } else {
         setDummyState(!dummyState)
         handlePrint()

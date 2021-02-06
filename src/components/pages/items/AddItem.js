@@ -18,10 +18,6 @@ function AddItem({ isMain }) {
     style: "",
   })
 
-  useEffect(() => {
-    console.log("itemClass", ItemClass)
-  }, [ItemClass])
-
   const handleFormChange = (e) => {
     setItemClass({
       ...ItemClass,
@@ -34,7 +30,6 @@ function AddItem({ isMain }) {
     let checkboxes = document.querySelectorAll("input[type=checkbox]:checked")
     if (checkboxes.length) {
       const res = await dispatch(addItem(ItemClass))
-      console.log(res)
       if (res) {
         alert.show(
           <div className="alert-suc">
@@ -68,7 +63,6 @@ function AddItem({ isMain }) {
     for (let i = 0; i < checkboxes.length; i++) {
       processList.push(checkboxes[i].value)
     }
-    console.log("processarray", processList)
     setItemClass({
       ...ItemClass,
       process: processList,

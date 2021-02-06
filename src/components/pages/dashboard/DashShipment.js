@@ -11,7 +11,6 @@ function DashShipment() {
   }, [])
 
   useEffect(() => {
-    console.log(shipmentTable)
     if (shipmentTable && shipmentTable.length) {
       const shipm = shipmentTable.map((i) => {
         return {
@@ -24,10 +23,6 @@ function DashShipment() {
       setShipmentData(shipm)
     }
   }, [shipmentTable])
-
-  useEffect(() => {
-    console.log(shipmentData)
-  }, [shipmentData])
 
   const data = {
     columns: [

@@ -33,7 +33,7 @@ function SignIn({ setCached }) {
         window.location.port +
         "/"
     }
-    console.log(window.location.href)
+
     document.getElementById("login-error").style.visibility = "hidden"
   }, [])
 
@@ -48,11 +48,7 @@ function SignIn({ setCached }) {
     btnlogin.innerHTML = "Logging in .."
     btnlogin.disabled = true
     const res = await dispatch(postCredentials(creds))
-    console.log(res)
-    // if (res==200) {
-    //     window.location.reload();
-    // }
-    // console.log(res)/\
+
     if (res === "400") {
       document.getElementById("login-error").textContent =
         "Incorrect Username or Password"
@@ -68,13 +64,10 @@ function SignIn({ setCached }) {
   }
   const handleChange = (e) => {
     document.getElementById("login-error").style.visibility = "hidden"
-    setCreds(
-      {
-        ...creds,
-        [e.target.id]: e.target.value,
-      },
-      console.log(creds)
-    )
+    setCreds({
+      ...creds,
+      [e.target.id]: e.target.value,
+    })
   }
 
   return (
