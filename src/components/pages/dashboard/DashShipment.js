@@ -16,7 +16,7 @@ function DashShipment() {
       const shipm = shipmentTable.map((i) => {
         return {
           barcode: i.barcode,
-          status: i.active ? "active" : "not active",
+          status: i.active ? "Pending" : "Finished",
           Days_left: i.Days_left,
         }
       })

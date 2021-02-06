@@ -46,7 +46,6 @@ function ISRForm({ ISRItem, setISRItem }) {
     e.preventDefault()
 
     const res = await dispatch(addDetails(ISRItem))
-    console.log(res)
     if (res) {
       alert.show(
         <div className="alert-suc">
@@ -179,7 +178,7 @@ function ISRForm({ ISRItem, setISRItem }) {
               type="text"
               onChange={handleChange}
               className="form-caps"
-              maxLength="10"
+              // maxLength="10"
             />
           </Col>
         </Form.Group>
@@ -193,7 +192,7 @@ function ISRForm({ ISRItem, setISRItem }) {
               type="text"
               onChange={handleChange}
               className="form-caps"
-              maxLength="40"
+              // maxLength="40"
             />
           </Col>
         </Form.Group>
@@ -207,7 +206,7 @@ function ISRForm({ ISRItem, setISRItem }) {
               type="text"
               onChange={handleChange}
               className="form-caps"
-              maxLength="50"
+              // maxLength="50"
             />
           </Col>
         </Form.Group>
@@ -221,7 +220,7 @@ function ISRForm({ ISRItem, setISRItem }) {
               type="text"
               onChange={handleChange}
               className="form-caps"
-              maxLength="10"
+              // maxLength="10"
             />
           </Col>
         </Form.Group>

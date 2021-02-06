@@ -7,12 +7,12 @@ function DashboardTodayTable({ perProcessToday, chartData }) {
     labels: [
       "KNIT",
       "CUT",
-      "REC",
+      // "REC",
       "STEAM",
       "EXAM",
       "SEW",
-      "STEAM1",
-      "EXAM1",
+      // "STEAM1",
+      // "EXAM1",
       "TAG",
       "MD",
       "BOX",
@@ -81,12 +81,12 @@ function DashboardTodayTable({ perProcessToday, chartData }) {
             <tr>
               <th>KNIT</th>
               <th>CUT</th>
-              <th>REC</th>
+              {/* <th>REC</th> */}
               <th>STEAM</th>
               <th>EXAM</th>
               <th>SEW</th>
-              <th>STEAM1</th>
-              <th>EXAM1</th>
+              {/* <th>STEAM1</th>
+              <th>EXAM1</th> */}
               <th>TAG</th>
               <th>MD</th>
               <th>BOX</th>

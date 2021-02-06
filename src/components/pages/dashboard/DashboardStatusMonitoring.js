@@ -67,7 +67,7 @@ function DashboardStatusMonitoring({ statusTable }) {
           ticks: {
             fontSize: 8,
             min: 0,
-            max: 5000,
+            max: 10000,
           },
         },
       ],

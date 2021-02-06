@@ -44,6 +44,9 @@ function SignIn({ setCached }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
+    let btnlogin = document.getElementById("login-btn")
+    btnlogin.innerHTML = "Logging in .."
+    btnlogin.disabled = true
     const res = await dispatch(postCredentials(creds))
     console.log(res)
     // if (res==200) {
@@ -54,9 +57,13 @@ function SignIn({ setCached }) {
       document.getElementById("login-error").textContent =
         "Incorrect Username or Password"
       document.getElementById("login-error").style.visibility = "visible"
+      btnlogin.innerHTML = "Login"
+      btnlogin.disabled = false
     } else {
       document.getElementById("login-error").textContent = "Unknown error"
       document.getElementById("login-error").style.visibility = "visible"
+      btnlogin.innerHTML = "Login"
+      btnlogin.disabled = false
     }
   }
   const handleChange = (e) => {
@@ -105,7 +112,7 @@ function SignIn({ setCached }) {
               onChange={handleChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit" block>
+          <Button variant="primary" type="submit" id="login-btn" block>
             Login
           </Button>
           <br />

@@ -119,7 +119,12 @@ function Dashboard() {
 
   useEffect(() => {
     todayQuantityPerProcess()
+    console.log(statusTable)
   }, [statusTable])
+
+  useEffect(() => {
+    console.log(chartData)
+  }, [chartData])
 
   const todayQuantityPerProcess = () => {
     if (statusTable && statusTable.length) {
@@ -131,12 +136,12 @@ function Dashboard() {
       let tempPPT = {
         KNITTING: 0,
         CUTTING: 0,
-        RECEIPTS: 0,
+        // RECEIPTS: 0,
         STEAMING: 0,
         EXAMINING: 0,
         SEWING: 0,
-        STEAMING_1: 0,
-        EXAMINING_1: 0,
+        // STEAMING_1: 0,
+        // EXAMINING_1: 0,
         TAGGING: 0,
         METALDETECT: 0,
         BOXING: 0,

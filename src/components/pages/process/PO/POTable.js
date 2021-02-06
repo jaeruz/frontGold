@@ -215,7 +215,7 @@ function POPrintComponent({
         >
           <thead>
             <tr>
-              <th>DATE CREATED</th>
+              <th>CUSTOMER</th>
               <th>PO</th>
               <th>COLOR</th>
               <th>SIZE</th>
@@ -231,9 +231,9 @@ function POPrintComponent({
                 return (
                   <tr style={{ fontSize: "0.8em" }} key={index}>
                     <td>
-                      <Moment format="YYYY-MM-DD hh:mm:ss">
-                        {det.create_on}
-                      </Moment>
+                      {/* <Moment format="YYYY-MM-DD hh:mm:ss"> */}
+                      {det.detail_customer}
+                      {/* </Moment> */}
                     </td>
                     <td>{det.po_number}</td>
                     <td>{det.color}</td>

@@ -61,6 +61,8 @@ code {
   left: -100%;
   transition: 900ms;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.435);
+  overflow-y: auto;
+  padding-bottom: 50vh;
 }
 
 .nav-menu.active {
@@ -215,7 +217,7 @@ span {
   background-color: white;
   padding: 90px 0 0px 0px;
   height: 90%;
-  overflow: scroll;
+  overflow: auto;
   overflow-x: hidden;
   margin-top: 20px;
 }
@@ -231,7 +233,7 @@ span {
   right: 0;
   bottom: 0;
   height: 92vh;
-  overflow: scroll;
+  overflow: auto;
 }
 
 .isr-container {
@@ -469,17 +471,17 @@ span {
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
 }
 .po-container-table {
-  overflow: scroll;
+  overflow: auto;
   /* overflow-x: hidden; */
   border-radius: 10px;
   height: 56%;
   padding: 10px 10px 10px 10px;
   background-color: #b7e9c2;
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 
 .po-container-table button {
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 
 .po-card {
@@ -832,6 +834,9 @@ span {
 .data-style-route {
   font-size: 0.7em;
 }
+tbody + thead {
+  display: none;
+}
 /* end dashboard */
 
 /*start route info */
@@ -856,3 +861,7 @@ span {
 }
 
 /* end route info */
+
+.tfoot {
+  display: none;
+}

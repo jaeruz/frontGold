@@ -56,7 +56,7 @@ function BarcodeScanPanel({
           </div>
         )
         setShoww(false)
-        handleShow()
+        setBarcodeUndo(null)
       } else {
         alert.show(
           <div className="alert-err">
@@ -132,8 +132,10 @@ function BarcodeScanPanel({
             variant="danger"
             size="sm"
             onClick={() => {
-              setShoww(true)
-              handleClose()
+              if (barcodeUndo) {
+                setShoww(true)
+                handleClose()
+              }
             }}
           >
             Undo

@@ -19,7 +19,7 @@ function AddItem({ isMain }) {
   })
 
   useEffect(() => {
-    console.log(ItemClass)
+    console.log("itemClass", ItemClass)
   }, [ItemClass])
 
   const handleFormChange = (e) => {
@@ -41,6 +41,7 @@ function AddItem({ isMain }) {
             <FaIcons.FaCheck /> The Item has been added!
           </div>
         )
+        document.getElementById("form-add-item").reset()
       } else {
         alert.show(
           <div className="alert-err">
@@ -67,6 +68,7 @@ function AddItem({ isMain }) {
     for (let i = 0; i < checkboxes.length; i++) {
       processList.push(checkboxes[i].value)
     }
+    console.log("processarray", processList)
     setItemClass({
       ...ItemClass,
       process: processList,
@@ -125,42 +127,50 @@ function AddItem({ isMain }) {
                         label="B1 Receipts"
                         value="receipts"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Steaming"
                         value="steaming"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Examining"
                         value="examining"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Steaming 1"
                         value="steaming_1"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
 
                       <Form.Check
                         label="Examining 1"
                         value="examining_1"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Tagging"
                         value="tagging"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Metal Detection"
                         value="metaldetect"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Boxing"
                         value="boxing"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                     </Form.Group>
                   ) : (
@@ -171,67 +181,80 @@ function AddItem({ isMain }) {
                         label="Knitting"
                         value="knitting"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="ISR 1"
                         value="isr_1"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="B1 Receipts"
                         value="receipts"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Steaming"
                         value="steaming"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Examining"
                         value="examining"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="ISR 2"
                         value="isr_2"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Sewing"
                         value="sewing"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="ISR 3"
                         value="isr_3"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Steaming 1"
                         value="steaming_1"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
 
                       <Form.Check
                         label="Examining 1"
                         value="examining_1"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Tagging"
                         value="tagging"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Metal Detection"
                         value="metaldetect"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                       <Form.Check
                         label="Boxing"
                         value="boxing"
                         onChange={handleChange}
+                        onClick={handleChange}
                       />
                     </Form.Group>
                   )
@@ -242,32 +265,38 @@ function AddItem({ isMain }) {
                       label="B1 Receipts"
                       value="receipts"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="Steaming"
                       value="steaming"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="Tagging"
                       value="tagging"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="Examining"
                       value="examining"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
 
                     <Form.Check
                       label="Metal Detection"
                       value="metaldetect"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="Boxing"
                       value="boxing"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                   </Form.Group>
                 ) : (
@@ -277,58 +306,69 @@ function AddItem({ isMain }) {
                       label="Knitting"
                       value="knitting"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="Cutting"
                       value="cutting"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="ISR 1"
                       value="isr_1"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="Sewing"
                       value="sewing"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="ISR 2"
                       value="isr_2"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
 
                     <Form.Check
                       label="B1 Receipts"
                       value="receipts"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="Steaming"
                       value="steaming"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="Tagging"
                       value="tagging"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="Examining"
                       value="examining"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
 
                     <Form.Check
                       label="Metal Detection"
                       value="metaldetect"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                     <Form.Check
                       label="Boxing"
                       value="boxing"
                       onChange={handleChange}
+                      onClick={handleChange}
                     />
                   </Form.Group>
                 )}

@@ -7,8 +7,31 @@ function DashPie({ customerValues }) {
   const [randomColor, setRandomColor] = useState(false)
   useEffect(() => {
     console.log(customerValues.values.length)
+    console.log(customerValues.customers)
     if (customerValues.values.length) {
-      let temp = getRandomColor(customerValues.values.length)
+      // let temp = getRandomColor(customerValues.values.length)
+      let temp = []
+
+      customerValues.customers.forEach((cust) => {
+        switch (cust) {
+          case "SANMAR":
+            temp.push("#4caf50")
+            break
+          case "KOHLS":
+            temp.push("#f7c600")
+            break
+          case "WALMART":
+            temp.push("#f31b2d")
+            break
+          case "TOTES":
+            temp.push("#cae1e1")
+            break
+          default:
+            temp.push("79aec8")
+            break
+        }
+      })
+      console.log(temp)
       setColorList(temp)
       console.log(temp)
     }
@@ -53,20 +76,20 @@ function DashPie({ customerValues }) {
     },
   }
 
-  const getRandomColor = (n) => {
-    let letters = "0123456789ABCDEF"
-    let color = "#"
-    let colorArray = []
-    for (let j = 0; j != n; j++) {
-      for (var i = 0; i < 6; i++) {
-        color += letters[Math.floor(Math.random() * 16)]
-      }
-      colorArray.push(color)
-      color = "#"
-    }
+  // const getRandomColor = (n) => {
+  //   let letters = "0123456789ABCDEF"
+  //   let color = "#"
+  //   let colorArray = []
+  //   for (let j = 0; j != n; j++) {
+  //     for (var i = 0; i < 6; i++) {
+  //       color += letters[Math.floor(Math.random() * 16)]
+  //     }
+  //     colorArray.push(color)
+  //     color = "#"
+  //   }
 
-    return colorArray
-  }
+  //   return colorArray
+  // }
 
   return (
     <div
