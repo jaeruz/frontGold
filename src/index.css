@@ -827,8 +827,8 @@ span {
 .route-container {
   background-color: white;
   padding: 1em 1em 1em 1em;
-  overflow-y: scroll;
-  overflow-x: scroll;
+  overflow-y: auto;
+  overflow-x: auto;
   height: 100%;
 }
 .data-style-route {
@@ -853,8 +853,8 @@ tbody + thead {
 .route-info {
   padding: 2em 1em 2em 1em;
   background-color: white;
-  overflow-y: scroll;
-  overflow-y: scroll;
+  overflow-y: auto;
+  overflow-y: auto;
   /* margin: 1em 0 1em 0; */
   /* border-radius: 5px; */
   height: 80vh;
