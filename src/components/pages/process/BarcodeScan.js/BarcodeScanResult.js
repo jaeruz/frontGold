@@ -7,9 +7,12 @@ function BarcodeScanResult({ barcodeCopy }) {
 
   return (
     <div className="barcode-scan-result">
-      <h4 className="form-title" style={{ textAlign: "center" }}>
+      {/* <h4
+        className="form-title"
+        style={{ textAlign: "center", color: "white" }}
+      >
         Result
-      </h4>
+      </h4> */}
       <br />
       <br />
 
@@ -33,7 +36,7 @@ function BarcodeScanResult({ barcodeCopy }) {
             <span>{barcodeCopy.barcode.split("-")[2].split("$")[1]}</span>
           </h2>
           <h2>
-            SACK #:<span>{barcodeCopy.barcode.split("-")[3]}</span>
+            SACK #:<span>{barcodeCopy.barcode.split("-")[5]}</span>
           </h2>
           <h2>
             CURRENT PROCESS:<span>{barcodeScanResult.split(",")[0]}</span>

@@ -4,19 +4,7 @@ import { Bar } from "react-chartjs-2"
 
 function DashboardTodayTable({ perProcessToday, chartData }) {
   const data = {
-    labels: [
-      "KNIT",
-      "CUT",
-      // "REC",
-      "STEAM",
-      "EXAM",
-      "SEW",
-      // "STEAM1",
-      // "EXAM1",
-      "TAG",
-      "MD",
-      "BOX",
-    ],
+    labels: ["KNIT", "CUT", "SEW", "STEAM", "TAG", "EXAM", "MD", "BOX"],
     datasets: [
       {
         label: "Process status",
@@ -81,13 +69,10 @@ function DashboardTodayTable({ perProcessToday, chartData }) {
             <tr>
               <th>KNIT</th>
               <th>CUT</th>
-              {/* <th>REC</th> */}
-              <th>STEAM</th>
-              <th>EXAM</th>
               <th>SEW</th>
-              {/* <th>STEAM1</th>
-              <th>EXAM1</th> */}
+              <th>STEAM</th>
               <th>TAG</th>
+              <th>EXAM</th>
               <th>MD</th>
               <th>BOX</th>
             </tr>

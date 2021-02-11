@@ -22,10 +22,10 @@ function DashPie({ customerValues }) {
             temp.push("#f31b2d")
             break
           case "TOTES":
-            temp.push("#cae1e1")
+            temp.push("#79aec8")
             break
           default:
-            temp.push("79aec8")
+            temp.push("#cae1e1")
             break
         }
       })

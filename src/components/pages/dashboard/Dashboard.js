@@ -43,12 +43,12 @@ function Dashboard() {
     KNITTING: 0,
     CUTTING: 0,
     RECEIPTS: 0,
-    STEAMING: 0,
-    EXAMINING: 0,
     SEWING: 0,
+    STEAMING: 0,
+    TAGGING: 0,
+    EXAMINING: 0,
     STEAMING_1: 0,
     EXAMINING_1: 0,
-    TAGGING: 0,
     METALDETECT: 0,
     BOXING: 0,
   })
@@ -124,13 +124,10 @@ function Dashboard() {
       let tempPPT = {
         KNITTING: 0,
         CUTTING: 0,
-        // RECEIPTS: 0,
-        STEAMING: 0,
-        EXAMINING: 0,
         SEWING: 0,
-        // STEAMING_1: 0,
-        // EXAMINING_1: 0,
+        STEAMING: 0,
         TAGGING: 0,
+        EXAMINING: 0,
         METALDETECT: 0,
         BOXING: 0,
       }
@@ -234,7 +231,10 @@ function Dashboard() {
         <hr />
         <br />
         <div className="dash-status-monitoring-div">
-          <DashboardStatusMonitoring statusTable={statusTable} />
+          <DashboardStatusMonitoring
+            statusTable={statusTable}
+            details={details}
+          />
         </div>
         <br />
         <br />

@@ -322,7 +322,7 @@ span {
 }
 
 .print-form-details ul {
-  font-size: 0.65em;
+  font-size: 0.7em;
   list-style-type: none;
   font-weight: bold;
 }
@@ -333,6 +333,7 @@ span {
   padding: 1vh 1vh 1vh 1vh;
   text-align: center;
   font-size: 15px;
+  font-weight: bold;
 }
 
 .print-barcode {
@@ -359,7 +360,22 @@ span {
   margin: 30px 30px 15px 30px !important;
   width: 100% !important;
   font-weight: bold;
-  font-size: 10px;
+  font-size: 0.7em;
+}
+
+.route-table-print-comp {
+  margin: 30px 30px 15px 30px !important;
+  width: 100% !important;
+  font-weight: bold;
+
+  font-size: 0.7em;
+}
+
+.route-table-print-comp table,
+.route-table-print-comp th,
+.route-table-print-comp td {
+  border: 0.01em solid black !important;
+  color: black;
 }
 /* end route-table */
 
@@ -426,10 +442,10 @@ span {
 .details-result h2,
 .details-result p {
   font-weight: bold;
-  font-style: italic;
+  /* font-style: italic; */
 }
 .details-result span {
-  color: turquoise;
+  color: #2f4958;
 }
 
 .btn-undo {

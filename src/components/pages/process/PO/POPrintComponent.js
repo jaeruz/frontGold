@@ -62,7 +62,7 @@ function POTable({ selectedPO, routeList, generatedBarcode }) {
               </Row>
               <Row>
                 <Col lg={11}>
-                  <Table bordered className="route-table">
+                  <Table bordered className="route-table-print-comp">
                     <thead>
                       <tr>
                         <th>OPERATION</th>
@@ -107,10 +107,12 @@ function POTable({ selectedPO, routeList, generatedBarcode }) {
                     display: "block",
                     marginRight: "30px",
                     width: "4vw",
-                    height: "7vh",
+                    height: "7.5vh",
                   }}
                 />
-                <p style={{ fontSize: "10px" }}>{generatedBarcode}</p>
+                <p style={{ fontSize: "0.7em", fontWeight: "bold" }}>
+                  {generatedBarcode}
+                </p>
               </div>
             </div>
           </>

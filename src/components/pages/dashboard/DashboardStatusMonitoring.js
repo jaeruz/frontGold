@@ -4,10 +4,22 @@ import { HorizontalBar, Doughnut } from "react-chartjs-2"
 import moment from "moment"
 import { CSVLink } from "react-csv"
 
-function DashboardStatusMonitoring({ statusTable }) {
+function DashboardStatusMonitoring({ statusTable, details }) {
   const [toBeMapped, setToBeMapped] = useState([])
   const [resultState, setResultState] = useState([])
   const [uniqueResult, setUniqueResult] = useState([])
+
+  const [custDetails, setCustDetails] = useState([])
+  const [poDetails, setPoDetails] = useState([])
+  const [colorDetails, setColorDetails] = useState([])
+  const [styleDetails, setStyleDetails] = useState([])
+  const [sizeDetails, setSizeDetails] = useState([])
+
+  useEffect(() => {
+    let custTemp = details.map((d) => d.detail_customer)
+    custTemp = [...new Set(custTemp)]
+    setCustDetails(custTemp)
+  }, [details])
 
   const dataCum = {
     labels: toBeMapped.map((tbm) => tbm.process),
@@ -118,10 +130,40 @@ function DashboardStatusMonitoring({ statusTable }) {
   }
 
   const [searchFormDetails, setSearchFormDetails] = useState({
-    customer: "",
-    from: "",
+    customer: "ALL",
+    from: "ALL",
     to: "",
+    po: "",
+    style: "ALL",
+    color: "ALL",
+    size: "ALL",
   })
+
+  useEffect(() => {
+    console.log(searchFormDetails)
+    if (searchFormDetails.customer !== "ALL") {
+      let poTemp = []
+      let styleTemp = []
+      let colorTemp = []
+      let sizeTemp = []
+      details.forEach((d) => {
+        if (d.detail_customer === searchFormDetails.customer) {
+          poTemp.push(d.po_number)
+          styleTemp.push(d.detail_style.style)
+          colorTemp.push(d.color)
+          sizeTemp.push(d.size)
+        }
+      })
+      poTemp = [...new Set(poTemp)]
+      colorTemp = [...new Set(colorTemp)]
+      styleTemp = [...new Set(styleTemp)]
+      sizeTemp = [...new Set(sizeTemp)]
+      setPoDetails(poTemp)
+      setColorDetails(colorTemp)
+      setStyleDetails(styleTemp)
+      setSizeDetails(sizeTemp)
+    }
+  }, [searchFormDetails])
 
   const handleSearchForm = (e) => {
     setSearchFormDetails({
@@ -132,13 +174,76 @@ function DashboardStatusMonitoring({ statusTable }) {
 
   const handleSubmitSearch = (e) => {
     e.preventDefault()
+    console.log(details)
+    // let dummy = [
+    //   {
+    //     code: "C1-32523-SFH$325",
+    //     customer: "SANMAR",
+    //     process: "cutting",
+    //     qty: "12",
+    //     total: "234",
+    //     date: "2021-02-06",
+    //   },
+    //   {
+    //     code: "C910-617326-MIDNIGHT HEATHER$ONE SIZE",
+    //     customer: "SANMAR",
+    //     process: "cutting",
+    //     qty: "12",
+    //     total: "234",
+    //     date: "2021-02-06",
+    //   },
+    //   {
+    //     code: "C910-6767-MIDNIGHT HEATHER$ONE SIZE",
+    //     customer: "SANMAR",
+    //     process: "cutting",
+    //     qty: "12",
+    //     total: "234",
+    //     date: "2021-02-06",
+    //   },
+    //   {
+    //     code: "302KR-11111-BLACK$ONE SIZE",
+    //     customer: "TOTES",
+    //     process: "boxing",
+    //     qty: "12",
+    //     total: "234",
+    //     date: "2021-01-24",
+    //   },
+    //   {
+    //     code: "302KR-11111-BLACK$ONE SIZE",
+    //     customer: "TOTES",
+    //     process: "cutting",
+    //     qty: "12",
+    //     total: "234",
+    //     date: "2021-01-24",
+    //   },
+    // ]
+    // const filteredST = statusTable.filter(
+    //   (st) =>
+    //     st.customer === searchFormDetails.customer &&
+    //     new Date(st.date) >= new Date(searchFormDetails.from) &&
+    //     new Date(st.date) <= new Date(searchFormDetails.to)
+    // )
+
     const filteredST = statusTable.filter(
       (st) =>
-        st.customer === searchFormDetails.customer &&
+        st.customer.includes(
+          searchFormDetails.customer === "ALL" ? "" : searchFormDetails.customer
+        ) &&
+        st.code.includes(
+          searchFormDetails.po === "ALL" ? "-" : searchFormDetails.po
+        ) &&
+        st.code.includes(
+          searchFormDetails.style === "ALL" ? "-" : searchFormDetails.style
+        ) &&
+        st.code.includes(
+          searchFormDetails.color === "ALL" ? "-" : searchFormDetails.color
+        ) &&
+        st.code.includes(
+          searchFormDetails.size === "ALL" ? "-" : searchFormDetails.size
+        ) &&
         new Date(st.date) >= new Date(searchFormDetails.from) &&
         new Date(st.date) <= new Date(searchFormDetails.to)
     )
-
     let codeList = filteredST.map((fst) => {
       return {
         code: fst.code,
@@ -262,10 +367,17 @@ function DashboardStatusMonitoring({ statusTable }) {
                   <Form.Label>Customer:</Form.Label>
                   <Form.Control
                     required
-                    type="text"
+                    as="select"
                     onChange={handleSearchForm}
                     className="form-caps"
-                  />
+                  >
+                    <option key={0}>ALL</option>
+                    {custDetails && custDetails.length
+                      ? custDetails.map((cd, index) => {
+                          return <option key={index}>{cd}</option>
+                        })
+                      : null}
+                  </Form.Control>
                 </Form.Group>
               </Col>
               <Col lg={4}>
@@ -300,6 +412,80 @@ function DashboardStatusMonitoring({ statusTable }) {
                     }
                     onChange={handleSearchForm}
                   />
+                </Form.Group>
+              </Col>
+            </Row>
+            <Row>
+              <Col lg={3}>
+                <Form.Group controlId="color">
+                  <Form.Label>Color:</Form.Label>
+                  <Form.Control
+                    required
+                    as="select"
+                    onChange={handleSearchForm}
+                    className="form-caps"
+                  >
+                    <option key={0}>ALL</option>
+                    {colorDetails && colorDetails.length
+                      ? colorDetails.map((cd, index) => {
+                          return <option key={index}>{cd}</option>
+                        })
+                      : null}
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+              <Col lg={3}>
+                <Form.Group controlId="po">
+                  <Form.Label>PO:</Form.Label>
+                  <Form.Control
+                    required
+                    as="select"
+                    onChange={handleSearchForm}
+                    className="form-caps"
+                  >
+                    <option key={0}>ALL</option>
+                    {poDetails && poDetails.length
+                      ? poDetails.map((pd, index) => {
+                          return <option key={index}>{pd}</option>
+                        })
+                      : null}
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+              <Col lg={3}>
+                <Form.Group controlId="style">
+                  <Form.Label>Style:</Form.Label>
+                  <Form.Control
+                    required
+                    as="select"
+                    onChange={handleSearchForm}
+                    className="form-caps"
+                  >
+                    <option key={0}>ALL</option>
+                    {styleDetails && styleDetails.length
+                      ? styleDetails.map((sd, index) => {
+                          return <option key={index}>{sd}</option>
+                        })
+                      : null}
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+              <Col lg={3}>
+                <Form.Group controlId="size">
+                  <Form.Label>size:</Form.Label>
+                  <Form.Control
+                    required
+                    as="select"
+                    onChange={handleSearchForm}
+                    className="form-caps"
+                  >
+                    <option key={0}>ALL</option>
+                    {sizeDetails && sizeDetails.length
+                      ? sizeDetails.map((sd, index) => {
+                          return <option key={index}>{sd}</option>
+                        })
+                      : null}
+                  </Form.Control>
                 </Form.Group>
               </Col>
             </Row>
@@ -345,7 +531,7 @@ function DashboardStatusMonitoring({ statusTable }) {
                         <td>{fr.customer}</td>
                         <td>{fr.code.split("-")[0]}</td>
                         <td>{fr.code.split("-")[1]}</td>
-                        <td>{fr.code.split("-")[2]}</td>
+                        <td>{fr.code.split("-")[2].split("$")[0]}</td>
                         <td>{fr.code.split("-")[2].split("$")[1]}</td>
                         <td>{fr.total}</td>
                         <td>
@@ -397,13 +583,13 @@ function DashboardStatusMonitoring({ statusTable }) {
                       </div>
                       <div>
                         <p>
-                          STYLE :{" "}
+                          COLOR :{" "}
                           <span>{tb.code.split("-")[2].split("$")[0]}</span>
                         </p>
                       </div>
                       <div>
                         <p>
-                          STYLE :{" "}
+                          SIZE :{" "}
                           <span>{tb.code.split("-")[2].split("$")[1]}</span>
                         </p>
                       </div>
